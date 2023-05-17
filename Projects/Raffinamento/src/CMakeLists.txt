@@ -1,6 +1,6 @@
-list(APPEND raffinamento_headers ${CMAKE_CURRENT_SOURCE_DIR}/empty_class.hpp)
+list(APPEND raffinamento_headers ${CMAKE_CURRENT_SOURCE_DIR}/Importazione.hpp)
 list(APPEND raffinamento_headers ${CMAKE_CURRENT_SOURCE_DIR}/Raffinamento.hpp)
-list(APPEND raffinamento_sources ${CMAKE_CURRENT_SOURCE_DIR}/empty_class.cpp)
+list(APPEND raffinamento_sources ${CMAKE_CURRENT_SOURCE_DIR}/Importazione.cpp)
 list(APPEND raffinamento_sources ${CMAKE_CURRENT_SOURCE_DIR}/Raffinamento.cpp)
 list(APPEND raffinamento_includes ${CMAKE_CURRENT_SOURCE_DIR})
 
