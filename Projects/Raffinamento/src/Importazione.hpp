@@ -10,28 +10,33 @@ using namespace std;
 namespace ImportLibrary
 {
 
-    class Data{
-    private:
-        unsigned int NumberCell0D;
-        unsigned int NumberCell1D;
-        unsigned int NumberCell2D;
-
-    protected:
-        map<unsigned int, Vector2d> Coordinates0D;
-        map<unsigned int, Vector2d> OriginEnd1D;
-        map<unsigned int, vector<int>> Vertices2D;
-        map<unsigned int, vector<int>> Edges2D;
+    class Cell0D{
 
     public:
-        Data() = default;
-        Data(int& NumberCell, map<unsigned int, Vector2d>& Map){}; //unico costruttore per le due mappe
-        Data(int& NumberCell0D, map<unsigned int, vector<int>>& Vertices2D, map<unsigned int, vector<int>>& Edges2D){};
-        map<unsigned int, Vector2d>& GetCoordinates0D();
-        map<unsigned int, Vector2d>& GetOriginEdn1D();
-        map<unsigned int, vector<int>>& GetVertices2D();
-        const map<unsigned int, vector<int>>& GetEdges2D();
+        unsigned int NumberCell0D;
+        vector<Vector2d> Coordinates0D;
+
+        Cell0D(unsigned int& NumberCell0D, vector<Vector2d>& Coordinates0D);
+
     };
 
+    class Cell1D{
+    public:
+
+        unsigned int NumberCell1D;
+        vector<vector<unsigned int>> OriginEnd1D;
+        Cell1D(unsigned int& NumberCell1D, vector<vector<unsigned int>>& OriginEnd1D);
+
+    };
+
+    class Cell2D{
+    public:
+        unsigned int NumberCell2D;
+        vector<vector<unsigned int>> Vertices2D;
+        vector<vector<unsigned int>> Edges2D;
+        Cell2D(unsigned int& NumberCell2D, vector<vector<unsigned int>>& Vertices2D, vector<vector<unsigned int>>& Edges2D);
+
+    };
 
     class SortArea {
     public:
