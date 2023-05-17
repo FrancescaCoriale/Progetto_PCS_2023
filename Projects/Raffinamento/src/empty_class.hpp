@@ -10,7 +10,7 @@ using namespace Eigen;
 using namespace std;
 namespace ProjectLibrary
 {
-<<<<<<< Updated upstream
+
   class Data {
     private:
 
@@ -30,18 +30,18 @@ namespace ProjectLibrary
             //return a[1] > b[1];
             //}
             //sort(Aree.begin(), Aree.end(), compareSecondComponent);
-        SortedArea(vector<Pair> Aree);
+        void SortedArea(vector<Pair> Aree);
     public:
         //calcolo aree dei triangoli e salvo (id,Area)
-        AreaCalculator(vector<Pair> Aree, Data Input);
+        void AreaCalculator(vector<Pair> Aree, Data Input);
     };
   };
 
   class Adjacency {
     public:
         Adjacency(vector<unsigned int> SortedA, Data Edges, list<list<unsigned int>> AdjacencyList);
+    };
 
-=======
   class ImportData{
   private:
       unsigned int NumberCell0D;
@@ -62,7 +62,6 @@ namespace ProjectLibrary
       map<unsigned int, Vector2d> GetOriginEdn1D();
       map<unsigned int, vector<int>> GetVertices2D();
       const map<unsigned int, vector<int>>& GetEdges2D();
->>>>>>> Stashed changes
   };
 }
 
