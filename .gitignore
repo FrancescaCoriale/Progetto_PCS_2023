@@ -1,3 +1,4 @@
 *.user
 *debug*
 externals*
+*.DS_Store
