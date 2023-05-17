@@ -2,9 +2,15 @@
 #define __EMPTY_H
 
 #include <iostream>
+#include "Eigen/Eigen"
+#include <fstream>
+#include "map"
 
+using namespace Eigen;
+using namespace std;
 namespace ProjectLibrary
 {
+<<<<<<< Updated upstream
   class Data {
     private:
 
@@ -35,6 +41,28 @@ namespace ProjectLibrary
     public:
         Adjacency(vector<unsigned int> SortedA, Data Edges, list<list<unsigned int>> AdjacencyList);
 
+=======
+  class ImportData{
+  private:
+      unsigned int NumberCell0D;
+      unsigned int NumberCell1D;
+      unsigned int NumberCell2D;
+
+  protected:
+      map<unsigned int, Vector2d> Coordinates0D;
+      map<unsigned int, Vector2d> OriginEnd1D;
+      map<unsigned int, vector<int>> Vertices2D;
+      map<unsigned int, vector<int>> Edges2D;
+
+  public:
+      ImportData() = default;
+      ImportData(int& NumberCell, map<unsigned int, Vector2d>& Map){}; //unico costruttore per le due mappe
+      ImportData(int& NumberCell0D, map<unsigned int, vector<int>>& Vertices2D, map<unsigned int, vector<int>>& Edges2D){};
+      map<unsigned int, Vector2d> GetCoordinates0D();
+      map<unsigned int, Vector2d> GetOriginEdn1D();
+      map<unsigned int, vector<int>> GetVertices2D();
+      const map<unsigned int, vector<int>>& GetEdges2D();
+>>>>>>> Stashed changes
   };
 }
 
