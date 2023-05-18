@@ -19,6 +19,7 @@ namespace ImportLibrary
         Cell0D(unsigned int& NumberCell0D, vector<Vector2d>& Coordinates0D);
         friend class Cell1D;
         friend class Cell2D;
+        int ciao;
 
     };
 
