@@ -163,6 +163,10 @@ Cell2D::Cell2D(unsigned int& NumberCell2D, vector<vector<unsigned int>>& Vertice
 
     }
 
+    //for(unsigned int i=0; i<80; i++){
+    //    this->onOff.push_back(true);
+    //}
+
 }
 
 

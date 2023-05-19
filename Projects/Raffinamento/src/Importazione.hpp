@@ -60,12 +60,7 @@ namespace ImportLibrary
         void Adjacency(list<list<unsigned int>>& AdjacencyList, const vector<vector<unsigned int>>& Edges2D);
 
 //imposto tutti i triangoli come true
-        vector<bool> OnOff;
-        bool value = true;
-        for (unsigned int i=0; i<NumberCell2D; i++)
-        {
-            OnOff[i] = value;
-        };
+        array<bool, 80> onOff= {true};
 
     };
 
