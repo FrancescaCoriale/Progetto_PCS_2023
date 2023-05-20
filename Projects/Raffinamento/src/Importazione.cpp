@@ -162,14 +162,38 @@ Cell2D::Cell2D(unsigned int& NumberCell2D, vector<vector<unsigned int>>& Vertice
         Vertices2D.push_back(vertices);
 
     }
-
     //for(unsigned int i=0; i<80; i++){
     //    this->onOff.push_back(true);
     //}
 
 }
 
-
+void Cell2D::AreaCalculator(const vector<Vector2d>& Coordinates0D, const vector<vector<unsigned int>>& Vertices2D, vector<double>& Aree)
+{
+    int n = NumberCell2D;
+    double x_1; double y_1;
+    double x_2; double y_2;
+    double x_3; double y_3;
+    double A_12 = 0;
+    double A_23 = 0;
+    double A_31 = 0;
+    double Area = 0;
+    vector<unsigned int> vertices;
+    //per ogni riga in Vertices2D prendo il vettore con i tre ID dei vertici
+    for(int i = 0; i < n; i++) {
+        vertices.push_back(Vertices2D[i]);
+        x_1 = Coordinates0D[vertices(0)][0]; y_1 = Coordinates0D[vertices(0)][1];
+        x_2 = Coordinates0D[vertices(1)][0]; y_2 = Coordinates0D[vertices(1)][1];
+        x_3 = Coordinates0D[vertices(2)][0]; y_3 = Coordinates0D[vertices(2)][1];
+        //Formula dell'area di Gauss
+        A_12 = (x_1*y_2) - (y_1*x_2);
+        A_23 = (x_2*y_3) - (y_2*x_3);
+        A_31 = (x_3*y_1) - (y_3*x_1);
+        Area = (A_12+A_23+A_31)/2;
+        Aree[i] = Area;
+    }
+    cout<<Aree<< endl;
+}
 
 
 
@@ -187,4 +211,4 @@ Cell2D::Cell2D(unsigned int& NumberCell2D, vector<vector<unsigned int>>& Vertice
 
 
 
-}
+
