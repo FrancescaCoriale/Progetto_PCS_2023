@@ -258,9 +258,10 @@ void Adjacency(list<list<unsigned int>>& AdjacencyList, const vector<vector<unsi
                     }
                 }
             }
+            AdjacencyList.push_back(list);
             list.clear(); //azzero la lista
         };
-        AdjacencyList.push_back(list);
+
     };
 };
 
