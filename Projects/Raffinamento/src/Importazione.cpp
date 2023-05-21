@@ -3,7 +3,7 @@
 #include <fstream>
 #include "Eigen/Eigen"
 #include "Importazione.hpp"
-#include "map"
+//#include "map"
 
 namespace ImportLibrary
 {
@@ -48,6 +48,7 @@ Cell0D::Cell0D(unsigned int& NumberCell0D, vector<Vector2d>& Coordinates0D):
         istringstream(row) >> coordinates[0];
         getline(rigaStream,row) ;
         istringstream(row) >> coordinates[1];
+
 
         Coordinates0D.push_back(coordinates); //STESSA CAZZO DI COSA DI PUSH_BACK
     }
@@ -100,9 +101,24 @@ Cell1D::Cell1D(unsigned int& NumberCell1D, vector<vector<unsigned int>>& OriginE
 
         OriginEnd1D.push_back(originEnd); //STESSA CAZZO DI COSA DI <<
     }
+};
 
 
-}
+void LengthEdges(const vector<vector<unsigned int>>& OriginEnd1D, const vector<Vector2d>& Coordinates0D, VectorXd& LengthEdge)
+{
+    unsigned int n = NumberCell1D; //NumberCell1D; CHIEDERE dobbiamo chiamare il costruttore cell1d e dare il valore di Numbercell1d
+    Vector2d origin;
+    Vector2d end;
+    for (unsigned int i =0; i < n; i++)
+    {
+        origin = {Coordinates0D[OriginEnd1D[i][0]][0], Coordinates0D[OriginEnd1D[i][0]][1]};
+        end = {Coordinates0D[OriginEnd1D[i][1]][0], Coordinates0D[OriginEnd1D[i][1]][1]};
+        LengthEdge[i] = (end-origin).norm(); //calcolo la norma e la salvo nel vettore
+        //elemento i-esimo di LengthEdge è la lunghezza dell'iesimo lato dentro OriginEnd
+    };
+};
+
+
 
 Cell2D::Cell2D(unsigned int& NumberCell2D, vector<vector<unsigned int>>& Vertices2D, vector<vector<unsigned int>>& Edges2D):
     NumberCell2D(NumberCell2D),
@@ -115,7 +131,7 @@ Cell2D::Cell2D(unsigned int& NumberCell2D, vector<vector<unsigned int>>& Vertice
     if (file.fail())
     {
         cout<<"errore nell'apertura del file Cell2D"<<endl;
-    }
+    };
     string line;
     list<string> listLines;
     while (getline(file,line))
@@ -129,7 +145,7 @@ Cell2D::Cell2D(unsigned int& NumberCell2D, vector<vector<unsigned int>>& Vertice
     {
         cout<<"nessuna cella 2D disponibile"<<endl;
 
-    }
+    };
     Vertices2D.resize(NumberCell2D); //diamo una dimensione al vettore più esterno per poter inserire i vettori più interni
     Edges2D.resize(NumberCell2D);
 
@@ -151,22 +167,47 @@ Cell2D::Cell2D(unsigned int& NumberCell2D, vector<vector<unsigned int>>& Vertice
         {
             getline(rigaStream,row); //salva il 16 dentro row
             istringstream(row) >> vertices[i];
-        }
+        };
 
         for (unsigned int i=0; i<3; i++) //contatore degli elementi del vettore interno
         {
             getline(rigaStream,row); //salva il 16 dentro row
             istringstream(row) >> edges[i];
-        }
+        };
 
         Vertices2D.push_back(vertices);
 
-    }
+    };
     //for(unsigned int i=0; i<80; i++){
     //    this->onOff.push_back(true);
     //}
 
-}
+};
+
+
+void Cell2D::FindLongestEdge(const vector<vector<unsigned int>>& OriginEnd1D, VectorXd& LengthEdge, const vector<vector<unsigned int>>& Edges2D, vector<unsigned int>& LongestEdge)
+{
+
+    unsigned int n = NumberCell2D; //quanti triangoli ho
+
+
+    for (unsigned int i=0; i<n; i++) //passo in rassegna ogni triangolo
+    {
+        double max = 0;
+        unsigned int id_longestEdge = 0;
+        vector<unsigned int> edges = Edges2D[i]; //i-esimo triangolo, salvo dentro edges i 3 lati
+        for (unsigned int k=0; k<3; k++)
+        {
+            if (LengthEdge[edges[k]] > max)
+            {
+                max = LengthEdge[edges[k]];
+                id_longestEdge = edges[k];
+            };
+        };
+        LongestEdge[i] = id_longestEdge;
+        max = 0;
+    };
+};
 
 void Cell2D::AreaCalculator(const vector<Vector2d>& Coordinates0D, const vector<vector<unsigned int>>& Vertices2D, vector<double>& Aree)
 {
@@ -178,13 +219,13 @@ void Cell2D::AreaCalculator(const vector<Vector2d>& Coordinates0D, const vector<
     double A_23 = 0;
     double A_31 = 0;
     double Area = 0;
-    vector<unsigned int> vertices;
+
     //per ogni riga in Vertices2D prendo il vettore con i tre ID dei vertici
     for(int i = 0; i < n; i++) {
-        vertices.push_back(Vertices2D[i]);
-        x_1 = Coordinates0D[vertices(0)][0]; y_1 = Coordinates0D[vertices(0)][1];
-        x_2 = Coordinates0D[vertices(1)][0]; y_2 = Coordinates0D[vertices(1)][1];
-        x_3 = Coordinates0D[vertices(2)][0]; y_3 = Coordinates0D[vertices(2)][1];
+        x_1 = Coordinates0D[Vertices2D[i][0]][0]; y_1 = Coordinates0D[Vertices2D[i][0]][1];
+        x_2 = Coordinates0D[Vertices2D[i][1]][0]; y_2 = Coordinates0D[Vertices2D[i][1]][1];
+        x_3 = Coordinates0D[Vertices2D[i][2]][0]; y_3 = Coordinates0D[Vertices2D[i][2]][1];
+
         //Formula dell'area di Gauss
         A_12 = (x_1*y_2) - (y_1*x_2);
         A_23 = (x_2*y_3) - (y_2*x_3);
@@ -192,12 +233,40 @@ void Cell2D::AreaCalculator(const vector<Vector2d>& Coordinates0D, const vector<
         Area = (A_12+A_23+A_31)/2;
         Aree[i] = Area;
     }
-    cout<<Aree<< endl;
 }
 
 
+void Adjacency(list<list<unsigned int>>& AdjacencyList, const vector<vector<unsigned int>>& Edges2D)
+{
+    unsigned int n = 187; //NumberCell2D; stesso problema di prima!!
 
-}
+    for (unsigned int i=0; i<n; i++) //id triangolo
+    {
+        list<unsigned int> list; //lista contenente i triangoli adiacenti all'i-esimo triangolo
+        vector<unsigned int> edges = Edges2D[i]; //i-esimo triangolo, salvo dentro edges i 3 lati
+
+        for(unsigned int k=0; k<n; k++) //id triangolo da confrontare con l'i-esimo trianglo
+        {
+            if (i!=k) //controllo di non prendere lo stesso triangolo
+            {
+                for (unsigned int j=0; j<3; j++) //j-esimo elemento di edges
+                {
+                    for (unsigned int w=0; w<3; w++) //w-esimo elemento di Edges2D[k]
+                    {
+                        if (edges[j]==Edges2D[k][w])
+                            list.push_back(k);
+                    }
+                }
+            }
+            list.clear(); //azzero la lista
+        };
+        AdjacencyList.push_back(list);
+    };
+};
+
+
+
+}//parentesi del namespace
 
 
 

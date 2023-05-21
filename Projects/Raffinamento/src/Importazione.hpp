@@ -44,14 +44,14 @@ namespace ImportLibrary
         unsigned int NumberCell2D;
         vector<vector<unsigned int>> Vertices2D;
         vector<vector<unsigned int>> Edges2D;
-        vector<unsigned int> LongestEdge;
+        vector<unsigned int> LongestEdge; //i-esimo elemento è id del lato più lungo dell'iesimo triangolo
         list<list<unsigned int>> AdjacencyList;
-        vector<double>& Aree;
+        vector<double> Aree;
         Cell2D(unsigned int& NumberCell2D, vector<vector<unsigned int>>& Vertices2D, vector<vector<unsigned int>>& Edges2D);
 
 //calcolo lato più lungo di ogni triangolo. Prendendo da cell2D prendiamo i lati, da cell1d prendiamo origin end e infine da cell0d prendiamo le coordinate
 //calcolo la norma di ogni lato e ne prendo il massimo. Restituisce un vettore dove alla posizione corrispondente all'id del triangolo troviamo l'id del lato più grande
-        void FindLongestEdge(const vector<vector<unsigned int>>& OriginEnd1D,  const VectorXd& LengthEdge, const vector<vector<unsigned int>>& Edges2D, vector<unsigned int>& LongestEdge);
+        void FindLongestEdge(const vector<vector<unsigned int>>& OriginEnd1D, VectorXd& LengthEdge, const vector<vector<unsigned int>>& Edges2D, vector<unsigned int>& LongestEdge);
 
 //calcolo area
         void AreaCalculator(const vector<Vector2d>& Coordinates0D, const vector<vector<unsigned int>>& Vertices2D, vector<double>& Aree );
@@ -60,7 +60,7 @@ namespace ImportLibrary
         void Adjacency(list<list<unsigned int>>& AdjacencyList, const vector<vector<unsigned int>>& Edges2D);
 
 //imposto tutti i triangoli come true
-        array<bool, 80> onOff= {true};
+        array<bool, 186> onOff= {true};
 
     };
 
