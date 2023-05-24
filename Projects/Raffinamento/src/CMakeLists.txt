@@ -1,7 +1,16 @@
-list(APPEND raffinamento_headers ${CMAKE_CURRENT_SOURCE_DIR}/MeshUtilities.hpp)
+
 list(APPEND raffinamento_headers ${CMAKE_CURRENT_SOURCE_DIR}/Raffinamento.hpp)
-list(APPEND raffinamento_sources ${CMAKE_CURRENT_SOURCE_DIR}/MeshUtilities.cpp)
 list(APPEND raffinamento_sources ${CMAKE_CURRENT_SOURCE_DIR}/Raffinamento.cpp)
+list(APPEND raffinamento_headers ${CMAKE_CURRENT_SOURCE_DIR}/Segment.hpp)
+list(APPEND raffinamento_sources ${CMAKE_CURRENT_SOURCE_DIR}/Segment.cpp)
+list(APPEND raffinamento_headers ${CMAKE_CURRENT_SOURCE_DIR}/Point.hpp)
+list(APPEND raffinamento_sources ${CMAKE_CURRENT_SOURCE_DIR}/Point.cpp)
+list(APPEND raffinamento_headers ${CMAKE_CURRENT_SOURCE_DIR}/Triangle.hpp)
+list(APPEND raffinamento_sources ${CMAKE_CURRENT_SOURCE_DIR}/Triangle.cpp)
+list(APPEND raffinamento_headers ${CMAKE_CURRENT_SOURCE_DIR}/MeshUtilities.hpp)
+list(APPEND raffinamento_sources ${CMAKE_CURRENT_SOURCE_DIR}/MeshUtilities.cpp)
+list(APPEND raffinamento_headers ${CMAKE_CURRENT_SOURCE_DIR}/Sorting.hpp)
+list(APPEND raffinamento_sources ${CMAKE_CURRENT_SOURCE_DIR}/Sorting.cpp)
 list(APPEND raffinamento_includes ${CMAKE_CURRENT_SOURCE_DIR})
 
 set(raffinamento_sources ${raffinamento_sources} PARENT_SCOPE)
