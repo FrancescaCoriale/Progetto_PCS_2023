@@ -20,7 +20,10 @@ int main()
         //Aree.append(Area);
     //}
 
-
+    //for (i =0; i < NumberCell2D; i++)
+    //{
+        //Triangles.push_back(true);
+    //}
 
   return 0;
 }
