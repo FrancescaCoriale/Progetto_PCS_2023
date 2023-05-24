@@ -7,18 +7,19 @@
 
 using namespace Eigen;
 using namespace std;
-namespace ImportLibrary
+namespace MeshUtilitiesLibrary
 {
 
-    struct TriangularMesh
+    class TriangularMesh
     {
+    public:
         unsigned int NumberCell0D = 0; ///< number of Cell0D
         std::vector<unsigned int> Cells0DId = {}; ///< Cell0D id, size 1 x NumberCell0D
         std::vector<Vector2d> Coordinates = {};///< Cell0D coordinates, size 2 x NumberCell0D (x,y)
 
         unsigned int NumberCell1D = 0; ///< number of Cell1D
         std::vector<unsigned int> Cells1DId = {}; ///< Cell1D id, size 1 x NumberCell1D
-        std::vector<vector<unsigned int>> OriginEnds = {}; ///< Cell1D vertices indices, size 2 x NumberCell1D (fromId,toId)
+        std::vector<array<unsigned int,2>> OriginEnds = {}; ///< Cell1D vertices indices, size 2 x NumberCell1D (fromId,toId)
         Eigen::VectorXd LengthEdges = {};
 
         unsigned int NumberCell2D = 0; ///< number of Cell2D
@@ -27,7 +28,13 @@ namespace ImportLibrary
         std::vector<array<unsigned int, 3>> Edges = {};///< Cell2D Cell1D indices, size 1 x NumberCell2DEdges[NumberCell2D]
         std::vector<double> Aree = {};
         std::vector<vector<unsigned int>> LongestEdges = {};
+
         list<list<unsigned int>> AdjacencyLists = {};
+        //adiacenza: lista di liste: id triangolo è la posizione nel vettore esterno, id triangoli adiacenti sono i valori e id del lato confinante nel vettore interno
+        //void Adjacency(list<list<unsigned int>>& AdjacencyList, const vector<vector<unsigned int>>& Edges2D);
+        void Adjacency(list<unsigned int>& AdjacencyList, const vector<array<unsigned int, 3>> Edges);
+
+
 
     };
 
@@ -35,14 +42,13 @@ namespace ImportLibrary
     class ImportMesh
     {
     public:
-        Cell0D(TriangularMesh& Mesh);
+        TriangularMesh Mesh;
+        void Cell0D(TriangularMesh& Mesh);
 
-        Cell1D(TriangularMesh& Mesh);
+        void Cell1D(TriangularMesh& Mesh);
 
-        Cell2D(TriangularMesh& Mesh);
+        void Cell2D(TriangularMesh& Mesh);
     };
-
-
 
 
 
@@ -59,10 +65,7 @@ namespace ImportLibrary
 
     class Cell1D{
     public:
-        void LengthEdge(const Vector2D& originEnd, const Vector2d& Coordinates, unsigned int &LengthEdge);
-        //unsigned int NumberCell1D;
-        //vector<vector<unsigned int>> OriginEnd1D;
-        //VectorXd LengthEdge;
+        void LengthEdge(const array<unsigned int, 2>& originEnd, const vector<Vector2d>& Coordinates, unsigned int &LengthEdge);
 
         //Cell1D(unsigned int& NumberCell1D, vector<vector<unsigned int>>& OriginEnd1D);
 
@@ -73,16 +76,8 @@ namespace ImportLibrary
     class Cell2D{
 
     public:
-        //unsigned int NumberCell2D;
-        //vector<vector<unsigned int>> Vertices2D;
-        //vector<vector<unsigned int>> Edges2D;
-        //vector<unsigned int> LongestEdge; //i-esimo elemento è id del lato più lungo dell'iesimo triangolo
         unsigned int LongestEdge;
-        list<unsigned int> AdjacencyList;
         double Area;
-        //vector<double> Area;
-        //Cell2D(unsigned int& NumberCell2D, vector<vector<unsigned int>>& Vertices2D, vector<vector<unsigned int>>& Edges2D);
-
 //calcolo lato più lungo di ogni triangolo. Prendendo da cell2D prendiamo i lati, da cell1d prendiamo origin end e infine da cell0d prendiamo le coordinate
 //calcolo la norma di ogni lato e ne prendo il massimo. Restituisce un vettore dove alla posizione corrispondente all'id del triangolo troviamo l'id del lato più grande
         //void FindLongestEdge(const vector<vector<unsigned int>>& OriginEnd1D, VectorXd& LengthEdge, const vector<vector<unsigned int>>& Edges2D, vector<unsigned int>& LongestEdge);
@@ -92,9 +87,6 @@ namespace ImportLibrary
         //void AreaCalculator(const vector<Vector2d>& Coordinates0D, const vector<vector<unsigned int>>& Vertices2D, vector<double>& Aree );
         void AreaCalculator(const Vector2d& Coordinates0D, const vector<unsigned int>& vertices, double Area);
 
-//adiacenza: lista di liste: id triangolo è la posizione nel vettore esterno, id triangoli adiacenti sono i valori e id del lato confinante nel vettore interno
-        //void Adjacency(list<list<unsigned int>>& AdjacencyList, const vector<vector<unsigned int>>& Edges2D);
-        void Adjacency(list<unsigned int>& AdjacencyList, const vector<unsigned int>& Edges2D);
 
 //imposto tutti i triangoli come true
         array<bool, 186> onOff= {true};
