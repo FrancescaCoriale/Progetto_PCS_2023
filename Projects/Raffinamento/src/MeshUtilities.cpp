@@ -3,7 +3,10 @@
 #include <fstream>
 #include "Eigen/Eigen"
 #include "MeshUtilities.hpp"
+#include "Point.hpp"
 //#include "map"
+
+using namespace PointLibrary;
 
 namespace MeshUtilitiesLibrary
 {
@@ -56,26 +59,24 @@ void Cell0D(TriangularMesh& Mesh)
     {   cout<<"nessuna cella disponibile"<<endl;
     }
 
-    Mesh.Coordinates.resize(Mesh.NumberCell0D);
+    Mesh.Points.resize(Mesh.NumberCell0D);
     string row;
+    double x;
+    double y;
     for (string& riga : listLines) //for (tipo del contatore uguale a line : lista da cui prendo line)
     {
         istringstream rigaStream (riga); //prendo stringa da listLines, lo converto in stream
+        getline(rigaStream,row);
+        getline(rigaStream,row);
 
         getline(rigaStream,row) ;
-
+        istringstream(row) >> x;
         getline(rigaStream,row) ;
-
-        Vector2d coordinate;
-        getline(rigaStream,row) ;
-        istringstream(row) >> coordinate[0];
-        getline(rigaStream,row) ;
-        istringstream(row) >> coordinate[1];
-
-
-        Mesh.Coordinates.push_back(coordinate); //STESSA CAZZO DI COSA DI PUSH_BACK
+        istringstream(row) >> y;
+        Point* p = new Point(x,y);
+        Mesh.Points.push_back(*p);
     }
-};
+}
 
 void Cell1D(TriangularMesh& Mesh)
 {
