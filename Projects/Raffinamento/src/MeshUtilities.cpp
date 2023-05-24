@@ -2,10 +2,10 @@
 #include <iostream>
 #include <fstream>
 #include "Eigen/Eigen"
-#include "Importazione.hpp"
+#include "MeshUtilities.hpp"
 //#include "map"
 
-namespace ImportLibrary
+namespace MeshUtilitiesLibrary
 {
 
 void Adjacency(list<unsigned int>& AdjacencyList, const vector<array<unsigned int, 3>> Edges)
