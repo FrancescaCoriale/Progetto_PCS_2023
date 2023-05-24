@@ -119,7 +119,7 @@ void Cell1D(TriangularMesh& Mesh)
         }
     }
 
-void Cell2D(ImportLibrary::TriangularMesh& Mesh)
+void Cell2D(TriangularMesh& Mesh)
 {
 
     ifstream file;
