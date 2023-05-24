@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 #ifndef __POINT_H
 #define __POINT_H
 
@@ -22,3 +23,6 @@ namespace PointLibrary
 
 }
 #endif // __POINT_H
+=======
+//coordinate
+>>>>>>> Stashed changes
