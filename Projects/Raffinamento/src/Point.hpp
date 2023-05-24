@@ -23,6 +23,3 @@ namespace PointLibrary
 
 }
 #endif // __POINT_H
-=======
-//coordinate
->>>>>>> Stashed changes
