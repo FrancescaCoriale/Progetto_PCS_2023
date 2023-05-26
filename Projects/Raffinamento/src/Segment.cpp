@@ -22,8 +22,13 @@ namespace RaffinamentoLibrary
         return {(endY-originY)/2,(endX-originX)/2};
     }
 
+<<<<<<< Updated upstream
     Segment(unsigned int IdValue, Point oValue, Point eValue) {
         Id = IdValue;
+=======
+    Segment(Point oValue, Point eValue):
+    {
+>>>>>>> Stashed changes
         origin = oValue;
         end = eValue;
         length = LenghtEdge(origin, end);

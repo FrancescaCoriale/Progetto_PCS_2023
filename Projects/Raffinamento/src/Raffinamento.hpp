@@ -18,16 +18,16 @@ namespace RaffinamentoLibrary{
 class TriangularMesh {
 public:
     unsigned int NumberCell0D = 0; ///< number of Cell0D
-    std::vector<Point> Points;
+    vector<Point> Points;
 
     unsigned int NumberCell1D = 0; ///< number of Cell1D
-    Eigen::VectorXd LengthEdges = {};
-    std::vector<Segment> Segments;
+    VectorXd LengthEdges = {};
+    vector<Segment> Segments;
 
     unsigned int NumberCell2D = 0; ///< number of Cell2D
-    std::vector<double> Aree = {};
-    std::vector<vector<unsigned int>> LongestEdges = {};
-    std::vector<Triangle> Triangles;
+    vector<double> Aree = {};
+    vector<vector<unsigned int>> LongestEdges = {};
+    vector<Triangle> Triangles;
 
     list<list<unsigned int>> AdjacencyLists = {};
     //adiacenza: lista di liste: id triangolo è la posizione nel vettore esterno, id triangoli adiacenti sono i valori e id del lato confinante nel vettore interno
