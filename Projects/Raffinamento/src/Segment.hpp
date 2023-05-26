@@ -19,6 +19,7 @@ class Triangle;
 
 class Segment {
     public:
+    unsigned int Id;
     Point origin;
     Point end;
     Triangle *t1;
@@ -35,13 +36,15 @@ class Segment {
     //midPoint()=default;
     //LenghtEdge()=default;
     Segment() = default;
-    Segment(Point oValue, Point eValue);
+    Segment(unsigned int IdValue, Point oValue, Point eValue);
     double LenghtEdge();
     double MidPoint();
     Triangle *getT1(); //cosi restituisco i due triangoli che contengono il segmento (ADIACENZA)
     Triangle *getT2();
 
-    Segment getOriginEnd ();
+    Segment getOriginEnd() const;
+    unsigned int getId() const;
+
 
 };
 }

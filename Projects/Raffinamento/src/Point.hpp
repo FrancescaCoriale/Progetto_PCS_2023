@@ -17,8 +17,9 @@ namespace RaffinamentoLibrary
     public:
         Point();
         Point(unsigned int IdValue, double xValue, double yValue);
-        double X() const; //const dice che il metodo non deve cambiare il parametro
-        double Y() const;
+        double getX() const; //const dice che il metodo non deve cambiare il parametro
+        double getY() const;
+        unsigned int getId() const;
     };
 
 }

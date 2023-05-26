@@ -10,19 +10,20 @@
 namespace RaffinamentoLibrary
 {
     double LenghtEdge(Point origin, Point end){
-        double originX = origin.X(); double originY = origin.Y();
-        double endX = end.X(); double endY = end.Y();
+        double originX = origin.getX(); double originY = origin.getY();
+        double endX = end.getX(); double endY = end.getY();
         Vector2d diff={endX-originX, endY-originY};
         return (diff).norm();
     }
 
     array<double,2> MidPoint(Point origin, Point end) {
-        double originX = origin.X(); double originY = origin.Y();
-        double endX = end.X(); double endY = end.Y();
+        double originX = origin.getX(); double originY = origin.getY();
+        double endX = end.getX(); double endY = end.getY();
         return {(endY-originY)/2,(endX-originX)/2};
     }
 
-    Segment(Point oValue, Point eValue) {
+    Segment(unsigned int IdValue, Point oValue, Point eValue) {
+        Id = IdValue;
         origin = oValue;
         end = eValue;
         length = LenghtEdge(origin, end);
@@ -32,8 +33,10 @@ namespace RaffinamentoLibrary
     Triangle *getT1() {return t1;}
     Triangle *getT2() {return t2;}
 
-    Point getOriginEnd() {
+    Point getOriginEnd() const{
         return origin, end;}
+
+    unsigned int getId() const {return Id;}
 
 
 

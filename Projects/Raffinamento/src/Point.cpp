@@ -21,6 +21,7 @@ namespace RaffinamentoLibrary
         y = yValue;
     }
 
-    double X() const {return x;}
-    double Y() const {return y;}
+    double getX() const {return x;}
+    double getY() const {return y;}
+    unsigned int getId() const {return Id;}
 }
