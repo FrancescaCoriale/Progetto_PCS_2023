@@ -5,15 +5,17 @@
 #include "Eigen/Eigen"
 #include <fstream>
 #include "MeshUtilities.hpp"
+#include "Point.hpp"
+#include "Segment.hpp"
+#include "Triangle.hpp"
 
 using namespace Eigen;
 using namespace std;
-using namespace MeshUtilitiesLibrary;
 
-namespace AlgorithmLibrary{
 
-class TriangularMesh
-{
+namespace RaffinamentoLibrary{
+
+class TriangularMesh {
 public:
     unsigned int NumberCell0D = 0; ///< number of Cell0D
     std::vector<Point> Points;
@@ -34,8 +36,7 @@ public:
 };
 
 
-class ImportMesh
-{
+class ImportMesh {
 public:
     TriangularMesh Mesh;
     void Cell0D(TriangularMesh& Mesh);
@@ -52,7 +53,8 @@ public:
 
 
 
-class Division{
+
+class Division {
     public: 
     vector<bool> Triangles; //nel main creiamo vettore lungo NumberCell2D di tutti "true"
 
@@ -92,7 +94,7 @@ class Division{
 
 };
 
-class Raffinamento{
+class Raffinamento {
 
     public:
 

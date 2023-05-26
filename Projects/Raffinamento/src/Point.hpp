@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 #ifndef __POINT_H
 #define __POINT_H
 
@@ -6,19 +5,20 @@
 #include "Eigen/Eigen"
 #include <fstream>
 
-using namespace Eigen;
 using namespace std;
 
 //Coordinate x e y
-namespace PointLibrary
+namespace RaffinamentoLibrary
 {
     class Point {
+        unsigned int Id;
         double x;
         double y;
     public:
-        Point(double xValue, double yValue) : x(xValue), y(yValue) {}
-        double X() const {return x;} //const dice che il metodo non deve cambiare il parametro
-        double Y() const {return y;}
+        Point();
+        Point(unsigned int IdValue, double xValue, double yValue);
+        double X() const; //const dice che il metodo non deve cambiare il parametro
+        double Y() const;
     };
 
 }

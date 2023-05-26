@@ -6,3 +6,11 @@
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 testo 1}
+
+
+ALGORITMO DI RAFFINAMENTO:
+Con metodo LongestEdge() trovo lato più lungo del triangolo. Nel tipo Triangle ho anche i punti medi del triangolo associati a ogni lato Segment (sono definiti in Segment e io in Triangle importo tutto quello che c'è in Point e Segment). Uso Metodo FindOpposite() per prendere il vertice opposto al LongestEdge. Ora chiamo il costruttore Triangle passandogli un nuovo id (ordine crescente da NumberCell2D +1) e tre vertici (rispettivamente midpoint opposite e uno dei due vecchi) così mi ha certo il nuovo triangolo. Ripeto anche per l'altro triangolo. 
+Ora che ho creato i due nuovi triangoli devo capire come spegnere quello vecchio e accendere i due nuovi.
+
+COME PASSARE AL TRIANGOLO SUCCESSIVO:
+Uso il tipo Segment() dove ho anche definito i due triangoli adiacenti al lato passato. Se metto come lato passato LongestEdge dovrebbe ridarmi il triangolo vecchio e il suo adiacente. Ora o considero l'Id del triangolo o "true"/"false". 

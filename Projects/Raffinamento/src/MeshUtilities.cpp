@@ -61,68 +61,72 @@ void Cell0D(TriangularMesh& Mesh)
 
     Mesh.Points.resize(Mesh.NumberCell0D);
     string row;
+    unsigned int Id;
     double x;
     double y;
     for (string& riga : listLines) //for (tipo del contatore uguale a line : lista da cui prendo line)
     {
         istringstream rigaStream (riga); //prendo stringa da listLines, lo converto in stream
         getline(rigaStream,row);
+        istringstream(row) >> Id;
         getline(rigaStream,row);
 
         getline(rigaStream,row) ;
         istringstream(row) >> x;
         getline(rigaStream,row) ;
         istringstream(row) >> y;
-        Point* p = new Point(x,y);
+
+        Point* p = new Point(Id,x,y);
         Mesh.Points.push_back(*p);
     }
 }
 
 void Cell1D(TriangularMesh& Mesh)
 {
-        ifstream file;
-        file.open("C:/Users/annam/Desktop/Progetto_PCS_2023/Projects/Raffinamento/Dataset/Test2/Cell1Ds.csv");
+    ifstream file;
+    file.open("C:/Users/annam/Desktop/Progetto_PCS_2023/Projects/Raffinamento/Dataset/Test2/Cell1Ds.csv");
 
-        if(file.fail())
-        {
-            cerr<<"errore nell'apertura del file Cell0D"<<endl;
-        }
-
-        list<string> listLines;
-        string line;
-        while (getline(file, line))
-          listLines.push_back(line);
-
-        listLines.pop_front();
-
-        Mesh.NumberCell1D = listLines.size();
-        if (Mesh.NumberCell1D == 0)
-        {
-          cerr << "There is no cell 1D" << endl;
-        }
-        Mesh.OriginEnds.resize(Mesh.NumberCell1D);
-        string row;
-        for (string& riga : listLines) //for (tipo del contatore uguale a line : lista da cui prendo line)
-        {
-            istringstream rigaStream (riga); //prendo stringa da listLines, lo converto in stream
-            getline(rigaStream,row) ; //prendo porzione di rigaStream fino a ;
-            unsigned int id;
-            istringstream (row) >> id; //dentro id ho il valore in intero
-
-            getline(rigaStream,row) ; //prendo porzione di rigaStream fino a ;
-            array<unsigned int,2> originEnd;
-            getline(rigaStream,row) ;
-            istringstream(row) >> originEnd[0];
-            getline(rigaStream,row) ;
-            istringstream(row) >> originEnd[1];
-
-            Mesh.OriginEnds.push_back(originEnd);
-        }
+    if(file.fail())
+    {
+        cerr<<"errore nell'apertura del file Cell0D"<<endl;
     }
+
+    list<string> listLines;
+    string line;
+    while (getline(file, line))
+        listLines.push_back(line);
+
+    listLines.pop_front();
+
+    Mesh.NumberCell1D = listLines.size();
+    if (Mesh.NumberCell1D == 0)
+    {
+        cerr << "There is no cell 1D" << endl;
+    }
+    Mesh.Segments.resize(Mesh.NumberCell1D);
+    string row;
+    unsigned int IdOrigin;
+    unsigned int IdEnd;
+    for (string& riga : listLines) //for (tipo del contatore uguale a line : lista da cui prendo line)
+    {
+        istringstream rigaStream (riga); //prendo stringa da listLines, lo converto in stream
+        getline(rigaStream,row) ; //prendo porzione di rigaStream fino a ;
+        unsigned int id;
+        istringstream (row) >> id; //dentro id ho il valore in intero
+
+        getline(rigaStream,row) ; //prendo porzione di rigaStream fino a ;
+        getline(rigaStream,row) ;
+        istringstream(row) >> IdOrigin;
+        getline(rigaStream,row) ;
+        istringstream(row) >> IdEnd;
+
+        Segment* s = new Segment(IdOrigin,IdEnd);
+        Mesh.Segments.push_back(*s);
+    }
+}
 
 void Cell2D(TriangularMesh& Mesh)
 {
-
     ifstream file;
     file.open("./Cell2Ds.csv");
     if (file.fail())
@@ -177,27 +181,27 @@ void Cell2D(TriangularMesh& Mesh)
     //for(unsigned int i=0; i<80; i++){
     //    this->onOff.push_back(true);
     //}
+}
 
-};
     // NON SAPPIAMO COME USARLO:
 void FindCoordinates(const vector<Vector2d>& Coordinates,const unsigned int& punto, Vector2d pointCoordinates)
-    {
-        pointCoordinates = {Coordinates[punto][0], Coordinates[punto][1]};
-    }
+{
+    pointCoordinates = {Coordinates[punto][0], Coordinates[punto][1]};
+}
     //
 
 void LengthEdge(const array<unsigned int, 2>& originEnd, const vector<Vector2d>& Coordinates, unsigned int &LengthEdge)
 {
-        Vector2d origin = {Coordinates[originEnd[0]][0], Coordinates[originEnd[0]][1]};
-        Vector2d end = {Coordinates[originEnd[1]][0], Coordinates[originEnd[1]][1]};
-        LengthEdge = (end-origin).norm();//calcolo la norma e la salvo nel vettore
+    Vector2d origin = {Coordinates[originEnd[0]][0], Coordinates[originEnd[0]][1]};
+    Vector2d end = {Coordinates[originEnd[1]][0], Coordinates[originEnd[1]][1]};
+    LengthEdge = (end-origin).norm();//calcolo la norma e la salvo nel vettore
         //elemento i-esimo di LengthEdge è la lunghezza dell'iesimo lato dentro OriginEnd
 }
 
 
 
 void AreaCalculator(const Vector3d &x, const Vector3d &y, double Area)
-    {
+{
         double A_12; double A_23; double A_31;
         double x_1 = x[0]; double y_1 = y[0];
         double x_2 = x[1]; double y_2 = y[1];
@@ -208,7 +212,7 @@ void AreaCalculator(const Vector3d &x, const Vector3d &y, double Area)
         A_23 = (x_2*y_3) - (y_2*x_3);
         A_31 = (x_3*y_1) - (y_3*x_1);
         Area = abs((A_12+A_23+A_31)/2);
-    }
+}
 
 
 void FindLongestEdge(VectorXd& LengthEdges, const array<unsigned int, 3>& edges, unsigned int& LongestEdge)
@@ -216,18 +220,18 @@ void FindLongestEdge(VectorXd& LengthEdges, const array<unsigned int, 3>& edges,
         //unsigned int n = NumberCell2D; //quanti triangoli ho
         //for (unsigned int i=0; i<n; i++) //passo in rassegna ogni triangolo
         //{
-        double max = 0;
-        unsigned int id_longestEdge = 0;
+    double max = 0;
+    unsigned int id_longestEdge = 0;
             //vector<unsigned int> edges = Edges2D[i]; //i-esimo triangolo, salvo dentro edges i 3 lati
-            for (unsigned int k=0; k<3; k++)
-            {
-                if (LengthEdges[edges[k]] > max)
-                {
-                    max = LengthEdges[edges[k]];
-                    id_longestEdge = edges[k];
-                };
-            };
-            LongestEdge = id_longestEdge;
+    for (unsigned int k=0; k<3; k++)
+    {
+        if (LengthEdges[edges[k]] > max)
+        {
+            max = LengthEdges[edges[k]];
+            id_longestEdge = edges[k];
+        };
+    };
+    LongestEdge = id_longestEdge;
 }
 
 
