@@ -30,13 +30,8 @@ namespace RaffinamentoLibrary
     public:
         Triangle(const unsigned int& Id, array<unsigned int,3>& vertices, array<unsigned int,3>& edges);
         double AreaCalculator(Point& p1, Point& p2, Point& p3);
-<<<<<<< Updated upstream
-
         void setId(unsigned int IdVerice);
-
-=======
         unsigned int FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3);
->>>>>>> Stashed changes
     };
 }
 

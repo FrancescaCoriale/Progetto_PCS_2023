@@ -46,7 +46,7 @@ namespace RaffinamentoLibrary
         return abs(doubleArea/2);
     }
 
-    void setId(unsigned int IdVerice) {Id = IdVertice;}
+    void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
 
     unsigned int FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3)
     {
