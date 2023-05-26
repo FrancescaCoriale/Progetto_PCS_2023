@@ -26,7 +26,7 @@ namespace RaffinamentoLibrary
           vertices[2] = p2.getId();
           vertices[3] = p3.getId();
           Area = AreaCalculator(p1,p2,p3);
-    };
+    }
 
     double AreaCalculator(Point& p1, Point& p2, Point& p3)
     {
@@ -43,7 +43,9 @@ namespace RaffinamentoLibrary
         doubleArea += (x2*y3) - (y2*x3);
         doubleArea += (x3*y1) - (y3*x1);
         return abs(doubleArea/2);
-    };
+    }
+
+    void setId(unsigned int IdVerice) {Id = IdVertice;}
 
 
 }

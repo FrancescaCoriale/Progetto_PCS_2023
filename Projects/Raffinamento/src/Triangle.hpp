@@ -31,6 +31,8 @@ namespace RaffinamentoLibrary
         Triangle(const unsigned int& Id, const array<unsigned int,3>& vertices, const array<unsigned int,3>& edges);
         double AreaCalculator(Point& p1, Point& p2, Point& p3);
 
+        void setId(unsigned int IdVerice);
+
     };
 }
 

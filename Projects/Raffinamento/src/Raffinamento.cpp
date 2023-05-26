@@ -37,18 +37,20 @@ void Cell0D(TriangularMesh& Mesh)
 
     Mesh.Points.resize(Mesh.NumberCell0D);
     string row;
-    unsigned int Id;
-    double x;
-    double y;
+
     for (string& riga : listLines) //for (tipo del contatore uguale a line : lista da cui prendo line)
     {
         istringstream rigaStream (riga); //prendo stringa da listLines, lo converto in stream
+        unsigned int Id;
         getline(rigaStream,row);
         istringstream(row) >> Id;
         getline(rigaStream,row);
 
+        double x;
         getline(rigaStream,row) ;
         istringstream(row) >> x;
+
+        double y;
         getline(rigaStream,row) ;
         istringstream(row) >> y;
 
@@ -81,8 +83,6 @@ void Cell1D(TriangularMesh& Mesh)
     }
     Mesh.Segments.resize(Mesh.NumberCell1D);
     string row;
-    unsigned int IdOrigin;
-    unsigned int IdEnd;
     for (string& riga : listLines) //for (tipo del contatore uguale a line : lista da cui prendo line)
     {
         istringstream rigaStream (riga); //prendo stringa da listLines, lo converto in stream
@@ -91,12 +91,16 @@ void Cell1D(TriangularMesh& Mesh)
         istringstream (row) >> id; //dentro id ho il valore in intero
 
         getline(rigaStream,row) ; //prendo porzione di rigaStream fino a ;
+
+        unsigned int IdOrigin;
         getline(rigaStream,row) ;
         istringstream(row) >> IdOrigin;
+
+        unsigned int IdEnd;
         getline(rigaStream,row) ;
         istringstream(row) >> IdEnd;
 
-        Segment* s = new Segment(IdOrigin,IdEnd);
+        Segment* s = new Segment(id,IdOrigin,IdEnd);
         Mesh.Segments.push_back(*s);
     }
 }
