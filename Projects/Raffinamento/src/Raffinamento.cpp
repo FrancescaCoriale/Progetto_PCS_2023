@@ -127,9 +127,6 @@ void Cell2D(TriangularMesh& Mesh)
         cout<<"nessuna cella 2D disponibile"<<endl;
 
     };
-    Mesh.Vertices.resize(Mesh.NumberCell2D); //diamo una dimensione al vettore più esterno per poter inserire i vettori più interni
-    Mesh.Edges.resize(Mesh.NumberCell2D);
-
 
     string row;
     for (string& riga : listLines) //for (tipo del contatore uguale a line : lista da cui prendo line)
@@ -162,57 +159,7 @@ void Cell2D(TriangularMesh& Mesh)
     //}
 }
 
-        // NON SAPPIAMO COME USARLO:
-    void FindCoordinates(const vector<Vector2d>& Coordinates,const unsigned int& punto, Vector2d pointCoordinates)
-    {
-        pointCoordinates = {Coordinates[punto][0], Coordinates[punto][1]};
-    }
-        //
-
-    void LengthEdge(const array<unsigned int, 2>& originEnd, const vector<Vector2d>& Coordinates, unsigned int &LengthEdge)
-    {
-        Vector2d origin = {Coordinates[originEnd[0]][0], Coordinates[originEnd[0]][1]};
-        Vector2d end = {Coordinates[originEnd[1]][0], Coordinates[originEnd[1]][1]};
-        LengthEdge = (end-origin).norm();//calcolo la norma e la salvo nel vettore
-            //elemento i-esimo di LengthEdge è la lunghezza dell'iesimo lato dentro OriginEnd
-    }
-
-
-
-    void AreaCalculator(const Vector3d &x, const Vector3d &y, double Area)
-    {
-            double A_12; double A_23; double A_31;
-            double x_1 = x[0]; double y_1 = y[0];
-            double x_2 = x[1]; double y_2 = y[1];
-            double x_3 = x[2]; double y_3 = y[2];
-
-            //Formula dell'area di Gauss
-            A_12 = (x_1*y_2) - (y_1*x_2);
-            A_23 = (x_2*y_3) - (y_2*x_3);
-            A_31 = (x_3*y_1) - (y_3*x_1);
-            Area = abs((A_12+A_23+A_31)/2);
-    }
-
-
-    void FindLongestEdge(VectorXd& LengthEdges, const array<unsigned int, 3>& edges, unsigned int& LongestEdge)
-    {
-            //unsigned int n = NumberCell2D; //quanti triangoli ho
-            //for (unsigned int i=0; i<n; i++) //passo in rassegna ogni triangolo
-            //{
-        double max = 0;
-        unsigned int id_longestEdge = 0;
-                //vector<unsigned int> edges = Edges2D[i]; //i-esimo triangolo, salvo dentro edges i 3 lati
-        for (unsigned int k=0; k<3; k++)
-        {
-            if (LengthEdges[edges[k]] > max)
-            {
-                max = LengthEdges[edges[k]];
-                id_longestEdge = edges[k];
-            };
-        };
-        LongestEdge = id_longestEdge;
-    }
 }
 
 
-}
+

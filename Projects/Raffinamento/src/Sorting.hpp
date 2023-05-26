@@ -3,22 +3,22 @@
 #include <iostream>
 #include "Eigen/Eigen"
 #include <fstream>
+#include <vector>
 
 using namespace std;
 using namespace Eigen;
 
-namespace RaffinamentoLibrary{
+namespace SortLibrary{
 
 
-    template<typename T>
     //nel merge faccio la fusione
-    void Merge(vector<T>& v,
+    void Merge(vector<double>& v,
                const unsigned int& sx,
                const unsigned int& cx,
                const unsigned int& dx)
     {
         unsigned int k = 0;
-        vector<T> w;
+        vector<double> w;
         unsigned int i = sx;
         unsigned int j = cx+1;
 
@@ -46,12 +46,12 @@ namespace RaffinamentoLibrary{
 
     }
 
-    template<typename T>
     //nel mergeSort divido per 2 il vettore
-    void MergeSort(vector<T>& v,
+    vector<double> MergeSort(vector<double>& v,
                    const unsigned int& sx,
                    const unsigned int& dx)
     {
+        unsigned int theta = 10;
         unsigned int cx = 0;
 
         if(sx < dx)
@@ -61,7 +61,8 @@ namespace RaffinamentoLibrary{
             MergeSort(v, cx+1, dx);
             Merge(v, sx, cx, dx);
         }
+        v.resize(theta);
+        return v;
     }
-
 }
 #endif

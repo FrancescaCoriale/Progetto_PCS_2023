@@ -31,12 +31,12 @@ namespace RaffinamentoLibrary
 
     double AreaCalculator(Point& p1, Point& p2, Point& p3)
     {
-        double x1 = p1.getX();
-        double y1 = p1.getX();
-        double x2 = p2.getX();
-        double y2 = p2.getX();
-        double x3 = p3.getX();
-        double y3 = p3.getX();
+        double x1 = p1.x;
+        double y1 = p1.y;
+        double x2 = p2.x;
+        double y2 = p2.y;
+        double x3 = p3.x;
+        double y3 = p3.y;
         double doubleArea = 0;
 
         //Formula dell'area di Gauss

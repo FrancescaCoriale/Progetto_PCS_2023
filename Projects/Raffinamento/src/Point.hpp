@@ -11,14 +11,15 @@ using namespace std;
 namespace RaffinamentoLibrary
 {
     class Point {
+
+    public:
         unsigned int Id;
         double x;
         double y;
-    public:
         Point();
         Point(unsigned int IdValue, double xValue, double yValue);
-        double getX() const; //const dice che il metodo non deve cambiare il parametro
-        double getY() const;
+        //double getX() const; //const dice che il metodo non deve cambiare il parametro
+       // double getY() const;
         unsigned int getId() const;
     };
 
