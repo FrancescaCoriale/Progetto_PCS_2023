@@ -2,7 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include "Eigen/Eigen"
-#include "MeshUtilities.hpp"
+#include <algorithm>
+
 #include "Point.hpp"
 #include "Segment.hpp"
 #include "Triangle.hpp"
@@ -19,12 +20,12 @@ namespace RaffinamentoLibrary
         vertices(vertices),
         edges(edges)
     {
-          edges[1] = edge1.getId();
-          edges[2] = edge2.getId();
-          edges[3] = edge3.getId();
-          vertices[1] = p1.getId();
-          vertices[2] = p2.getId();
-          vertices[3] = p3.getId();
+          edge1.setId(edges[1]);
+          edge2.setId(edges[2]);
+          edge3.setId(edges[3]);
+          p1.setId(vertices[1]);
+          p2.setId(vertices[2]);
+          p3.setId(vertices[3]);
           Area = AreaCalculator(p1,p2,p3);
     }
 
@@ -46,6 +47,22 @@ namespace RaffinamentoLibrary
     }
 
     void setId(unsigned int IdVerice) {Id = IdVertice;}
+
+    unsigned int FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3)
+    {
+        //array delle lunghezze
+        array<double,3> lunghezze = {edge1.getLengthEdge(), edge2.getLengthEdge(), edge3.getLengthEdge()};
+        //array degli id
+        array<unsigned int, 3> IdLunghezze = {edge1.getId(), edge2.getId(), edge3.getId()};
+
+        //restituisce l'iteratore che punta all'elemento massimo dell'array
+        auto maxIterator = max_element(lunghezze.begin(), lunghezze.end());
+
+        //calcola la posizione dell'elemento massimo
+        int maxPosition = distance(lunghezze.begin(), maxIterator);
+
+        return IdLunghezze[maxPosition];
+    }
 
 
 }

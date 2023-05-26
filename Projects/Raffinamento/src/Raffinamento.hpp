@@ -49,11 +49,14 @@ public:
 
 
 
+<<<<<<< Updated upstream
 
 
 
 
 /////////////////////////////////////////////////////////////
+=======
+>>>>>>> Stashed changes
 class Division {
     public: 
     vector<bool> Triangles; //nel main creiamo vettore lungo NumberCell2D di tutti "true"

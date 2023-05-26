@@ -216,24 +216,7 @@ void AreaCalculator(const Vector3d &x, const Vector3d &y, double Area)
 }
 
 
-void FindLongestEdge(VectorXd& LengthEdges, const array<unsigned int, 3>& edges, unsigned int& LongestEdge)
-{
-        //unsigned int n = NumberCell2D; //quanti triangoli ho
-        //for (unsigned int i=0; i<n; i++) //passo in rassegna ogni triangolo
-        //{
-    double max = 0;
-    unsigned int id_longestEdge = 0;
-            //vector<unsigned int> edges = Edges2D[i]; //i-esimo triangolo, salvo dentro edges i 3 lati
-    for (unsigned int k=0; k<3; k++)
-    {
-        if (LengthEdges[edges[k]] > max)
-        {
-            max = LengthEdges[edges[k]];
-            id_longestEdge = edges[k];
-        };
-    };
-    LongestEdge = id_longestEdge;
-}
+
 
 
 }//parentesi del namespace
