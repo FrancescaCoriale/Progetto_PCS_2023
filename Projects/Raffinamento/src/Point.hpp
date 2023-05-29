@@ -18,9 +18,10 @@ namespace RaffinamentoLibrary
         double y;
         Point();
         Point(unsigned int IdValue, double xValue, double yValue);
+        ///mi basta "." non serve get
         //double getX() const; //const dice che il metodo non deve cambiare il parametro
-       // double getY() const;
-        unsigned int getId() const;
+        //double getY() const;
+        //unsigned int getId() const;
     };
 
 }

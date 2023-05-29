@@ -6,12 +6,14 @@
 #include "Raffinamento.hpp"
 #include "Point.hpp"
 #include "Segment.hpp"
+#include "Sorting.hpp"
 //#include "map"
 
-
+using namespace SortLibrary;
 
 namespace RaffinamentoLibrary
 {
+
 
 void Cell0D(TriangularMesh& Mesh)
 {
@@ -158,6 +160,23 @@ void Cell2D(TriangularMesh& Mesh)
     //    this->onOff.push_back(true);
     //}
 }
+
+SortedArea::SortedArea(vector<double>& Aree, unsigned int& theta) {
+    vector<double> SortedA = MergeSort(Aree, 0, Aree.size()-1);
+    SortedA.resize(theta);
+}
+
+Division::Division(Triangle& T, Triangle T1, Triangle T2){
+     origin = T.longestEdge.origin;
+     end = T.longestEdge.end;
+
+
+}
+
+
+
+
+
 
 }
 

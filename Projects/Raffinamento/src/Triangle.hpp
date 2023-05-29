@@ -22,6 +22,7 @@ namespace RaffinamentoLibrary
         Segment edge2;
         Segment edge3;
         double Area;
+        Segment longestEdge;
 
         const unsigned int Id;
         const array<unsigned int,3>& vertices;
@@ -31,7 +32,7 @@ namespace RaffinamentoLibrary
         Triangle(const unsigned int& Id, array<unsigned int,3>& vertices, array<unsigned int,3>& edges);
         double AreaCalculator(Point& p1, Point& p2, Point& p3);
         void setId(unsigned int IdVerice);
-        unsigned int FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3);
+        Segment FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3);
     };
 }
 

@@ -17,24 +17,20 @@ namespace RaffinamentoLibrary
         midPoint = MidPoint(origin, end);
     }
 
-    double Segment::LenghtEdge(Point origin, Point end){
-        double originX = origin.getX(); double originY = origin.getY();
-        double endX = end.getX(); double endY = end.getY();
-        Vector2d diff={endX-originX, endY-originY};
+    double Segment::LenghtEdge(Point origin, Point end) {
+        Vector2d diff={end.x-origin.x, end.y-origin.y};
         return (diff).norm();
     }
 
     array<double,2> Segment::MidPoint(Point origin, Point end) {
-        double originX = origin.getX(); double originY = origin.getY();
-        double endX = end.getX(); double endY = end.getY();
-        return {(endY-originY)/2,(endX-originX)/2};
+        return {(end.y-origin.y)/2,(end.x-origin.x)/2};
     }
 
     Triangle* Segment::getT1() {return t1;}
     Triangle* Segment::getT2() {return t2;}
 
-    unsigned int Segment::getId() const {return Id;}
+    array<Point,2> Segment::getVertices() const {return {origin,end};}
 
-    double Segment::getLengthEdge() const {return length;}
+    //double Segment::getLengthEdge() const {return length;}
 
 }

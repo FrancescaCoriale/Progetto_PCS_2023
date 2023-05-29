@@ -27,6 +27,7 @@ namespace RaffinamentoLibrary
           p2.setId(vertices[2]);
           p3.setId(vertices[3]);
           Area = AreaCalculator(p1,p2,p3);
+          longestEdge = FindLongestEdge(edge1, edge2, edge3);
     }
 
     double AreaCalculator(Point& p1, Point& p2, Point& p3)
@@ -48,12 +49,12 @@ namespace RaffinamentoLibrary
 
     void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
 
-    unsigned int FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3)
+    Segment FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3)
     {
         //array delle lunghezze
-        array<double,3> lunghezze = {edge1.getLengthEdge(), edge2.getLengthEdge(), edge3.getLengthEdge()};
+        array<double,3> lunghezze = {edge1.length, edge2.length, edge3.length};
         //array degli id
-        array<unsigned int, 3> IdLunghezze = {edge1.getId(), edge2.getId(), edge3.getId()};
+        array<Segment, 3> lati = {edge1, edge2, edge3};
 
         //restituisce l'iteratore che punta all'elemento massimo dell'array
         auto maxIterator = max_element(lunghezze.begin(), lunghezze.end());
@@ -61,7 +62,7 @@ namespace RaffinamentoLibrary
         //calcola la posizione dell'elemento massimo
         int maxPosition = distance(lunghezze.begin(), maxIterator);
 
-        return IdLunghezze[maxPosition];
+        return lati[maxPosition];
     }
 
 

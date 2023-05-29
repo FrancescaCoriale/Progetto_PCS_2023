@@ -51,7 +51,6 @@ namespace SortLibrary{
                    const unsigned int& sx,
                    const unsigned int& dx)
     {
-        unsigned int theta = 10;
         unsigned int cx = 0;
 
         if(sx < dx)
@@ -61,7 +60,6 @@ namespace SortLibrary{
             MergeSort(v, cx+1, dx);
             Merge(v, sx, cx, dx);
         }
-        v.resize(theta);
         return v;
     }
 }

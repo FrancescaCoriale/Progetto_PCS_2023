@@ -51,13 +51,26 @@ public:
 
 
 
-class Raffinamento {
+class SortedArea {
 
     vector<double> Aree = {};
     unsigned int theta = 10;
-
     public:
-    vector<double> SortedA = SortLibrary::MergeSort(Aree, 0, Aree.size()-1);
+    SortedArea(vector<double>& Aree, unsigned int& theta);
+};
+
+class Division{
+    //divisione del triangolo
+    //creazione dei triangoli
+    Triangle T;
+    Triangle T1;
+    Triangle T2;
+
+public:
+    Division(Triangle& T, Triangle T1, Triangle T2);
+
+
+
 
 };
 
