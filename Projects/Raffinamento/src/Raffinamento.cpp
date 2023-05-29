@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include "Eigen/Eigen"
-#include "MeshUtilities.hpp"
 #include "Raffinamento.hpp"
 #include "Point.hpp"
 #include "Segment.hpp"
@@ -15,7 +14,7 @@ namespace RaffinamentoLibrary
 {
 
 
-void Cell0D(TriangularMesh& Mesh)
+void ImportMesh::Cell0D(TriangularMesh& Mesh)
 {
     ifstream file;
     file.open("C:/Users/annam/Desktop/Progetto_PCS_2023/Projects/Raffinamento/Dataset/Test2/Cell0Ds.csv");
@@ -61,7 +60,7 @@ void Cell0D(TriangularMesh& Mesh)
     }
 }
 
-void Cell1D(TriangularMesh& Mesh)
+void ImportMesh::Cell1D(TriangularMesh& Mesh)
 {
     ifstream file;
     file.open("C:/Users/annam/Desktop/Progetto_PCS_2023/Projects/Raffinamento/Dataset/Test2/Cell1Ds.csv");
@@ -107,7 +106,7 @@ void Cell1D(TriangularMesh& Mesh)
     }
 }
 
-void Cell2D(TriangularMesh& Mesh)
+void ImportMesh::Cell2D(TriangularMesh& Mesh)
 {
     ifstream file;
     file.open("./Cell2Ds.csv");
@@ -166,11 +165,62 @@ SortedArea::SortedArea(vector<double>& Aree, unsigned int& theta) {
     SortedA.resize(theta);
 }
 
-Division::Division(Triangle& T, Triangle T1, Triangle T2){
-     origin = T.longestEdge.origin;
-     end = T.longestEdge.end;
+Division::Division(Triangle& T){
+     //origin = T.longestEdge.origin;
+     //end = T.longestEdge.end;
+    Point origin = T.longestEdge.origin;
+    Point end = T.longestEdge.end;
+    array<double,2> CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
+    unsigned int IdMidpoint = Mesh.NumberCell0D;
+    Point Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
+    Point Opposite;
 
+    //cerco id del vertice opposto
+    for (unsigned int i = 0; i<3; i++)
+    {
+        if (origin.Id != T.vertices[i] || end.Id != T.vertices[i])
+           {
+            Opposite.Id = T.vertices[i];
+            }
+        if (T.longestEdge.Id != T.edges[i]) //se non è il lato che ho diviso in 2
+        {
+           // if (origin.Id =  )
+            {
+                for(unsigned int k=0; k<3; k++)
+                {
+                    if (k != i && T.longestEdge.Id != T.edges[k])
+                    {
+                        unsigned int IdLatoSx = T.edges[i];
+                        unsigned int IdLatoDx = T.edges[k];
+                    }
+                }
 
+            }
+            //else
+            {
+                for(unsigned int k=0; k<3; k++)
+                {
+                    if (k != i && T.longestEdge.Id != T.edges[k])
+                    {
+                        unsigned int IdLatoSx = T.edges[k];
+                        unsigned int IdLatoDx = T.edges[i];
+                    }
+                }
+            }
+        }
+
+    };
+
+    unsigned int NewId;
+    Segment* NewS = new Segment(NewId,Opposite, Midpoint);
+    Segment* NewSO = new Segment(NewId,origin, Midpoint);
+    Segment* NewSE = new Segment(NewId,Midpoint, end);
+    unsigned int NewT1Id;
+    unsigned int NewT2Id;
+    array<unsigned int, 3> vertices1 = {origin.Id, Midpoint.Id, Opposite.Id};
+    array<unsigned int, 3> vertices2 = {Midpoint.Id, end.Id, Opposite.Id};
+    array<unsigned int, 3> edges1 = {NewS->Id, NewSO->Id,  };
+    array<unsigned int, 3> edges2 = {NewS->Id, NewSE->Id, };
 }
 
 

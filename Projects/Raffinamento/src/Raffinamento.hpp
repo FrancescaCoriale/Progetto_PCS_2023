@@ -63,14 +63,20 @@ class Division{
     //divisione del triangolo
     //creazione dei triangoli
     Triangle T;
-    Triangle T1;
-    Triangle T2;
+    TriangularMesh Mesh;
+    unsigned int NewId;
+    array<unsigned int, 3> vertices1;
+    array<unsigned int, 3> vertices2;
+    array<unsigned int, 3> edges1;
+    array<unsigned int, 3> edges2;
 
 public:
-    Division(Triangle& T, Triangle T1, Triangle T2);
+    Division(Triangle& T);
+    Triangle T2 = Triangle(NewId, vertices1, edges1);
+    Triangle T1 = Triangle(NewId, vertices2, edges2);
+};
 
-
-
+class Raffinamento {
 
 };
 

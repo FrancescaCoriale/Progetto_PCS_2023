@@ -20,14 +20,15 @@ namespace RaffinamentoLibrary
         vertices(vertices),
         edges(edges)
     {
-          edge1.setId(edges[1]);
-          edge2.setId(edges[2]);
-          edge3.setId(edges[3]);
-          p1.setId(vertices[1]);
-          p2.setId(vertices[2]);
-          p3.setId(vertices[3]);
-          Area = AreaCalculator(p1,p2,p3);
-          longestEdge = FindLongestEdge(edge1, edge2, edge3);
+        p1.setId(vertices[1]);
+        p2.setId(vertices[2]);
+        p3.setId(vertices[3]);
+        edge1.setId(edges[1]);
+        edge2.setId(edges[2]);
+        edge3.setId(edges[3]);
+
+        Area = AreaCalculator(p1,p2,p3);
+        longestEdge = FindLongestEdge(edge1, edge2, edge3);
     }
 
     double AreaCalculator(Point& p1, Point& p2, Point& p3)
@@ -47,7 +48,7 @@ namespace RaffinamentoLibrary
         return abs(doubleArea/2);
     }
 
-    void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
+    //void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
 
     Segment FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3)
     {

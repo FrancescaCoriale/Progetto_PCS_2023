@@ -29,8 +29,6 @@ namespace RaffinamentoLibrary
     Triangle* Segment::getT1() {return t1;}
     Triangle* Segment::getT2() {return t2;}
 
-    array<Point,2> Segment::getVertices() const {return {origin,end};}
-
     //double Segment::getLengthEdge() const {return length;}
 
 }

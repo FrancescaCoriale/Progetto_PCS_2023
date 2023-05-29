@@ -29,16 +29,6 @@ class Segment {
     double length;
     array<double,2> midPoint;
 
-    //{
-    //    Vector2d origin = {Coordinates[originEnd[0]][0], Coordinates[originEnd[0]][1]};
-    //    Vector2d end = {Coordinates[originEnd[1]][0], Coordinates[originEnd[1]][1]};
-    //    LengthEdge = (end-origin).norm();//calcolo la norma e la salvo nel vettore
-    //    //elemento i-esimo di LengthEdge è la lunghezza dell'iesimo lato dentro OriginEnd
-    //}
-    //midPoint()=default;
-    //LenghtEdge()=default;
-
-    Segment() = default;
     Segment(unsigned int IdValue, Point oValue, Point eValue);
 
     double LenghtEdge(Point origin, Point end);
