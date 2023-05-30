@@ -12,7 +12,9 @@ using namespace Eigen;
 
 //Coordinate x e y
 namespace RaffinamentoLibrary
-{
+
+{class TriangularMesh; //sistemare puntatori
+
     class Triangle{
 
         Point p1; //restituisce id, x e y
