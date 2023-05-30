@@ -66,17 +66,15 @@ class Division{
     Triangle T;
     TriangularMesh Mesh;
     //elementi nuovi triangoli
-    unsigned int NewId1;
-    unsigned int NewId2;
-    array<unsigned int, 3> vertices1;
-    array<unsigned int, 3> vertices2;
-    array<unsigned int, 3> edges1;
-    array<unsigned int, 3> edges2;
+    unsigned int NewIdT1;
+    unsigned int NewIdT2;
+    array<unsigned int, 3> verticesT1;
+    array<unsigned int, 3> verticesT2;
+    array<unsigned int, 3> edgesT1;
+    array<unsigned int, 3> edgesT2;
 
 public:
     Division(Triangle& T);
-    Triangle T2 = Triangle(NewId1, vertices1, edges1);
-    Triangle T1 = Triangle(NewId2, vertices2, edges2);
 
 };
 
