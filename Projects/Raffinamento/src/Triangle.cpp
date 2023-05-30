@@ -15,17 +15,17 @@ using namespace Eigen;
 
 namespace RaffinamentoLibrary
 {
-    Triangle::Triangle(const unsigned int& Id, const array<unsigned int,3>& vertices, const array<unsigned int,3>& edges):
+    Triangle::Triangle(const unsigned int& Id, const array<unsigned int,3>& Idvertices, const array<unsigned int,3>& Idedges):
         Id(Id),
-        vertices(vertices),
-        edges(edges)
+        Idvertices(Idvertices),
+        Idedges(Idedges)
     {
-        p1.setId(vertices[1]);
-        p2.setId(vertices[2]);
-        p3.setId(vertices[3]);
-        edge1.setId(edges[1]);
-        edge2.setId(edges[2]);
-        edge3.setId(edges[3]);
+        p1 = Points[vertices[1]];
+        p2 = Points[vertices[2]];
+        p3 = Points[vertices[3]];
+        edge1 = Segments[edges[1]];
+        edge2 = Segments[edges[2]];
+        edge3 = Segments[edges[3]];
 
         Area = AreaCalculator(p1,p2,p3);
         longestEdge = FindLongestEdge(edge1, edge2, edge3);

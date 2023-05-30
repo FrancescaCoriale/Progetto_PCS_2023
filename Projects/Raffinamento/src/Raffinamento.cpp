@@ -138,22 +138,23 @@ void ImportMesh::Cell2D(TriangularMesh& Mesh)
         unsigned int Id;
         istringstream (row) >> Id;
 
-        array<unsigned int,3> vertices;
-        array<unsigned int,3> edges;
+        array<unsigned int,3> Idvertices;
+        array<unsigned int,3> Idedges;
         for (unsigned int i=0; i<3; i++) //contatore degli elementi del vettore interno
         {
             getline(rigaStream,row); //salva il 16 dentro row
-            istringstream(row) >> vertices[i];
+            istringstream(row) >> Idvertices[i];
         };
 
         for (unsigned int i=0; i<3; i++) //contatore degli elementi del vettore interno
         {
             getline(rigaStream,row); //salva il 16 dentro row
-            istringstream(row) >> edges[i];
+            istringstream(row) >> Idedges[i];
         };
 
-        Triangle* t = new Triangle(Id,vertices,edges);
+        Triangle* t = new Triangle(Id,Idvertices,Idedges);
         Mesh.Triangles.push_back(*t);
+        Mesh.OnOff.push_back(true);
     };
     //for(unsigned int i=0; i<80; i++){
     //    this->onOff.push_back(true);
@@ -171,56 +172,78 @@ Division::Division(Triangle& T){
     Point origin = T.longestEdge.origin;
     Point end = T.longestEdge.end;
     array<double,2> CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
-    unsigned int IdMidpoint = Mesh.NumberCell0D;
+    unsigned int IdMidpoint = Mesh.Points.size() + 1;
     Point Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
+    Points.push_back(Midpoint);
+
     Point Opposite;
 
     //cerco id del vertice opposto
     for (unsigned int i = 0; i<3; i++)
     {
-        if (origin.Id != T.vertices[i] || end.Id != T.vertices[i])
+        if (origin.Id != T.PointsTriangle[i].Id || end.Id != T.PointsTriangle[i].Id)
            {
-            Opposite.Id = T.vertices[i];
+            Opposite.Id = T.PointsTriangle[i].Id;
             }
-        if (T.longestEdge.Id != T.edges[i]) //se non è il lato che ho diviso in 2
+        if (T.longestEdge.Id != T.SegmentsTriangle[i].Id) //se non è il lato che ho diviso in 2
         {
-           // if (origin.Id =  )
+           if (origin.Id =  T.SegmentsTriangle[i].end.Id)
             {
                 for(unsigned int k=0; k<3; k++)
                 {
-                    if (k != i && T.longestEdge.Id != T.edges[k])
+                    if (k != i && T.longestEdge.Id != T.SegmentsTriangle[k].Id)
                     {
-                        unsigned int IdLatoSx = T.edges[i];
-                        unsigned int IdLatoDx = T.edges[k];
+                        unsigned int IdLatoSx = T.SegmentsTriangle[i].Id;
+                        unsigned int IdLatoDx = T.SegmentsTriangle[k].Id;
                     }
                 }
 
             }
-            //else
+            else if (end.Id =  T.SegmentsTriangle[i].origin.Id)
             {
                 for(unsigned int k=0; k<3; k++)
                 {
-                    if (k != i && T.longestEdge.Id != T.edges[k])
+                    if (k != i && T.longestEdge.Id != T.SegmentsTriangle[k].Id)
                     {
-                        unsigned int IdLatoSx = T.edges[k];
-                        unsigned int IdLatoDx = T.edges[i];
+                        unsigned int IdLatoSx = T.SegmentsTriangle[k].Id;
+                        unsigned int IdLatoDx = T.SegmentsTriangle[i].Id;
                     }
                 }
             }
         }
 
     };
+    OnOff[T.Id] = false;
 
-    unsigned int NewId;
-    Segment* NewS = new Segment(NewId,Opposite, Midpoint);
-    Segment* NewSO = new Segment(NewId,origin, Midpoint);
-    Segment* NewSE = new Segment(NewId,Midpoint, end);
-    unsigned int NewT1Id;
-    unsigned int NewT2Id;
+
+    unsigned int NewIdS = Segments.size()+1;
+    Segment* NewS = new Segment(NewIdS,Opposite.Id, Midpoint.Id);
+    Segments.push_back(*NewS);
+
+    unsigned int NewIdSO = Segments.size()+1;
+    Segment* NewSO = new Segment(NewIdSO,origin.Id, Midpoint.Id);
+    Segments.push_back(*NewSO);
+
+    unsigned int NewIdSE = Segments.size()+1;
+    Segment* NewSE = new Segment(NewIdSE,Midpoint.Id, end.Id);
+    Segments.push_back(*NewSE);
+
+
+
+
+
+
+    Mesh.OnOff.push_back(true);
+    unsigned int NewT1Id = OnOff.size();
     array<unsigned int, 3> vertices1 = {origin.Id, Midpoint.Id, Opposite.Id};
-    array<unsigned int, 3> vertices2 = {Midpoint.Id, end.Id, Opposite.Id};
     array<unsigned int, 3> edges1 = {NewS->Id, NewSO->Id,  };
+
+    Mesh.OnOff.push_back(true);
+    unsigned int NewT2Id = OnOff.size();
+    array<unsigned int, 3> vertices2 = {Midpoint.Id, end.Id, Opposite.Id};
     array<unsigned int, 3> edges2 = {NewS->Id, NewSE->Id, };
+
+
 }
 
 

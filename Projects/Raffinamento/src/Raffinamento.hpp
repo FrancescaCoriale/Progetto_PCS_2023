@@ -29,6 +29,7 @@ public:
     unsigned int NumberCell2D = 0; ///< number of Cell2D
     vector<vector<unsigned int>> LongestEdges = {};
     vector<Triangle> Triangles;
+    vector<bool> OnOff;
 
     list<list<unsigned int>> AdjacencyLists = {};
     //adiacenza: lista di liste: id triangolo è la posizione nel vettore esterno, id triangoli adiacenti sono i valori e id del lato confinante nel vettore interno
@@ -64,7 +65,9 @@ class Division{
     //creazione dei triangoli
     Triangle T;
     TriangularMesh Mesh;
-    unsigned int NewId;
+    //elementi nuovi triangoli
+    unsigned int NewId1;
+    unsigned int NewId2;
     array<unsigned int, 3> vertices1;
     array<unsigned int, 3> vertices2;
     array<unsigned int, 3> edges1;
@@ -72,12 +75,16 @@ class Division{
 
 public:
     Division(Triangle& T);
-    Triangle T2 = Triangle(NewId, vertices1, edges1);
-    Triangle T1 = Triangle(NewId, vertices2, edges2);
+    Triangle T2 = Triangle(NewId1, vertices1, edges1);
+    Triangle T1 = Triangle(NewId2, vertices2, edges2);
+
 };
 
 class Raffinamento {
-
+//prendo triangolo adiacente (ex T2)
+//controllo: il longestedge di T2 è uguale a longestedge di T1?
+        //se sì: fai solo division su T2
+        //altrimenti: fai division + segment tra midpoint del longestedge di T2 e del longestedge di T1
 };
 
 

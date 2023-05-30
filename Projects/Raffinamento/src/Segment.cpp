@@ -8,14 +8,16 @@
 
 namespace RaffinamentoLibrary
 {
-    Segment::Segment(unsigned int IdValue, Point oValue, Point eValue)
+    Segment::Segment(unsigned int IdValue, unsigned int oValue, unsigned int eValue)
     {
         Id = IdValue;
-        origin = oValue;
-        end = eValue;
+        origin = Points[oValue];
+        end = Points[eValue];
+
         length = LenghtEdge(origin, end);
         midPoint = MidPoint(origin, end);
     }
+
 
     double Segment::LenghtEdge(Point origin, Point end) {
         Vector2d diff={end.x-origin.x, end.y-origin.y};

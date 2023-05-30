@@ -2,13 +2,13 @@
 #define __TEST_RAFFINAMENTO_H
 
 #include <gtest/gtest.h>
-#include "MeshUtilities.hpp"
 #include "Raffinamento.hpp"
 using namespace testing;
 using namespace MeshUtilitiesLibrary;
 
-TEST(TestRaffinamento, TestRaffinamento)
+TEST(TestSegment, TestLengthEdge)
 {
+
 }
 
 #endif // __TEST_RAFFINAMENTO_H
