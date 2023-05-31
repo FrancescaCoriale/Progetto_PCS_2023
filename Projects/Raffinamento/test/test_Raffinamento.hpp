@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include "Raffinamento.hpp"
 using namespace testing;
-using namespace MeshUtilitiesLibrary;
+using namespace RaffinamentoLibrary;
 
 TEST(TestSegment, TestLengthEdge)
 {
