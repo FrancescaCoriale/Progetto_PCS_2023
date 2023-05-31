@@ -13,17 +13,18 @@ using namespace Eigen;
 //Coordinate x e y
 namespace RaffinamentoLibrary
 
-{class TriangularMesh; //sistemare puntatori
+{
+    class TriangularMesh; //sistemare puntatori
 
     class Triangle{
 
-        Point p1; //restituisce id, x e y
-        Point p2;
-        Point p3;
+        Point *p1; //restituisce id, x e y
+        Point *p2;
+        Point *p3;
 
-        Segment edge1; //restituisce origin, end, lunghezza e midpoint
-        Segment edge2;
-        Segment edge3;
+        Segment *edge1; //restituisce origin, end, lunghezza e midpoint
+        Segment *edge2;
+        Segment *edge3;
 
     public:
         double Area;

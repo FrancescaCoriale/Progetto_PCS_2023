@@ -16,23 +16,24 @@ using namespace std;
 namespace RaffinamentoLibrary {
 //FORWARD DECLARETION
 class Triangle;
+class TriangularMesh;
 
 class Segment {
     public:
     unsigned int Id;
-    Point origin;
-    Point end;
+    Point *origin;
+    Point *end;
 
-    Triangle * t1;
-    Triangle * t2;
+    Triangle *t1;
+    Triangle *t2;
 
     double length;
     array<double,2> midPoint;
 
-    Segment(unsigned int IdValue, unsigned int oValue, unsigned int eValue);
+    Segment(unsigned int& IdValue, unsigned int& oValue, unsigned int& eValue);
 
-    double LenghtEdge(Point origin, Point end);
-    array<double,2> MidPoint(Point origin, Point end);
+    double LenghtEdge(Point& origin, Point& end);
+    array<double,2> MidPoint(Point& origin, Point& end);
 
     Triangle *getT1(); //cosi restituisco i due triangoli che contengono il segmento (ADIACENZA)
     Triangle *getT2();
