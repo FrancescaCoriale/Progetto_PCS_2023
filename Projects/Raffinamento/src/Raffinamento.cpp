@@ -5,8 +5,8 @@
 #include "Raffinamento.hpp"
 #include "Point.hpp"
 #include "Segment.hpp"
-#include "Sorting.hpp"
-//#include "map"
+//#include "Sorting.hpp"
+
 
 using namespace SortLibrary;
 
@@ -162,7 +162,7 @@ void ImportMesh::Cell2D(TriangularMesh& Mesh)
 }
 
 SortedArea::SortedArea(vector<double>& Aree, unsigned int& theta) {
-    vector<double> SortedA = MergeSort(Aree, 0, Aree.size()-1);
+    SortedA = MergeSort(Aree, 0, Aree.size()-1);
     SortedA.resize(theta);
 }
 
@@ -216,43 +216,52 @@ Division::Division(Triangle& T){
         }
 
     };
+
+    //Spengo vecchio triangolo
     Mesh.OnOff[T.Id] = false;
 
 
-    unsigned int NewIdS = Mesh.Segments.size()+1;
+    //creo nuovi segmenti
+    unsigned int NewIdS = Mesh.Segments.size()+1; //segmento che collega Midpoint e Opposte
     Segment* NewS = new Segment(NewIdS,Opposite.Id, Midpoint.Id);
     Mesh.Segments.push_back(*NewS);
 
-    unsigned int NewIdSO = Mesh.Segments.size()+1;
+    unsigned int NewIdSO = Mesh.Segments.size()+1; //segmento che collega Midpoint e origin del longestEdge
     Segment* NewSO = new Segment(NewIdSO,origin.Id, Midpoint.Id);
     Mesh.Segments.push_back(*NewSO);
 
-    unsigned int NewIdSE = Mesh.Segments.size()+1;
+    unsigned int NewIdSE = Mesh.Segments.size()+1; //segmento che collega Midpoint ed end del longestEdge
     Segment* NewSE = new Segment(NewIdSE,Midpoint.Id, end.Id);
     Mesh.Segments.push_back(*NewSE);
 
 
+    //definisco nuovo triangolo T1
     Mesh.OnOff.push_back(true);
     unsigned int NewIdT1 = Mesh.OnOff.size();
     array<unsigned int, 3> verticesT1 = {origin.Id, Midpoint.Id, Opposite.Id};
     array<unsigned int, 3> edgesT1 = {NewS->Id, NewSO->Id, IdLatoSx};
+    Triangle T2 = Triangle(NewIdT1, verticesT1, edgesT1);
 
+    //definisco nuovo triangolo T2
     Mesh.OnOff.push_back(true);
     unsigned int NewIdT2 = Mesh.OnOff.size();
     array<unsigned int, 3> verticesT2 = {Midpoint.Id, end.Id, Opposite.Id};
     array<unsigned int, 3> edgesT2 = {NewS->Id, NewSE->Id, IdLatoDx};
-
-    Triangle T2 = Triangle(NewIdT1, verticesT1, edgesT1);
     Triangle T1 = Triangle(NewIdT2, verticesT2, edgesT2);
 
 }
 
+Raffinamento::Raffinamento(TriangularMesh& Mesh, Division& D, SortedArea& SA){
 
+    unsigned int Limit = SA.SortedA.size();
+    for (unsigned int i = 0; i < Limit; i++) //considero tutti i theta triangoli di area maggiore
+    {
 
-
-
-
+    }
 }
+
+
+} //fine namespace
 
 
 

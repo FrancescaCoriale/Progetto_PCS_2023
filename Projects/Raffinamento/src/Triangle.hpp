@@ -41,8 +41,10 @@ namespace RaffinamentoLibrary
         array<Segment,3> SegmentsTriangle = {edge1,edge2,edge3};
 
         double AreaCalculator(Point& p1, Point& p2, Point& p3);
-        //void setId(unsigned int IdVerice);
+
         Segment FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3);
+
+
     };
 }
 

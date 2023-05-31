@@ -8,11 +8,10 @@
 #include "Point.hpp"
 #include "Segment.hpp"
 #include "Triangle.hpp"
-#include "Sorting.hpp"
+//#include "Sorting.hpp"
 
 using namespace Eigen;
 using namespace std;
-using namespace SortLibrary;
 
 
 namespace RaffinamentoLibrary{
@@ -57,6 +56,8 @@ class SortedArea {
     vector<double> Aree = {};
     unsigned int theta = 10;
     public:
+    vector<double> SortedA;
+    SortedArea() = default;
     SortedArea(vector<double>& Aree, unsigned int& theta);
 };
 
@@ -74,6 +75,7 @@ class Division{
     array<unsigned int, 3> edgesT2;
 
 public:
+    Division() = default;
     Division(Triangle& T);
 
 };
@@ -83,6 +85,17 @@ class Raffinamento {
 //controllo: il longestedge di T2 è uguale a longestedge di T1?
         //se sì: fai solo division su T2
         //altrimenti: fai division + segment tra midpoint del longestedge di T2 e del longestedge di T1
+
+    SortedArea SA;
+    Division D;
+    Triangle T;
+    TriangularMesh Mesh;
+
+public:
+    Raffinamento()=default;
+    Raffinamento(TriangularMesh& Mesh, Division& D, SortedArea& SA);
+
+
 };
 
 
