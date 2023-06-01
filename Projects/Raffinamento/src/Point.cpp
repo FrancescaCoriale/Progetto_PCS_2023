@@ -14,7 +14,7 @@ namespace RaffinamentoLibrary
     y = 0.0;
     }
 
-    Point::Point(unsigned int IdValue, double xValue, double yValue)
+    Point::Point(unsigned int & IdValue, double & xValue, double & yValue)
     {
         Id = IdValue;
         x = xValue;

@@ -8,7 +8,7 @@
 #include "Point.hpp"
 #include "Segment.hpp"
 #include "Triangle.hpp"
-//#include "Sorting.hpp"
+#include "Sorting.hpp"
 
 using namespace Eigen;
 using namespace std;
@@ -64,8 +64,16 @@ class SortedArea {
 class Division{
     //divisione del triangolo
     //creazione dei triangoli
+    Point *origin;
+    Point *end;
+    array<double,2> CoordinatesMidpoint;
+    unsigned int IdMidpoint;
+    Point Midpoint;
     Triangle T;
     TriangularMesh Mesh;
+    unsigned int IdLatoSx;
+    unsigned int IdLatoDx;
+    Point Opposite;
     //elementi nuovi triangoli
     unsigned int NewIdT1;
     unsigned int NewIdT2;

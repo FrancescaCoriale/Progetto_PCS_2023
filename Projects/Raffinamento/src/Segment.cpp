@@ -10,12 +10,13 @@ namespace RaffinamentoLibrary
 {
     Segment::Segment(unsigned int& IdValue, unsigned int& oValue, unsigned int& eValue)
     {
+        PointsPt=&TriangularMesh::Points[0];
         Id = IdValue;
-        origin = &Points[oValue];
-        end = &Points[eValue];
+        origin =&PointsPt[oValue];
+        end = &PointsPt[eValue];
 
-        length = LenghtEdge(origin, end);
-        midPoint = MidPoint(origin, end);
+        length = LenghtEdge(&origin, &end);
+        midPoint = MidPoint(&origin, &end);
     }
 
 
@@ -24,7 +25,7 @@ namespace RaffinamentoLibrary
         return (diff).norm();
     }
 
-    array<double,2> Segment::MidPoint(Point& origin, Point& end) {
+    array<double,2> Segment::MidPoint(Point & origin, Point& end) {
         return {(end.y-origin.y)/2,(end.x-origin.x)/2};
     }
 

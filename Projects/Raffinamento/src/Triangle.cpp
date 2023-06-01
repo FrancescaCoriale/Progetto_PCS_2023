@@ -27,18 +27,18 @@ namespace RaffinamentoLibrary
         edge2 = &Segments[edges[2]];
         edge3 = &Segments[edges[3]];
 
-        Area = AreaCalculator(*p1,*p2,*p3);
-        longestEdge = FindLongestEdge(*edge1, *edge2, *edge3);
+        Area = AreaCalculator(&p1,&p2,&p3);
+        longestEdge = FindLongestEdge(&edge1, &edge2, &edge3);
     }
 
-    double AreaCalculator(Point& p1, Point& p2, Point& p3)
+    double AreaCalculator(&p1, &p2,&p3)
     {
-        double x1 = p1.x;
-        double y1 = p1.y;
-        double x2 = p2.x;
-        double y2 = p2.y;
-        double x3 = p3.x;
-        double y3 = p3.y;
+        double x1 = p1->x;
+        double y1 = p1->y;
+        double x2 = p2->x;
+        double y2 = p2->y;
+        double x3 = p3->x;
+        double y3 = p3->y;
         double doubleArea = 0;
 
         //Formula dell'area di Gauss
@@ -50,12 +50,12 @@ namespace RaffinamentoLibrary
 
     //void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
 
-    Segment FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3)
+    Segment FindLongestEdge(& edge1,&edge2, &edge3)
     {
         //array delle lunghezze
-        array<double,3> lunghezze = {edge1.length, edge2.length, edge3.length};
+        array<double,3> lunghezze = {edge1->length, edge2->length, edge3->length};
         //array degli id
-        array<Segment, 3> lati = {edge1, edge2, edge3};
+        array<Segment, 3> lati = {*edge1, *edge2, *edge3};
 
         //restituisce l'iteratore che punta all'elemento massimo dell'array
         auto maxIterator = max_element(lunghezze.begin(), lunghezze.end());

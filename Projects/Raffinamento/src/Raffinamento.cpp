@@ -5,7 +5,7 @@
 #include "Raffinamento.hpp"
 #include "Point.hpp"
 #include "Segment.hpp"
-//#include "Sorting.hpp"
+#include "Sorting.hpp"
 
 
 using namespace SortLibrary;
@@ -169,16 +169,15 @@ SortedArea::SortedArea(vector<double>& Aree, unsigned int& theta) {
 Division::Division(Triangle& T){
      //origin = T.longestEdge.origin;
      //end = T.longestEdge.end;
-    Point origin = T.longestEdge.origin;
-    Point end = T.longestEdge.end;
-    array<double,2> CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
-    unsigned int IdMidpoint = Mesh.Points.size() + 1;
-    Point Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
+    origin = &T.longestEdge.origin;
+    end = &T.longestEdge.end;
+    CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
+    IdMidpoint = Mesh.Points.size() + 1;
+    Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
     Mesh.Points.push_back(Midpoint);
-    unsigned int IdLatoSx;
-    unsigned int IdLatoDx;
 
-    Point Opposite;
+
+
 
     //cerco id del vertice opposto
     for (unsigned int i = 0; i<3; i++)

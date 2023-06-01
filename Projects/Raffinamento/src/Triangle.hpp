@@ -37,12 +37,12 @@ namespace RaffinamentoLibrary
         Triangle();
         Triangle(const unsigned int& Id, array<unsigned int,3>& Idvertices, array<unsigned int,3>& Idedges);
 
-        array<Point,3> PointsTriangle = {p1,p2,p3};
-        array<Segment,3> SegmentsTriangle = {edge1,edge2,edge3};
+        array<Point,3> PointsTriangle = {*p1,*p2,*p3};
+        array<Segment,3> SegmentsTriangle = {*edge1,*edge2,*edge3};
 
-        double AreaCalculator(Point& p1, Point& p2, Point& p3);
+        double AreaCalculator(Point* p1, Point* p2, Point* p3);
 
-        Segment FindLongestEdge(Segment& edge1,Segment& edge2, Segment& edge3);
+        Segment FindLongestEdge(Segment* edge1,Segment* edge2, Segment* edge3);
 
 
     };
