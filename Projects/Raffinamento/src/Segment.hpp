@@ -16,7 +16,6 @@ using namespace std;
 namespace RaffinamentoLibrary {
 //FORWARD DECLARETION
 class Triangle;
-class TriangularMesh;
 
 class Segment {
     public:
@@ -24,15 +23,13 @@ class Segment {
     Point *origin;
     Point *end;
 
-    Point*PointsPt= nullptr;
-
     Triangle *t1;
     Triangle *t2;
 
     double length;
     array<double,2> midPoint;
 
-    Segment(unsigned int &IdValue, unsigned int& oValue, unsigned int& eValue);
+    Segment(std::vector<Point>* points, unsigned int &IdValue, unsigned int& oValue, unsigned int& eValue);
 
     double LenghtEdge(Point* origin, Point* end);
     array<double,2> MidPoint(Point* origin, Point* end);

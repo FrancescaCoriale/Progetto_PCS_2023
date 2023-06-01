@@ -14,8 +14,6 @@ using namespace Eigen;
 namespace RaffinamentoLibrary
 
 {
-    class TriangularMesh; //sistemare puntatori
-
     class Triangle{
 
         Point *p1; //restituisce id, x e y
@@ -35,7 +33,7 @@ namespace RaffinamentoLibrary
         const array<unsigned int,3>& Idedges;
 
         Triangle();
-        Triangle(const unsigned int& Id, array<unsigned int,3>& Idvertices, array<unsigned int,3>& Idedges);
+        Triangle(std::vector<Point>* points,std::vector<Segment>* segments,const unsigned int& Id, array<unsigned int,3>& Idvertices, array<unsigned int,3>& Idedges);
 
         array<Point,3> PointsTriangle = {*p1,*p2,*p3};
         array<Segment,3> SegmentsTriangle = {*edge1,*edge2,*edge3};

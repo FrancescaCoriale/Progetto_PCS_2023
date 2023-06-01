@@ -8,12 +8,11 @@
 
 namespace RaffinamentoLibrary
 {
-    Segment::Segment(unsigned int& IdValue, unsigned int& oValue, unsigned int& eValue)
+Segment::Segment(std::vector<Point>* points, unsigned int& IdValue, unsigned int& oValue, unsigned int& eValue)
     {
-        PointsPt=&TriangularMesh::Points[0];
         Id = IdValue;
-        origin =&PointsPt[oValue];
-        end = &PointsPt[eValue];
+        origin =&points[oValue];
+        end = &points[eValue];
 
         length = LenghtEdge(&origin, &end);
         midPoint = MidPoint(&origin, &end);

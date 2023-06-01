@@ -13,10 +13,10 @@ using namespace RaffinamentoLibrary;
 
 namespace SortLibrary{
 
-class MergeSort{
+class MergeSort{ //non fare classe,prendere il file di sorting e cambiare il tipo in triangle
 
     Triangle T;
-    TriangularMesh Mesh;
+    RaffinamentoLibrary::TriangularMesh Mesh;
     vector<Triangle> v = Mesh.Triangles;
 
 public:
