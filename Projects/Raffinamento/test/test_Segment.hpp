@@ -3,7 +3,7 @@
 
 #include <cmath>
 #include <gtest/gtest.h>
-#include "Segment.hpp"
+#include "iostream"
 #include "Raffinamento.hpp"
 #include "Point.hpp"
 #include "Eigen/Eigen"
@@ -14,10 +14,11 @@ using namespace RaffinamentoLibrary;
 using namespace testing;
 TEST(TestRaffinamento, TestLenghtEdge)
 {
+    Segment S;
     unsigned int IdEdge=5;
     Point origin= Point(13,0.5,0.5);
     Point end= Point(3,1,1);
-    double lenght=Segment::LenghtEdge(origin,end);
+    double lenght=S.LenghtEdge(origin,end);
     EXPECT_EQ=(lenght,1/sqrt(2));
 
 }

@@ -35,8 +35,13 @@ namespace RaffinamentoLibrary
         Triangle();
         Triangle(std::vector<Point>* points,std::vector<Segment>* segments,const unsigned int& Id, array<unsigned int,3>& Idvertices, array<unsigned int,3>& Idedges);
 
+<<<<<<< Updated upstream
         array<Point,3> PointsTriangle = {*p1,*p2,*p3};
         array<Segment,3> SegmentsTriangle = {*edge1,*edge2,*edge3};
+=======
+        array<Point,3> PointsTriangle = {*p1, *p2, *p3};
+        array<Segment,3> SegmentsTriangle = {*edge1, *edge2, *edge3};
+>>>>>>> Stashed changes
 
         double AreaCalculator(Point* p1, Point* p2, Point* p3);
 

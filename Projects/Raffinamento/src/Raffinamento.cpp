@@ -169,11 +169,19 @@ SortedArea::SortedArea(vector<double>& Aree, unsigned int& theta) {
 Division::Division(Triangle& T){
      //origin = T.longestEdge.origin;
      //end = T.longestEdge.end;
+<<<<<<< Updated upstream
     origin = &T.longestEdge.origin;
     end = &T.longestEdge.end;
     CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
     IdMidpoint = Mesh.Points.size() + 1;
     Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
+=======
+    Point * origin = T.longestEdge.origin;
+    Point * end = T.longestEdge.end;
+    array<double,2> CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
+    unsigned int IdMidpoint = Mesh.Points.size() + 1;
+    Point Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
+>>>>>>> Stashed changes
     Mesh.Points.push_back(Midpoint);
 
 
@@ -182,13 +190,13 @@ Division::Division(Triangle& T){
     //cerco id del vertice opposto
     for (unsigned int i = 0; i<3; i++)
     {
-        if (origin.Id != T.PointsTriangle[i].Id || end.Id != T.PointsTriangle[i].Id)
+        if ((*origin).Id != T.PointsTriangle[i].Id || (*end).Id != T.PointsTriangle[i].Id)
            {
             Opposite.Id = T.PointsTriangle[i].Id;
             }
         if (T.longestEdge.Id != T.SegmentsTriangle[i].Id) //se non è il lato che ho diviso in 2
         {
-           if (origin.Id ==  T.SegmentsTriangle[i].end.Id)
+           if ((*origin).Id ==  T.SegmentsTriangle[i].(*end).Id)
             {
                 IdLatoSx = T.SegmentsTriangle[i].Id;
                 for(unsigned int k=0; k<3; k++)
