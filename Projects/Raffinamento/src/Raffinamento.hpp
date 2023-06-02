@@ -50,6 +50,7 @@ public:
 class Division{
     //divisione del triangolo
     //creazione dei triangoli
+public:
     Point *origin;
     Point *end;
     array<double,2> CoordinatesMidpoint;
@@ -72,7 +73,7 @@ class Division{
     vector<Segment>* segments;
 
 
-public:
+
     Division() = default;
     Division(Triangle& T);
 

@@ -34,7 +34,7 @@ namespace RaffinamentoLibrary
         //const array<unsigned int,3>& Idvertices;
         //const array<unsigned int,3>& Idedges;
 
-        //Triangle();
+        Triangle();
         Triangle(vector<Point>* points, vector<Segment>* segments,
                  const unsigned int& Idvalue, const array<unsigned int,3>& Idvertices,
                  const array<unsigned int,3>& Idedges);
