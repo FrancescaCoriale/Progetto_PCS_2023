@@ -62,12 +62,21 @@ public:
     unsigned int IdLatoDx;
     Point * Opposite;
     //elementi nuovi triangoli
+    unsigned int NewIdS;
+    unsigned int NewIdSO;
+    unsigned int NewIdSE;
+    Segment* NewS;
+    Segment* NewSO;
+    Segment* NewSE;
+
     unsigned int NewIdT1;
     unsigned int NewIdT2;
     array<unsigned int, 3> verticesT1;
     array<unsigned int, 3> verticesT2;
     array<unsigned int, 3> edgesT1;
     array<unsigned int, 3> edgesT2;
+    Triangle * newT1;
+    Triangle * newT2;
 
     vector<Point>* points;
     vector<Segment>* segments;

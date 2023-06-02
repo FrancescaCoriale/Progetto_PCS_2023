@@ -217,16 +217,16 @@ Division::Division(Triangle& T):
 
 
     //creo nuovi segmenti
-    unsigned int NewIdS = Mesh.Segments.size()+1; //segmento che collega Midpoint e Opposte
-    Segment* NewS = new Segment(points, NewIdS, Opposite->Id, Midpoint.Id);
+    NewIdS = Mesh.Segments.size()+1; //segmento che collega Midpoint e Opposte
+    NewS = new Segment(points, NewIdS, Opposite->Id, Midpoint.Id);
     Mesh.Segments.push_back(*NewS);
 
-    unsigned int NewIdSO = Mesh.Segments.size()+1; //segmento che collega Midpoint e origin del longestEdge
-    Segment* NewSO = new Segment(points,NewIdSO,origin->Id, Midpoint.Id);
+    NewIdSO = Mesh.Segments.size()+1; //segmento che collega Midpoint e origin del longestEdge
+    NewSO = new Segment(points,NewIdSO,origin->Id, Midpoint.Id);
     Mesh.Segments.push_back(*NewSO);
 
-    unsigned int NewIdSE = Mesh.Segments.size()+1; //segmento che collega Midpoint ed end del longestEdge
-    Segment* NewSE = new Segment(points,NewIdSE,Midpoint.Id, end->Id);
+    NewIdSE = Mesh.Segments.size()+1; //segmento che collega Midpoint ed end del longestEdge
+    NewSE = new Segment(points,NewIdSE,Midpoint.Id, end->Id);
     Mesh.Segments.push_back(*NewSE);
 
 
@@ -234,21 +234,21 @@ Division::Division(Triangle& T):
     //Mesh.OnOff.push_back(true);
     //unsigned int NewIdT1 = Mesh.OnOff.size();
 
-    unsigned int NewIdT1 = Mesh.Triangles.size()+1;
-    array<unsigned int, 3> verticesT1 = {origin->Id, Midpoint.Id, Opposite->Id};
-    array<unsigned int, 3> edgesT1 = {NewS->Id, NewSO->Id, IdLatoSx};
-    Triangle* T1 = new Triangle(points, segments, NewIdT1, verticesT1, edgesT1);
-    Mesh.Triangles.push_back(*T1);
+    NewIdT1 = Mesh.Triangles.size()+1;
+    verticesT1 = {origin->Id, Midpoint.Id, Opposite->Id};
+    edgesT1 = {NewS->Id, NewSO->Id, IdLatoSx};
+    newT1 = new Triangle(points, segments, NewIdT1, verticesT1, edgesT1);
+    Mesh.Triangles.push_back(*newT1);
 
     //definisco nuovo triangolo T2
     //Mesh.OnOff.push_back(true);
     //unsigned int NewIdT2 = Mesh.OnOff.size();
 
-    unsigned int NewIdT2 = Mesh.Triangles.size()+1;
-    array<unsigned int, 3> verticesT2 = {Midpoint.Id, end->Id, Opposite->Id};
-    array<unsigned int, 3> edgesT2 = {NewS->Id, NewSE->Id, IdLatoDx};
-    Triangle* T2 = new Triangle(points, segments, NewIdT2, verticesT2, edgesT2);
-    Mesh.Triangles.push_back(*T2);
+    NewIdT2 = Mesh.Triangles.size()+1;
+    verticesT2 = {Midpoint.Id, end->Id, Opposite->Id};
+    edgesT2 = {NewS->Id, NewSE->Id, IdLatoDx};
+    newT2 = new Triangle(points, segments, NewIdT2, verticesT2, edgesT2);
+    Mesh.Triangles.push_back(*newT2);
 }
 
 
