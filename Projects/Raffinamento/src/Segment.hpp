@@ -29,7 +29,7 @@ class Segment {
     double length;
     array<double,2> midPoint;
 
-    Segment(std::vector<Point>* points, unsigned int &IdValue, unsigned int& oValue, unsigned int& eValue);
+    Segment(vector<Point>* Points, unsigned int &IdValue, unsigned int& oValue, unsigned int& eValue);
 
     double LenghtEdge(Point* origin, Point* end);
     array<double,2> MidPoint(Point* origin, Point* end);

@@ -5,10 +5,6 @@
 #include "Raffinamento.hpp"
 #include "Point.hpp"
 #include "Segment.hpp"
-#include "Sorting.hpp"
-
-
-using namespace SortLibrary;
 
 namespace RaffinamentoLibrary
 {
@@ -161,42 +157,31 @@ void ImportMesh::Cell2D(TriangularMesh& Mesh)
     //}
 }
 
-SortedArea::SortedArea(vector<double>& Aree, unsigned int& theta) {
-    SortedA = MergeSort(Aree, 0, Aree.size()-1);
-    SortedA.resize(theta);
-}
 
-Division::Division(Triangle& T){
-     //origin = T.longestEdge.origin;
-     //end = T.longestEdge.end;
-<<<<<<< Updated upstream
-    origin = &T.longestEdge.origin;
-    end = &T.longestEdge.end;
+
+Division::Division(Triangle& T):
+    T(T)
+{
+    points = &Mesh.Points;
+    segments = &Mesh.Segments;
+    origin = T.longestEdge.origin;
+    end = T.longestEdge.end;
     CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
     IdMidpoint = Mesh.Points.size() + 1;
     Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
-=======
-    Point * origin = T.longestEdge.origin;
-    Point * end = T.longestEdge.end;
-    array<double,2> CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
-    unsigned int IdMidpoint = Mesh.Points.size() + 1;
-    Point Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
->>>>>>> Stashed changes
     Mesh.Points.push_back(Midpoint);
-
-
 
 
     //cerco id del vertice opposto
     for (unsigned int i = 0; i<3; i++)
     {
         if ((*origin).Id != T.PointsTriangle[i].Id || (*end).Id != T.PointsTriangle[i].Id)
-           {
+        {
             Opposite.Id = T.PointsTriangle[i].Id;
-            }
+        }
         if (T.longestEdge.Id != T.SegmentsTriangle[i].Id) //se non è il lato che ho diviso in 2
         {
-           if ((*origin).Id ==  T.SegmentsTriangle[i].(*end).Id)
+            if (origin->Id ==  T.SegmentsTriangle[i].end->Id)
             {
                 IdLatoSx = T.SegmentsTriangle[i].Id;
                 for(unsigned int k=0; k<3; k++)
@@ -206,9 +191,8 @@ Division::Division(Triangle& T){
                         IdLatoDx = T.SegmentsTriangle[k].Id;
                     }
                 }
-
             }
-            else if (end.Id ==  T.SegmentsTriangle[i].origin.Id)
+            else if (end->Id ==  T.SegmentsTriangle[i].origin->Id)
             {
                 IdLatoDx = T.SegmentsTriangle[i].Id;
                 for(unsigned int k=0; k<3; k++)
@@ -230,42 +214,34 @@ Division::Division(Triangle& T){
 
     //creo nuovi segmenti
     unsigned int NewIdS = Mesh.Segments.size()+1; //segmento che collega Midpoint e Opposte
-    Segment* NewS = new Segment(NewIdS,Opposite.Id, Midpoint.Id);
+    Segment* NewS = new Segment(points, NewIdS, Opposite->Id, Midpoint.Id);
     Mesh.Segments.push_back(*NewS);
 
     unsigned int NewIdSO = Mesh.Segments.size()+1; //segmento che collega Midpoint e origin del longestEdge
-    Segment* NewSO = new Segment(NewIdSO,origin.Id, Midpoint.Id);
+    Segment* NewSO = new Segment(points,NewIdSO,origin->Id, Midpoint.Id);
     Mesh.Segments.push_back(*NewSO);
 
     unsigned int NewIdSE = Mesh.Segments.size()+1; //segmento che collega Midpoint ed end del longestEdge
-    Segment* NewSE = new Segment(NewIdSE,Midpoint.Id, end.Id);
+    Segment* NewSE = new Segment(points,NewIdSE,Midpoint.Id, end->Id);
     Mesh.Segments.push_back(*NewSE);
 
 
     //definisco nuovo triangolo T1
     Mesh.OnOff.push_back(true);
     unsigned int NewIdT1 = Mesh.OnOff.size();
-    array<unsigned int, 3> verticesT1 = {origin.Id, Midpoint.Id, Opposite.Id};
+    array<unsigned int, 3> verticesT1 = {origin->Id, Midpoint.Id, Opposite->Id};
     array<unsigned int, 3> edgesT1 = {NewS->Id, NewSO->Id, IdLatoSx};
-    Triangle T2 = Triangle(NewIdT1, verticesT1, edgesT1);
+    Triangle T2 = Triangle(points, segments, NewIdT1, verticesT1, edgesT1);
 
     //definisco nuovo triangolo T2
     Mesh.OnOff.push_back(true);
     unsigned int NewIdT2 = Mesh.OnOff.size();
-    array<unsigned int, 3> verticesT2 = {Midpoint.Id, end.Id, Opposite.Id};
+    array<unsigned int, 3> verticesT2 = {Midpoint.Id, end->Id, Opposite->Id};
     array<unsigned int, 3> edgesT2 = {NewS->Id, NewSE->Id, IdLatoDx};
-    Triangle T1 = Triangle(NewIdT2, verticesT2, edgesT2);
-
+    Triangle T1 = Triangle(points, segments, NewIdT2, verticesT2, edgesT2);
 }
 
-Raffinamento::Raffinamento(TriangularMesh& Mesh, Division& D, SortedArea& SA){
 
-    unsigned int Limit = SA.SortedA.size();
-    for (unsigned int i = 0; i < Limit; i++) //considero tutti i theta triangoli di area maggiore
-    {
-
-    }
-}
 
 
 } //fine namespace

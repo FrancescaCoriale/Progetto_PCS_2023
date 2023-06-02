@@ -8,7 +8,6 @@
 #include "Point.hpp"
 #include "Segment.hpp"
 #include "Triangle.hpp"
-#include "Sorting.hpp"
 
 using namespace Eigen;
 using namespace std;
@@ -48,19 +47,6 @@ public:
 };
 
 
-
-
-
-class SortedArea {
-
-    vector<double> Aree = {};
-    unsigned int theta = 10;
-    public:
-    vector<double> SortedA;
-    SortedArea() = default;
-    SortedArea(vector<double>& Aree, unsigned int& theta);
-};
-
 class Division{
     //divisione del triangolo
     //creazione dei triangoli
@@ -73,7 +59,7 @@ class Division{
     TriangularMesh Mesh;
     unsigned int IdLatoSx;
     unsigned int IdLatoDx;
-    Point Opposite;
+    Point * Opposite;
     //elementi nuovi triangoli
     unsigned int NewIdT1;
     unsigned int NewIdT2;
@@ -81,6 +67,10 @@ class Division{
     array<unsigned int, 3> verticesT2;
     array<unsigned int, 3> edgesT1;
     array<unsigned int, 3> edgesT2;
+
+    vector<Point>* points;
+    vector<Segment>* segments;
+
 
 public:
     Division() = default;
@@ -94,14 +84,12 @@ class Raffinamento {
         //se sì: fai solo division su T2
         //altrimenti: fai division + segment tra midpoint del longestedge di T2 e del longestedge di T1
 
-    SortedArea SA;
     Division D;
     Triangle T;
     TriangularMesh Mesh;
 
 public:
-    Raffinamento()=default;
-    Raffinamento(TriangularMesh& Mesh, Division& D, SortedArea& SA);
+    Raffinamento();
 
 
 };

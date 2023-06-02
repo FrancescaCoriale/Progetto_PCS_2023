@@ -10,19 +10,8 @@ using namespace std;
 using namespace Eigen;
 using namespace RaffinamentoLibrary;
 
-<<<<<<< Updated upstream
-namespace SortLibrary{
 
-class MergeSort{ //non fare classe,prendere il file di sorting e cambiare il tipo in triangle
-
-    Triangle T;
-    RaffinamentoLibrary::TriangularMesh Mesh;
-    vector<Triangle> v = Mesh.Triangles;
-=======
 namespace SortingLibrary{
-
-    Triangle T;
->>>>>>> Stashed changes
 
     inline bool operator > (const Triangle & object1, const Triangle & object2)
     {return object1.Area > object2.Area;}
