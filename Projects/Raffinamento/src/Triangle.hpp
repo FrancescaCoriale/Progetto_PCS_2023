@@ -17,15 +17,18 @@ namespace RaffinamentoLibrary
     class Triangle{
 
 
-        Point *p1; //restituisce id, x e y
-        Point *p2;
-        Point *p3;
+        Point p1; //restituisce id, x e y
+        Point p2;
+        Point p3;
 
-        Segment *edge1; //restituisce origin, end, lunghezza e midpoint
-        Segment *edge2;
-        Segment *edge3;
+        Segment edge1; //restituisce origin, end, lunghezza e midpoint
+        Segment edge2;
+        Segment edge3;
 
     public:
+
+        array<Point,3> pointsTriangle;
+        array<Segment,3> segmentsTriangle;
 
         Segment longestEdge;
         double Area;
@@ -34,19 +37,15 @@ namespace RaffinamentoLibrary
         //const array<unsigned int,3>& Idvertices;
         //const array<unsigned int,3>& Idedges;
 
-        Triangle();
-        Triangle(vector<Point>* points, vector<Segment>* segments,
-                 const unsigned int& Idvalue, const array<unsigned int,3>& Idvertices,
-                 const array<unsigned int,3>& Idedges);
-
-        array<Point,3> PointsTriangle = {*p1,*p2,*p3};
-        array<Segment,3> SegmentsTriangle = {*edge1,*edge2,*edge3};
+        Triangle() = default;
+        Triangle(const unsigned int& Idvalue, const array<Point,3>& vertices,
+                 const array<Segment,3>& edges);
 
 
-        double AreaCalculator(Point* p1, Point* p2, Point* p3);
+        double AreaCalculator(const Point &p1,const Point &p2, const Point &p3);
 
         //Segment FindLongestEdge();
-        Segment FindLongestEdge(Segment* edge1,Segment* edge2, Segment* edge3);
+        Segment FindLongestEdge(const Segment &edge1, const Segment &edge2, const Segment &edge3);
 
 
     };

@@ -20,8 +20,8 @@ class Triangle;
 class Segment {
     public:
     unsigned int Id;
-    Point *origin;
-    Point *end;
+    Point origin;
+    Point end;
 
     Triangle *t1;
     Triangle *t2;
@@ -29,10 +29,11 @@ class Segment {
     double length;
     array<double,2> midPoint;
 
-    Segment(vector<Point>* Points, unsigned int &IdValue, unsigned int& oValue, unsigned int& eValue);
+    Segment() = default;
+    Segment(unsigned int &IdValue, Point& origin, Point& end);
 
-    double LenghtEdge(Point* origin, Point* end);
-    array<double,2> MidPoint(Point* origin, Point* end);
+    double LenghtEdge(Point &origin, Point &end);
+    array<double,2> MidPoint(Point &origin, Point &end);
 
     Triangle *getT1(); //cosi restituisco i due triangoli che contengono il segmento (ADIACENZA)
     Triangle *getT2();

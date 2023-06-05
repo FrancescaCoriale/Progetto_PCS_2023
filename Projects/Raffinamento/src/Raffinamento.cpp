@@ -58,7 +58,6 @@ void ImportMesh::Cell0D(TriangularMesh& Mesh)
 
 void ImportMesh::Cell1D(TriangularMesh& Mesh)
 {
-    vector<Point> *points = &Mesh.Points;
     ifstream file;
     file.open("C:/Users/annam/Desktop/Progetto_PCS_2023/Projects/Raffinamento/Dataset/Test2/Cell1Ds.csv");
 
@@ -98,16 +97,15 @@ void ImportMesh::Cell1D(TriangularMesh& Mesh)
         getline(rigaStream,row) ;
         istringstream(row) >> IdEnd;
 
-        Segment* s = new Segment(points,id,IdOrigin,IdEnd);
+        Point origin = Mesh.Points[IdOrigin];
+        Point end = Mesh.Points[IdEnd];
+        Segment* s = new Segment(id,origin,end);
         Mesh.Segments.push_back(*s);
     }
 }
 
 void ImportMesh::Cell2D(TriangularMesh& Mesh)
 {
-    vector<Point> *points = &Mesh.Points;
-    vector<Segment> *segments = &Mesh.Segments;
-
     ifstream file;
     file.open("./Cell2Ds.csv");
     if (file.fail())
@@ -138,21 +136,25 @@ void ImportMesh::Cell2D(TriangularMesh& Mesh)
         unsigned int Id;
         istringstream (row) >> Id;
 
-        array<unsigned int,3> Idvertices;
-        array<unsigned int,3> Idedges;
+        unsigned int IdVertix;
+        unsigned int IdEdge;
+        array<Point,3> vertices;
+        array<Segment,3> edges;
         for (unsigned int i=0; i<3; i++) //contatore degli elementi del vettore interno
         {
             getline(rigaStream,row); //salva il 16 dentro row
-            istringstream(row) >> Idvertices[i];
+            istringstream(row) >> IdVertix;
+            vertices[i] = Mesh.Points[IdVertix];
         };
 
         for (unsigned int i=0; i<3; i++) //contatore degli elementi del vettore interno
         {
             getline(rigaStream,row); //salva il 16 dentro row
-            istringstream(row) >> Idedges[i];
+            istringstream(row) >> IdEdge;
+            edges[i] = Mesh.Segments[IdEdge];
         };
 
-        Triangle* t = new Triangle(points, segments, Id,Idvertices,Idedges);
+        Triangle* t = new Triangle(Id,vertices,edges);
         Mesh.Triangles.push_back(*t);
         Mesh.OnOff.push_back(true);
     };
@@ -166,8 +168,7 @@ void ImportMesh::Cell2D(TriangularMesh& Mesh)
 Division::Division(Triangle& T):
     T(T)
 {
-    points = &Mesh.Points;
-    segments = &Mesh.Segments;
+
     origin = T.longestEdge.origin;
     end = T.longestEdge.end;
     CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
@@ -179,31 +180,31 @@ Division::Division(Triangle& T):
     //cerco id del vertice opposto
     for (unsigned int i = 0; i<3; i++)
     {
-        if (origin->Id != T.PointsTriangle[i].Id || end->Id != T.PointsTriangle[i].Id)
+        if (origin.Id != T.pointsTriangle[i].Id || end.Id != T.pointsTriangle[i].Id)
         {
-            Opposite->Id = T.PointsTriangle[i].Id;
+            Opposite.Id = T.pointsTriangle[i].Id;
         }
-        if (T.longestEdge.Id != T.SegmentsTriangle[i].Id) //se non è il lato che ho diviso in 2
+        if (T.longestEdge.Id != T.segmentsTriangle[i].Id) //se non è il lato che ho diviso in 2
         {
-            if (origin->Id ==  T.SegmentsTriangle[i].end->Id)
+            if (origin.Id ==  T.segmentsTriangle[i].end.Id)
             {
-                IdLatoSx = T.SegmentsTriangle[i].Id;
+                IdLatoSx = T.segmentsTriangle[i].Id;
                 for(unsigned int k=0; k<3; k++)
                 {
                     if (k != T.longestEdge.Id && k != i)
                     {
-                        IdLatoDx = T.SegmentsTriangle[k].Id;
+                        IdLatoDx = T.segmentsTriangle[k].Id;
                     }
                 }
             }
-            else if (end->Id ==  T.SegmentsTriangle[i].origin->Id)
+            else if (end.Id ==  T.segmentsTriangle[i].origin.Id)
             {
-                IdLatoDx = T.SegmentsTriangle[i].Id;
+                IdLatoDx = T.segmentsTriangle[i].Id;
                 for(unsigned int k=0; k<3; k++)
                 {
-                    if (k != i && T.longestEdge.Id != T.SegmentsTriangle[k].Id)
+                    if (k != i && T.longestEdge.Id != T.segmentsTriangle[k].Id)
                     {
-                        IdLatoSx = T.SegmentsTriangle[k].Id;
+                        IdLatoSx = T.segmentsTriangle[k].Id;
 
                     }
                 }
@@ -218,16 +219,16 @@ Division::Division(Triangle& T):
 
     //creo nuovi segmenti
     NewIdS = Mesh.Segments.size()+1; //segmento che collega Midpoint e Opposte
-    NewS = new Segment(points, NewIdS, Opposite->Id, Midpoint.Id);
-    Mesh.Segments.push_back(*NewS);
+    NewS = new Segment(NewIdS, Opposite, Midpoint);
+    Mesh.Segments.push_back(NewS);
 
     NewIdSO = Mesh.Segments.size()+1; //segmento che collega Midpoint e origin del longestEdge
-    NewSO = new Segment(points,NewIdSO,origin->Id, Midpoint.Id);
-    Mesh.Segments.push_back(*NewSO);
+    NewSO = new Segment(NewIdSO, origin, Midpoint);
+    Mesh.Segments.push_back(NewSO);
 
     NewIdSE = Mesh.Segments.size()+1; //segmento che collega Midpoint ed end del longestEdge
-    NewSE = new Segment(points,NewIdSE,Midpoint.Id, end->Id);
-    Mesh.Segments.push_back(*NewSE);
+    NewSE = new Segment(NewIdSE,Midpoint, end);
+    Mesh.Segments.push_back(NewSE);
 
 
     //definisco nuovo triangolo T1
@@ -235,19 +236,21 @@ Division::Division(Triangle& T):
     //unsigned int NewIdT1 = Mesh.OnOff.size();
 
     NewIdT1 = Mesh.Triangles.size()+1;
-    verticesT1 = {origin->Id, Midpoint.Id, Opposite->Id};
-    edgesT1 = {NewS->Id, NewSO->Id, IdLatoSx};
-    newT1 = new Triangle(points, segments, NewIdT1, verticesT1, edgesT1);
-    Mesh.Triangles.push_back(*newT1);
+    latoSx = Mesh.Segments[IdLatoSx];
+    verticesT1 = {origin, Midpoint, Opposite};
+    edgesT1 = {NewS, NewSO, latoSx};
+    newT1 = new Triangle(NewIdT1, verticesT1, edgesT1);
+    Mesh.Triangles.push_back(newT1);
 
     //definisco nuovo triangolo T2
     //Mesh.OnOff.push_back(true);
     //unsigned int NewIdT2 = Mesh.OnOff.size();
 
     NewIdT2 = Mesh.Triangles.size()+1;
-    verticesT2 = {Midpoint.Id, end->Id, Opposite->Id};
-    edgesT2 = {NewS->Id, NewSE->Id, IdLatoDx};
-    newT2 = new Triangle(points, segments, NewIdT2, verticesT2, edgesT2);
+    latoDx = Mesh.Segments[IdLatoDx];
+    verticesT2 = {Midpoint, end, Opposite};
+    edgesT2 = {NewS, NewSE, IdLatoDx};
+    newT2 = new Triangle(NewIdT2, verticesT2, edgesT2);
     Mesh.Triangles.push_back(*newT2);
 }
 

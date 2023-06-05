@@ -9,24 +9,21 @@ using namespace std;
 
 namespace RaffinamentoLibrary
 {
-Segment::Segment(vector<Point>* points, unsigned int& IdValue, unsigned int& oValue, unsigned int& eValue)
+Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& end)
     {
         Id = IdValue;
-        origin = &((*points)[oValue]);
-        end = &((*points)[eValue]);
-
         length = LenghtEdge(origin, end);
         midPoint = MidPoint(origin, end);
     }
 
 
-    double Segment::LenghtEdge(Point* origin, Point* end) {
-        Vector2d diff={end->x-origin->x, end->y-origin->y};
+    double Segment::LenghtEdge(Point &origin, Point &end) {
+        Vector2d diff={end.x-origin.x, end.y-origin.y};
         return (diff).norm();
     }
 
-    array<double,2> Segment::MidPoint(Point * origin, Point* end) {
-        return {(end->y - origin->y)/2,(end->x - origin->x)/2};
+    array<double,2> Segment::MidPoint(Point &origin, Point &end) {
+        return {(end.y - origin.y)/2,(end.x - origin.x)/2};
     }
 
     Triangle* Segment::getT1() {return t1;}

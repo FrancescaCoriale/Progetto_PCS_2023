@@ -51,37 +51,34 @@ class Division{
     //divisione del triangolo
     //creazione dei triangoli
 public:
-    Point *origin;
-    Point *end;
+    TriangularMesh Mesh;
+
+    Point origin;
+    Point end;
     array<double,2> CoordinatesMidpoint;
     unsigned int IdMidpoint;
     Point Midpoint;
     Triangle T;
-    TriangularMesh Mesh;
+
     unsigned int IdLatoSx;
     unsigned int IdLatoDx;
-    Point * Opposite;
+    Point Opposite;
     //elementi nuovi triangoli
     unsigned int NewIdS;
     unsigned int NewIdSO;
     unsigned int NewIdSE;
-    Segment* NewS;
-    Segment* NewSO;
-    Segment* NewSE;
+    Segment NewS;
+    Segment NewSO;
+    Segment NewSE;
 
     unsigned int NewIdT1;
     unsigned int NewIdT2;
-    array<unsigned int, 3> verticesT1;
-    array<unsigned int, 3> verticesT2;
-    array<unsigned int, 3> edgesT1;
-    array<unsigned int, 3> edgesT2;
-    Triangle * newT1;
-    Triangle * newT2;
-
-    vector<Point>* points;
-    vector<Segment>* segments;
-
-
+    array<Point, 3> verticesT1;
+    array<Point, 3> verticesT2;
+    array<Segment, 3> edgesT1;
+    array<Segment, 3> edgesT2;
+    Triangle newT1;
+    Triangle newT2;
 
     Division() = default;
     Division(Triangle& T);
