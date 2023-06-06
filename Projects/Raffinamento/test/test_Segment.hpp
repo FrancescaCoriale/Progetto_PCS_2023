@@ -16,6 +16,7 @@ using namespace std;
 TEST(TestRaffinamento, TestLenghtEdge)
 {
     Segment S;
+<<<<<<< Updated upstream
     unsigned int idO = 13;
     double xO = 0.5;
     double yO = 0.5;
@@ -24,6 +25,12 @@ TEST(TestRaffinamento, TestLenghtEdge)
     double xE= 1;
     double yE = 1;
     Point end(idE, xE, yE);
+=======
+    unsigned int IdEdge=5;
+    unsigned int idO = 13; double xO = 0.5; double y = 0.5;
+    Point origin= Point(idO,xO,xO);
+    Point end= Point(3,1,1);
+>>>>>>> Stashed changes
     double lenght=S.LenghtEdge(origin,end);
     EXPECT_EQ(lenght,1/sqrt(2));
 

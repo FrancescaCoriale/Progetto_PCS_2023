@@ -166,7 +166,11 @@ void ImportMesh::Cell2D(TriangularMesh& Mesh)
 
 
 
+<<<<<<< Updated upstream
 array<Triangle,2> Division(Triangle& T, Segment & segment)
+=======
+Triangle Division(T, T1, T2)
+>>>>>>> Stashed changes
 {
     TriangularMesh Mesh;
     Point origin = segment.origin;
@@ -177,9 +181,21 @@ array<Triangle,2> Division(Triangle& T, Segment & segment)
     unsigned int IdLatoSx;
     unsigned int IdLatoDx;
 
+<<<<<<< Updated upstream
     Point Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
     Mesh.Points.push_back(Midpoint);
 
+=======
+    Point origin = T.longestEdge.origin;
+    Point end = T.longestEdge.end;
+    array<double,2> CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
+    unsigned int IdMidpoint = Mesh.Points.size() + 1;
+    Point Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
+    Mesh.Points.push_back(Midpoint);
+
+
+
+>>>>>>> Stashed changes
     //cerco id del vertice opposto
     for (unsigned int i = 0; i<3; i++)
     {
@@ -222,11 +238,19 @@ array<Triangle,2> Division(Triangle& T, Segment & segment)
 
     //creo nuovi segmenti
     unsigned int NewIdS = Mesh.Segments.size()+1; //segmento che collega Midpoint e Opposte
+<<<<<<< Updated upstream
     Segment NewS = Segment(NewIdS, Opposite, Midpoint);
     Mesh.Segments.push_back(NewS);
 
     unsigned int NewIdSO = Mesh.Segments.size()+1; //segmento che collega Midpoint e origin del longestEdge
     Segment NewSO = Segment(NewIdSO, origin, Midpoint);
+=======
+    Segment NewS = new Segment(NewIdS, Opposite, Midpoint);
+    Mesh.Segments.push_back(NewS);
+
+    unsigned int NewIdSO = Mesh.Segments.size()+1; //segmento che collega Midpoint e origin del longestEdge
+    Segment NewSO = new Segment(NewIdSO, origin, Midpoint);
+>>>>>>> Stashed changes
     Mesh.Segments.push_back(NewSO);
 
     unsigned int NewIdSE = Mesh.Segments.size()+1; //segmento che collega Midpoint ed end del longestEdge

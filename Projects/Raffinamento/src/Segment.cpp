@@ -29,9 +29,18 @@ Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& 
         return {(end.y - origin.y)/2,(end.x - origin.x)/2};
     }
 
+<<<<<<< Updated upstream
     Triangle* Segment::getT1() {return T1;}
     Triangle* Segment::getT2() {return T2;}
+=======
+    //creo due puntatori a triangoli associati al segmento che sto creando
+    Triangle* Segment::getT1() {return t1;}
+    Triangle* Segment::getT2() {return t2;}
+>>>>>>> Stashed changes
 
+    void connect(){
+
+    }
     //double Segment::getLengthEdge() const {return length;}
 
 }
