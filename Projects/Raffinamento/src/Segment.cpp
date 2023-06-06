@@ -9,25 +9,28 @@ using namespace std;
 
 namespace RaffinamentoLibrary
 {
-Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& end)
+Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& end):
+    Id(IdValue), origin(origin), end(end)
+
     {
-        Id = IdValue;
         length = LenghtEdge(origin, end);
+
         midPoint = MidPoint(origin, end);
     }
 
 
-    double Segment::LenghtEdge(Point &origin, Point &end) {
+    double Segment::LenghtEdge(const Point &origin, const Point &end) {
         Vector2d diff={end.x-origin.x, end.y-origin.y};
+
         return (diff).norm();
     }
 
-    array<double,2> Segment::MidPoint(Point &origin, Point &end) {
+    array<double,2> Segment::MidPoint(const Point &origin, const Point &end) {
         return {(end.y - origin.y)/2,(end.x - origin.x)/2};
     }
 
-    Triangle* Segment::getT1() {return t1;}
-    Triangle* Segment::getT2() {return t2;}
+    Triangle* Segment::getT1() {return T1;}
+    Triangle* Segment::getT2() {return T2;}
 
     //double Segment::getLengthEdge() const {return length;}
 

@@ -6,8 +6,10 @@
 using namespace testing;
 using namespace RaffinamentoLibrary;
 
-TEST(TestSegment, TestLengthEdge)
+TEST(TestRaffinamento, TestDivision)
 {
+    // array<Triangle,2> Division(Triangle& T);
+
 
 }
 

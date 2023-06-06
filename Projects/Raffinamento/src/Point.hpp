@@ -16,13 +16,16 @@ namespace RaffinamentoLibrary
         unsigned int Id;
         double x;
         double y;
-        Point();
+        Point() = default;
         Point(unsigned int & IdValue, double & xValue, double & yValue);
         ///mi basta "." non serve get
         //double getX() const; //const dice che il metodo non deve cambiare il parametro
         //double getY() const;
         //unsigned int getId() const;
     };
+    //bool operator == (Point & obj1, Point& obj2)
+   // {return obj1.Id = obj2.Id;}
+
 
 }
 #endif // __POINT_H

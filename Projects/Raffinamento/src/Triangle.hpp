@@ -16,7 +16,6 @@ namespace RaffinamentoLibrary
 {
     class Triangle{
 
-
         Point p1; //restituisce id, x e y
         Point p2;
         Point p3;
@@ -42,13 +41,16 @@ namespace RaffinamentoLibrary
                  const array<Segment,3>& edges);
 
 
+
         double AreaCalculator(const Point &p1,const Point &p2, const Point &p3);
 
         //Segment FindLongestEdge();
-        Segment FindLongestEdge(const Segment &edge1, const Segment &edge2, const Segment &edge3);
-
+        Segment FindLongestEdge( Segment &edge1,  Segment &edge2,  Segment &edge3);
 
     };
+
+    bool operator == (Triangle & obj1, Triangle & obj2)
+    {return obj1.Id = obj2.Id;};
 }
 
 #endif // __TRIANGLE_H

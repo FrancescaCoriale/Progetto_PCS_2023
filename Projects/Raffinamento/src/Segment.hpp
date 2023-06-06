@@ -23,17 +23,18 @@ class Segment {
     Point origin;
     Point end;
 
-    Triangle *t1;
-    Triangle *t2;
+    Triangle *T1;
+    Triangle *T2;
 
     double length;
     array<double,2> midPoint;
 
     Segment() = default;
-    Segment(unsigned int &IdValue, Point& origin, Point& end);
+    Segment(const unsigned int &IdValue, const Point& origin, const Point& end);
 
-    double LenghtEdge(Point &origin, Point &end);
-    array<double,2> MidPoint(Point &origin, Point &end);
+
+    double LenghtEdge(const Point &origin, const Point &end);
+    array<double,2> MidPoint(const Point &origin, const Point &end);
 
     Triangle *getT1(); //cosi restituisco i due triangoli che contengono il segmento (ADIACENZA)
     Triangle *getT2();
@@ -41,5 +42,9 @@ class Segment {
     //double getLengthEdge() const;
 
 };
+
+    //bool operator == (Segment & obj1, Segment & obj2)
+    //{return obj1.Id = obj2.Id;}
+
 }
 #endif // __SEGMENT_H

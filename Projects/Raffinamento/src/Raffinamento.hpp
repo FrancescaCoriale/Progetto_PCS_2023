@@ -47,43 +47,7 @@ public:
 };
 
 
-class Division{
-    //divisione del triangolo
-    //creazione dei triangoli
-public:
-    TriangularMesh Mesh;
-
-    Point origin;
-    Point end;
-    array<double,2> CoordinatesMidpoint;
-    unsigned int IdMidpoint;
-    Point Midpoint;
-    Triangle T;
-
-    unsigned int IdLatoSx;
-    unsigned int IdLatoDx;
-    Point Opposite;
-    //elementi nuovi triangoli
-    unsigned int NewIdS;
-    unsigned int NewIdSO;
-    unsigned int NewIdSE;
-    Segment NewS;
-    Segment NewSO;
-    Segment NewSE;
-
-    unsigned int NewIdT1;
-    unsigned int NewIdT2;
-    array<Point, 3> verticesT1;
-    array<Point, 3> verticesT2;
-    array<Segment, 3> edgesT1;
-    array<Segment, 3> edgesT2;
-    Triangle newT1;
-    Triangle newT2;
-
-    Division() = default;
-    Division(Triangle& T);
-
-};
+array<Triangle,2> Division(Triangle& T);
 
 class Raffinamento {
 //prendo triangolo adiacente (ex T2)
@@ -91,15 +55,15 @@ class Raffinamento {
         //se sì: fai solo division su T2
         //altrimenti: fai division + segment tra midpoint del longestedge di T2 e del longestedge di T1
 
-    Division D;
     Triangle T;
     TriangularMesh Mesh;
 
 public:
-    Raffinamento();
+    Raffinamento(const unsigned int maxIterator, vector<Triangle> SortedA);
 
 
 };
+
 
 
 }

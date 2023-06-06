@@ -14,18 +14,19 @@ using namespace std;
 using namespace Eigen;
 
 namespace RaffinamentoLibrary
+
 {
     Triangle::Triangle(const unsigned int& Idvalue, const array<Point,3>& vertices,
-                       const array<Segment,3>& edges):
-    longestEdge(longestEdge)
+                       const array<Segment,3>& edges)
+
     {
         Id = Idvalue;
         p1 = vertices[0];
         p2 = vertices[1];
-        p3 = Idvertices[2];
-        edge1 = Idedges[0];
-        edge2 = Idedges[1];
-        edge3 = Idedges[2];
+        p3 = vertices[2];
+        edge1 = edges[0];
+        edge2 = edges[1];
+        edge3 = edges[2];
         pointsTriangle = {p1,p2,p3};
         segmentsTriangle = {edge1,edge2,edge3};
 
@@ -33,7 +34,9 @@ namespace RaffinamentoLibrary
         Area = AreaCalculator(p1,p2,p3);
     }
 
-    double AreaCalculator(const Point &p1, const Point &p2, const Point &p3)
+
+    double Triangle::AreaCalculator(const Point &p1, const Point &p2, const Point &p3)
+
     {
         double x1 = p1.x;
         double y1 = p1.y;
@@ -52,7 +55,9 @@ namespace RaffinamentoLibrary
 
     //void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
 
-    Segment FindLongestEdge(const Segment &edge1,const Segment &edge2, const Segment &edge3)
+
+    Segment Triangle::FindLongestEdge(Segment &edge1,Segment &edge2, Segment &edge3)
+
     {
         //array delle lunghezze
         array<double,3> lunghezze = {edge1.length, edge2.length, edge3.length};
@@ -66,6 +71,8 @@ namespace RaffinamentoLibrary
         int maxPosition = distance(lunghezze.begin(), maxIterator);
         return lati[maxPosition];
     }
+
+
 
 
 }

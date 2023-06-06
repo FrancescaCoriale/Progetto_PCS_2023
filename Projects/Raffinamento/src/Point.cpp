@@ -8,11 +8,7 @@
 
 namespace RaffinamentoLibrary
 {
-    Point::Point(){
-    Id = 0;
-    x = 0.0;
-    y = 0.0;
-    }
+
 
     Point::Point(unsigned int & IdValue, double & xValue, double & yValue)
     {

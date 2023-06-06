@@ -166,12 +166,12 @@ void ImportMesh::Cell2D(TriangularMesh& Mesh)
 
 
 
-array<Triangle,2> Division(Triangle& T, Segment & segment)
+array<Triangle,2> Division(Triangle& T)
 {
     TriangularMesh Mesh;
-    Point origin = segment.origin;
-    Point end = segment.end;
-    array<double, 2> CoordinatesMidpoint = segment.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
+    Point origin = T.longestEdge.origin;
+    Point end = T.longestEdge.end;
+    array<double, 2> CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
     unsigned int IdMidpoint = Mesh.Points.size() + 1;
     Point Opposite;
     unsigned int IdLatoSx;
@@ -187,14 +187,14 @@ array<Triangle,2> Division(Triangle& T, Segment & segment)
         {
             Opposite.Id = T.pointsTriangle[i].Id;
         }
-        if (segment.Id != T.segmentsTriangle[i].Id) //se non è il lato che ho diviso in 2
+        if (T.longestEdge.Id != T.segmentsTriangle[i].Id) //se non è il lato che ho diviso in 2
         {
             if (origin.Id ==  T.segmentsTriangle[i].end.Id)
             {
                 IdLatoSx = T.segmentsTriangle[i].Id;
                 for(unsigned int k=0; k<3; k++)
                 {
-                    if (k != segment.Id && k != i)
+                    if (k != T.longestEdge.Id && k != i)
                     {
                         IdLatoDx = T.segmentsTriangle[k].Id;
                     }
@@ -205,7 +205,7 @@ array<Triangle,2> Division(Triangle& T, Segment & segment)
                 IdLatoDx = T.segmentsTriangle[i].Id;
                 for(unsigned int k=0; k<3; k++)
                 {
-                    if (k != i && segment.Id != T.segmentsTriangle[k].Id)
+                    if (k != i && T.longestEdge.Id != T.segmentsTriangle[k].Id)
                     {
                         IdLatoSx = T.segmentsTriangle[k].Id;
 
@@ -263,13 +263,13 @@ Raffinamento::Raffinamento(const unsigned int maxIterator, vector<Triangle> Sort
 
     for (unsigned int i=0; i<maxIterator; i++){
         Triangle T = SortedA[i];
-        array<Triangle, 2> newTriangles =Division(T, T.longestEdge);
-        Triangle newT1 = newTriangles[0];
-        Triangle newT2 = newTriangles[1];
+        Triangle newT1 = Division(T)[0];
+        Triangle newT2 = Division(T)[1];
         Mesh.OnOff[T.Id] = "false";
 
         Mesh.OnOff.push_back(true);
         Mesh.OnOff.push_back(true);
+
 
 
         //se T è il getT1 di LongestEdge:
@@ -277,24 +277,65 @@ Raffinamento::Raffinamento(const unsigned int maxIterator, vector<Triangle> Sort
             //fai division su getT2 (triangolo adiacente a T)
         {
             Triangle Ta = *T.longestEdge.getT2();
-            array<Triangle, 2> newTrianglesA =Division(Ta, T.longestEdge);
-            Triangle newT1A = newTrianglesA[0];
-            Triangle newT2A = newTrianglesA[1];
+
+            Triangle newT1a = Division(Ta)[0];
+            Triangle newT2a = Division(Ta)[1];
             Mesh.OnOff[Ta.Id] = "false";
             Mesh.OnOff.push_back(true);
             Mesh.OnOff.push_back(true);
+            *T.longestEdge.T2 = ;
 
+            while () {
+
+            }
+
+            //se i due mega triangoli condividono lo stesso longestEdge
+            if(T.longestEdge == Ta.longestEdge)
+                //fai stop: perchè ho già diviso T2 e la condizione di raffinamento è soddisfatta
+                break;
+
+            else
+            {
+                auto it = find(newT1a.segmentsTriangle.begin(), newT1a.segmentsTriangle.end(), T.longestEdge);
+                //division sul triangolino nuovo di T2 che condivide longestedge di T
+
+                if(it != newT1a.segmentsTriangle.end()) //LongestEde è uno dei lati del triangolo
+                {
+                    Division(newT1a);
+                }
+                else
+                {
+                    Division(newT2a);
+                }
+            }
         }
 
-        else if (*T.longestEdge.getT2() == T)
+        else if (*T.longestEdge.getT2 == T && Mesh.OnOff[(*T.longestEdge.getT2()).Id] == true)
         {
-            Triangle Ta = *T.longestEdge.getT1();
-            array<Triangle, 2> newTrianglesA =Division(Ta, T.longestEdge);
-            Triangle newT1A = newTrianglesA[0];
-            Triangle newT2A = newTrianglesA[1];
-            Mesh.OnOff[Ta.Id] = "false";
+            Triangle T1 = *getT1;
+            Division(&T1);
+            Mesh.OnOff[T1.Id] = "false";
             Mesh.OnOff.push_back(true);
             Mesh.OnOff.push_back(true);
+            //se i due mega triangoli condividono lo stesso longestEdge
+            if(T.longestEdge == T1.longestEdge)
+                //fai stop: perchè ho già diviso T2 e la condizione di raffinamento è soddisfatta
+            {
+                break;
+            }
+            else
+            {
+                //division sul triangolino nuovo di T2 che condivide longestedge di T
+                if(T.longestEdge == D.newT1.longestEdge)
+                {
+                    Division(newT1);
+                }
+                else
+                {
+                    Division(newT2);
+                }
+
+            }
 
         }
 
