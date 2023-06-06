@@ -13,9 +13,25 @@ using namespace Eigen;
 using namespace RaffinamentoLibrary;
 using namespace testing;
 using namespace std;
+
+
+TEST(TestRaffinamento, TestLenghtEdge)
+{
+    unsigned int idS=13;
+    unsigned int idO = 13; double xO = 0.5; double yO = 0.5;
+    unsigned int idE = 3; double xE= 1; double yE = 1;
+    Point origin(idO,xO,xO);
+    Point end(idE, xE, yE);
+    Segment segment(idS, origin, end);
+    EXPECT_EQ(segment.idS, 13);
+    EXPECT_EQ(segment.origin, origin);
+    EXPECT_EQ(segment.end, end);
+
+}
 TEST(TestRaffinamento, TestLenghtEdge)
 {
     Segment S;
+<<<<<<< Updated upstream
     unsigned int idO = 13;
     double xO = 0.5;
     double yO = 0.5;
@@ -27,6 +43,15 @@ TEST(TestRaffinamento, TestLenghtEdge)
     Point end(idE, xE, yE);
 
     unsigned int IdEdge=5;
+=======
+
+    unsigned int idO = 13; double xO = 0.5; double yO = 0.5;
+    unsigned int idE = 3; double xE= 1; double yE = 1;
+    //unsigned int IdEdge=5;
+    //unsigned int idO = 13; double xO = 0.5; double y = 0.5;
+    Point origin= Point(idO,xO,xO);
+    Point end(idE, xE, yE);
+>>>>>>> Stashed changes
     double lenght=S.LenghtEdge(origin,end);
     EXPECT_EQ(lenght,1/sqrt(2));
 
