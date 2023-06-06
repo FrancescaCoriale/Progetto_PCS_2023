@@ -7,14 +7,6 @@ using namespace testing;
 using namespace RaffinamentoLibrary;
 
 TEST(TestRaffinamento, TestDivision)
-<<<<<<< Updated upstream
-=======
-{
-
-}
-
-TEST(TestRaffinamento, TestRaffinamento)
->>>>>>> Stashed changes
 {
     // array<Triangle,2> Division(Triangle& T);
 
