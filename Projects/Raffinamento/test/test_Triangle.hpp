@@ -17,6 +17,30 @@ using namespace Eigen;
 using namespace RaffinamentoLibrary;
 using namespace testing;
 
+
+
+//Triangle(const unsigned int& Idvalue, const array<Point,3>& vertices,
+         //const array<Segment,3>& edges);
+
+
+
+TEST(TestRaffinamento,TestAreaCalculator)
+{
+    Triangle T;
+    unsigned int IdTriangle=9;
+    const array<Point,3> vertices={13, 18, 32};
+    const array<Segment,3> edges={17, 20, 21};
+    Triangle triangle(const unsigned int& Idvalue, const array<Point,3>& vertices,
+             const array<Segment,3>& edges);
+    EXPECT_EQ(triangle.Id, IdTriangle);
+    EXPECT_EQ(triangle.pointsTriangle, vertices);
+    EXPECT_EQ(triangle.segmentsTriangle, edges);
+
+}
+
+
+
+
 TEST(TestRaffinamento,TestAreaCalculator)
 {
     Triangle T;
