@@ -47,50 +47,10 @@ public:
 };
 
 
-<<<<<<< Updated upstream
+
 array<Triangle,2> Division(Triangle& T);
-=======
-class Division{
-    //divisione del triangolo
-    //creazione dei triangoli
-public:
-    TriangularMesh Mesh;
-
-    Point origin;
-    Point end;
-    array<double,2> CoordinatesMidpoint;
-    unsigned int IdMidpoint;
-    Point Midpoint;
-    Triangle T;
-
-    unsigned int IdLatoSx;
-    unsigned int IdLatoDx;
-    Point Opposite;
-    //elementi nuovi triangoli
-    unsigned int NewIdS;
-    unsigned int NewIdSO;
-    unsigned int NewIdSE;
-    Segment NewS;
-    Segment NewSO;
-    Segment NewSE;
-
-    unsigned int NewIdT1;
-    unsigned int NewIdT2;
-    array<Point, 3> verticesT1;
-    array<Point, 3> verticesT2;
-    array<Segment, 3> edgesT1;
-    array<Segment, 3> edgesT2;
-    Triangle newT1;
-     Triangle newT2;
-
-    Division() = default;
-    Division(Triangle& T);
-
-};
 //metodo di divisione che a partire da un triangolo grande restituisce due triangoli piccoli
 //non soddisfo ancora la condizione
-Triangle Division(Triangle &T, Segment &segment, Triangle T1, Triangle T2);
->>>>>>> Stashed changes
 
 class Raffinamento {
 //prendo triangolo adiacente (ex T2)

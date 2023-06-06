@@ -165,12 +165,7 @@ void ImportMesh::Cell2D(TriangularMesh& Mesh)
 }
 
 
-
-<<<<<<< Updated upstream
 array<Triangle,2> Division(Triangle& T, Segment & segment)
-=======
-Triangle Division(T, T1, T2)
->>>>>>> Stashed changes
 {
     TriangularMesh Mesh;
     Point origin = segment.origin;
@@ -181,21 +176,9 @@ Triangle Division(T, T1, T2)
     unsigned int IdLatoSx;
     unsigned int IdLatoDx;
 
-<<<<<<< Updated upstream
     Point Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
     Mesh.Points.push_back(Midpoint);
 
-=======
-    Point origin = T.longestEdge.origin;
-    Point end = T.longestEdge.end;
-    array<double,2> CoordinatesMidpoint = T.longestEdge.midPoint; //contiene le sue coordinate, dobbiamo creare l'id
-    unsigned int IdMidpoint = Mesh.Points.size() + 1;
-    Point Midpoint = Point(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
-    Mesh.Points.push_back(Midpoint);
-
-
-
->>>>>>> Stashed changes
     //cerco id del vertice opposto
     for (unsigned int i = 0; i<3; i++)
     {
@@ -236,21 +219,13 @@ Triangle Division(T, T1, T2)
     //Mesh.OnOff[T.Id] = false;
 
 
-    //creo nuovi segmenti
+    //creo nuovi segmenti ???faccio metodo "CreationSegment"
     unsigned int NewIdS = Mesh.Segments.size()+1; //segmento che collega Midpoint e Opposte
-<<<<<<< Updated upstream
     Segment NewS = Segment(NewIdS, Opposite, Midpoint);
     Mesh.Segments.push_back(NewS);
 
     unsigned int NewIdSO = Mesh.Segments.size()+1; //segmento che collega Midpoint e origin del longestEdge
     Segment NewSO = Segment(NewIdSO, origin, Midpoint);
-=======
-    Segment NewS = new Segment(NewIdS, Opposite, Midpoint);
-    Mesh.Segments.push_back(NewS);
-
-    unsigned int NewIdSO = Mesh.Segments.size()+1; //segmento che collega Midpoint e origin del longestEdge
-    Segment NewSO = new Segment(NewIdSO, origin, Midpoint);
->>>>>>> Stashed changes
     Mesh.Segments.push_back(NewSO);
 
     unsigned int NewIdSE = Mesh.Segments.size()+1; //segmento che collega Midpoint ed end del longestEdge
@@ -262,6 +237,7 @@ Triangle Division(T, T1, T2)
     //Mesh.OnOff.push_back(true);
     //unsigned int NewIdT1 = Mesh.OnOff.size();
 
+    //creo nuovi triangoli ???faccio metodo "CreationTriangle"
     unsigned int NewIdT1 = Mesh.Triangles.size()+1;
     Segment latoSx = Mesh.Segments[IdLatoSx];
     array<Point,3> verticesT1 = {origin, Midpoint, Opposite};
@@ -287,7 +263,7 @@ Raffinamento::Raffinamento(const unsigned int maxIterator, vector<Triangle> Sort
 
     for (unsigned int i=0; i<maxIterator; i++){
         Triangle T = SortedA[i];
-        array<Triangle, 2> newTriangles =Division(T, T.longestEdge);
+        array<Triangle, 2> newTriangles = Division(T, T.longestEdge);
         Triangle newT1 = newTriangles[0];
         Triangle newT2 = newTriangles[1];
         Mesh.OnOff[T.Id] = "false";

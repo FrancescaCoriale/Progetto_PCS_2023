@@ -50,7 +50,9 @@ namespace RaffinamentoLibrary
     };
 
     bool operator == (Triangle & obj1, Triangle & obj2)
-    {return obj1.Id = obj2.Id;};
+    {return obj1.Id = obj2.Id;}
+
+    void connectSegment();
 }
 
 #endif // __TRIANGLE_H

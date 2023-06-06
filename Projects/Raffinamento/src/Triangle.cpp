@@ -73,6 +73,9 @@ namespace RaffinamentoLibrary
     }
 
 
+    void Triangle::connectSegment(){
+
+    }
 
 
 }
