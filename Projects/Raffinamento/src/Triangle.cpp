@@ -28,7 +28,13 @@ namespace RaffinamentoLibrary
         edge2 = edges[1];
         edge3 = edges[2];
         pointsTriangle = {p1,p2,p3};
-        segmentsTriangle = {edge1,edge2,edge3};
+        //segmentsTriangle = {edge1,edge2,edge3};
+        setSegment(edge1);
+        setSegment(edge2);
+        setSegment(edge3);
+
+        setPoints(segmentsTriangle);
+
 
         longestEdge = FindLongestEdge(edge1, edge2, edge3);
         Area = AreaCalculator(p1,p2,p3);
@@ -57,7 +63,6 @@ namespace RaffinamentoLibrary
 
 
     Segment Triangle::FindLongestEdge(Segment &edge1,Segment &edge2, Segment &edge3)
-
     {
         //array delle lunghezze
         array<double,3> lunghezze = {edge1.length, edge2.length, edge3.length};
@@ -72,10 +77,45 @@ namespace RaffinamentoLibrary
         return lati[maxPosition];
     }
 
-
-    void Triangle::connectSegment(){
-
+//ordino i segmenti in senso antiorario:
+    void Triangle::setSegment(Segment &s){
+        if ((p1 == s.origin || p1 == s.end) && (p2 == s.end || p2 == s.origin))
+        {
+            segmentsTriangle[0] = s;
+        }
+        if ((p2 == s.origin || p2 == s.end) && (p3 == s.end || p3 == s.origin))
+        {
+            segmentsTriangle[1] = s;
+        }
+        if ((p3 == s.origin || p3 == s.end) && (p1 == s.end || p1 == s.origin))
+        {
+            segmentsTriangle[2] = s;
+        }
     }
 
+
+    void Triangle::setPoints(array<Segment,3> &segmentsTriangle){
+        if (segmentsTriangle[0].end.Id != segmentsTriangle[1].origin.Id)
+        {
+            Point tmp = segmentsTriangle[0].origin;
+            segmentsTriangle[0].origin = segmentsTriangle[0].end;
+            segmentsTriangle[0].end = tmp;
+        }
+        if (segmentsTriangle[1].end.Id != segmentsTriangle[2].origin.Id)
+        {
+            Point tmp = segmentsTriangle[1].origin;
+            segmentsTriangle[1].origin = segmentsTriangle[1].end;
+            segmentsTriangle[1].end = tmp;
+        }
+        if (segmentsTriangle[2].end.Id != segmentsTriangle[0].origin.Id)
+        {
+            Point tmp = segmentsTriangle[2].origin;
+            segmentsTriangle[2].origin = segmentsTriangle[2].end;
+            segmentsTriangle[2].end = tmp;
+        }
+
+
+
+    }
 
 }

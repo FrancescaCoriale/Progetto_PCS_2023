@@ -48,7 +48,7 @@ public:
 
 
 
-array<Triangle,2> Division(Triangle& T);
+array<Triangle,2> Division(Triangle& T, Segment & segment);
 //metodo di divisione che a partire da un triangolo grande restituisce due triangoli piccoli
 //non soddisfo ancora la condizione
 

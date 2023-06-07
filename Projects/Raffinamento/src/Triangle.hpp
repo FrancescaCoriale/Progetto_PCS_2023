@@ -47,12 +47,19 @@ namespace RaffinamentoLibrary
         //Segment FindLongestEdge();
         Segment FindLongestEdge( Segment &edge1,  Segment &edge2,  Segment &edge3);
 
+        void setSegment(Segment &s);
+        void setPoints(array<Segment,3> &segmentsTriangle);
+
     };
 
-    bool operator == (Triangle & obj1, Triangle & obj2)
-    {return obj1.Id = obj2.Id;}
+    inline bool operator == (const Triangle & obj1, const Triangle & obj2)
+    {return obj1.Id == obj2.Id;}
 
-    void connectSegment();
+    //connette ad un segmento un triangolo e aggiorna il contatore di adiacenze c
+    //void setS1(Segment s) {segmentsTriangle[0]=s;}
+    //void setS2(Segment s) {segmentsTriangle[1]=s;}
+    //void setS3(Segment s) {segmentsTriangle[2]=s;}
+
 }
 
 #endif // __TRIANGLE_H

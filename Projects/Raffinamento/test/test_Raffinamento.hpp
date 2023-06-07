@@ -62,7 +62,7 @@ TEST(TestRaffinamento, TestDivision)
 
     }
 
-
+//test:
     EXPECT_EQ(newT1.Id, T1ExpectedId);
     EXPECT_EQ(T1Vertices, T1ExpectedVertices);
     EXPECT_EQ(T1Edges, T1ExpectedEdges);
@@ -70,10 +70,6 @@ TEST(TestRaffinamento, TestDivision)
     EXPECT_EQ(newT2.Id, T2ExpectedId);
     EXPECT_EQ(T2Vertices, T2ExpectedVertices);
     EXPECT_EQ(T2Edges, T2ExpectedEdges);
-
-
-
-
 }
 
 TEST(Testraffinamento, TestRaffinamento)

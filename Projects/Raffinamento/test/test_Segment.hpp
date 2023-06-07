@@ -15,17 +15,35 @@ using namespace testing;
 using namespace std;
 
 
-TEST(TestRaffinamento, TestLenghtEdge)
+TEST(TestRaffinamento, TestSegment)
 {
+//Valori che voglio:
     unsigned int idS=13;
     unsigned int idO = 13; double xO = 0.5; double yO = 0.5;
     unsigned int idE = 3; double xE= 1; double yE = 1;
-    Point origin(idO,xO,xO);
+
+    array<double,2> expectedX = {0.5,1};
+    array<double,2> expectedY {0.5,1};
+
+//Valori che creo:
+    Point origin(idO,xO,yO);
     Point end(idE, xE, yE);
     Segment segment(idS, origin, end);
-    EXPECT_EQ(segment.idS, idS);
-    EXPECT_EQ(segment.origin, origin);
-    EXPECT_EQ(segment.end, end);
+
+    array<double,2> pointsX = {origin.x, end.x};
+    array<double,2> pointsY = {origin.y, end.y};
+
+    unsigned int segmentO = origin.Id;
+    unsigned int segmentE = end.Id;
+
+//test:
+    EXPECT_EQ(segment.Id, idS);
+    EXPECT_EQ(segmentO, idO);
+    EXPECT_EQ(segmentE, idE);
+
+    EXPECT_EQ(pointsX, expectedX);
+    EXPECT_EQ(pointsY, expectedY);
+
 
 }
 TEST(TestRaffinamento, TestLenghtEdge)

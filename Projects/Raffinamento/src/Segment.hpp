@@ -23,6 +23,7 @@ class Segment {
     Point origin;
     Point end;
 
+    unsigned int c = 0;
     Triangle *T1;
     Triangle *T2;
 
@@ -39,8 +40,8 @@ class Segment {
     Triangle *getT1(); //cosi restituisco i due triangoli che contengono il segmento (ADIACENZA)
     Triangle *getT2();
 
-    void connectTriangle();
-    void disconnectTriangle();
+    void connectTriangle(Triangle *t);
+    void disconnectTriangle(Triangle *t);
     ///mi basta usare "." non serve get
     //double getLengthEdge() const;
 
