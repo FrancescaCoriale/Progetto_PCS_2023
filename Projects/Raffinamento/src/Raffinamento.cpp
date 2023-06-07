@@ -14,7 +14,7 @@ namespace RaffinamentoLibrary
 void ImportMesh::Cell0D(TriangularMesh& Mesh)
 {
     ifstream file;
-    file.open("C:/Users/annam/Desktop/Progetto_PCS_2023/Projects/Raffinamento/Dataset/Test2/Cell0Ds.csv");
+    file.open("./Dataset/Test2/Cell0Ds.csv");
     if (file.fail())
     {
         cerr<<"errore nell'apertura del file Cell0D"<<endl;
@@ -60,7 +60,7 @@ void ImportMesh::Cell0D(TriangularMesh& Mesh)
 void ImportMesh::Cell1D(TriangularMesh& Mesh)
 {
     ifstream file;
-    file.open("C:/Users/annam/Desktop/Progetto_PCS_2023/Projects/Raffinamento/Dataset/Test2/Cell1Ds.csv");
+    file.open("./Dataset/Test2/Cell1Ds.csv");
 
     if(file.fail())
     {
@@ -108,7 +108,7 @@ void ImportMesh::Cell1D(TriangularMesh& Mesh)
 void ImportMesh::Cell2D(TriangularMesh& Mesh)
 {
     ifstream file;
-    file.open("./Cell2Ds.csv");
+    file.open("./Dataset/Cell2Ds.csv");
     if (file.fail())
     {
         cout<<"errore nell'apertura del file Cell2D"<<endl;
