@@ -14,19 +14,23 @@ using namespace Eigen;
 using namespace RaffinamentoLibrary;
 using namespace SortingLibrary;
 
-int main(/*int argc, char *argv[]*/)
+int main(int argc, char *argv[])
 {
     TriangularMesh Mesh;
 
-    //string Theta = argv[1];
-    //unsigned int theta = stoi(Theta);
-    unsigned int theta = 10;
+    string Theta = argv[1];
+    unsigned int theta = stoi(Theta);
+    //unsigned int theta = 10;
+
+    string directory = argv[2];
+
+
 
     //importazione, lettura e creazione degli oggetti
     ImportMesh imp;
-    imp.Cell0D(Mesh);
-    imp.Cell1D(Mesh);
-    imp.Cell2D(Mesh);
+    imp.Cell0D(Mesh, directory);
+    imp.Cell1D(Mesh, directory);
+    imp.Cell2D(Mesh, directory);
 
 
     //sorting
@@ -51,19 +55,27 @@ int main(/*int argc, char *argv[]*/)
         if (Mesh.OnOff[i] == true)
         {
             Triangle newTriangle = Mesh.Triangles[i];
-            string Id = to_string(newTriangle.Id);
-            string p1 = to_string(newTriangle.pointsTriangle[0].Id);
-            string p2 = to_string(newTriangle.pointsTriangle[1].Id);
-            string p3 = to_string(newTriangle.pointsTriangle[2].Id);
-            string edge1 = to_string(newTriangle.segmentsTriangle[0].Id);
-            string edge2 = to_string(newTriangle.segmentsTriangle[1].Id);
-            string edge3 = to_string(newTriangle.segmentsTriangle[2].Id);
-            outputFile << newTriangle.Id << " " << p1 << " " << p2 << " " << p3 << " " << edge1 << " " << edge2 << " " << edge3 ;
+            outputFile<<newTriangle;
+
+//            string Id = to_string(newTriangle.Id);
+//            string p1 = to_string(newTriangle.pointsTriangle[0].Id);
+//            string p2 = to_string(newTriangle.pointsTriangle[1].Id);
+//            string p3 = to_string(newTriangle.pointsTriangle[2].Id);
+//            string edge1 = to_string(newTriangle.segmentsTriangle[0].Id);
+//            string edge2 = to_string(newTriangle.segmentsTriangle[1].Id);
+//            string edge3 = to_string(newTriangle.segmentsTriangle[2].Id);
+//            outputFile << newTriangle.Id << " " << p1 << " " << p2 << " " << p3 << " " << edge1 << " " << edge2 << " " << edge3 ;
         }
     };
 
 
     outputFile.close();
+
+//    int id = 1;
+//    array
+//    Triangle T = Triangle()
+
+
   return 0;
 }
 

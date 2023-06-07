@@ -5,10 +5,10 @@
 #include "Eigen/Eigen"
 #include <fstream>
 #include <vector>
-#include "Point.hpp"
+
 #include "Segment.hpp"
 #include "Triangle.hpp"
-
+#include "Point.hpp"
 using namespace Eigen;
 using namespace std;
 
@@ -27,7 +27,7 @@ public:
     unsigned int NumberCell2D = 0; ///< number of Cell2D
     vector<vector<unsigned int>> LongestEdges = {};
     vector<Triangle> Triangles;
-    vector<bool> OnOff;
+    vector<bool> OnOff ;
 
     list<list<unsigned int>> AdjacencyLists = {};
     //adiacenza: lista di liste: id triangolo è la posizione nel vettore esterno, id triangoli adiacenti sono i valori e id del lato confinante nel vettore interno
@@ -39,16 +39,17 @@ public:
 class ImportMesh {
 public:
     TriangularMesh Mesh;
-    void Cell0D(TriangularMesh& Mesh);
+    void Cell0D(TriangularMesh& Mesh, string & path);
 
-    void Cell1D(TriangularMesh& Mesh);
+    void Cell1D(TriangularMesh& Mesh, string & path);
 
-    void Cell2D(TriangularMesh& Mesh);
+    void Cell2D(TriangularMesh& Mesh, string & path);
 };
 
 
 
 array<Triangle,2> Division(Triangle& T, Segment & segment);
+
 //metodo di divisione che a partire da un triangolo grande restituisce due triangoli piccoli
 //non soddisfo ancora la condizione
 

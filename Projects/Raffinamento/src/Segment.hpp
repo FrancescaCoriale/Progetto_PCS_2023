@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Eigen/Eigen"
 #include <fstream>
+
 #include "Point.hpp"
 
 using namespace Eigen;
@@ -45,10 +46,14 @@ class Segment {
     ///mi basta usare "." non serve get
     //double getLengthEdge() const;
 
+
 };
 
-    //bool operator == (Segment & obj1, Segment & obj2)
-    //{return obj1.Id = obj2.Id;}
+
+    inline bool operator == (const Segment & obj1, const Segment & obj2)
+    {
+        return obj1.Id == obj2.Id;
+    }
 
 }
 #endif // __SEGMENT_H

@@ -97,7 +97,7 @@ TEST(TestRaffinamento,TestTriangle)
 TEST(TestRaffinamento,TestAreaCalculator)
 {
     Triangle T;
-    unsigned int IdTriangle=9;
+    //unsigned int IdTriangle=9;
     unsigned int id1 = 13; double x1 = 0.5; double y1 = 0.5;
     unsigned int id2 = 18; double x2 = 0; double y2 = 0.5;
     unsigned int id3 = 32; double x3 = 0.25; double y3 = 0.25;
@@ -114,7 +114,7 @@ TEST(TestRaffinamento,TestAreaCalculator)
 TEST(TestRaffinamento, TestFindLongestEdge)
 {
     Triangle T;
-    unsigned int IdTriangle=9;
+    //unsigned int IdTriangle=9;
     unsigned int idE1 = 17;
     unsigned int idE2 = 20;
     unsigned int idE3 = 21;

@@ -3,7 +3,6 @@
 #include <fstream>
 #include "Eigen/Eigen"
 #include <algorithm>
-
 #include "Point.hpp"
 #include "Segment.hpp"
 #include "Triangle.hpp"
@@ -76,6 +75,7 @@ namespace RaffinamentoLibrary
         int maxPosition = distance(lunghezze.begin(), maxIterator);
         return lati[maxPosition];
     }
+
 
 //ordino i segmenti in senso antiorario:
     void Triangle::setSegment(Segment &s){

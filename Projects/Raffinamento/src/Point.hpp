@@ -23,8 +23,10 @@ namespace RaffinamentoLibrary
         //double getY() const;
         //unsigned int getId() const;
     };
+
     inline bool operator == (const Point & obj1, const Point& obj2)
     {return obj1.Id == obj2.Id;}
+
 
 
 }

@@ -22,6 +22,7 @@ TEST(TestRaffinamento, TestSegment)
     unsigned int idO = 13; double xO = 0.5; double yO = 0.5;
     unsigned int idE = 3; double xE= 1; double yE = 1;
 
+
     array<double,2> expectedX = {0.5,1};
     array<double,2> expectedY {0.5,1};
 
@@ -45,24 +46,15 @@ TEST(TestRaffinamento, TestSegment)
     EXPECT_EQ(pointsY, expectedY);
 
 
+
 }
 TEST(TestRaffinamento, TestLenghtEdge)
 {
     Segment S;
-    unsigned int idO = 13;
-    double xO = 0.5;
-    double yO = 0.5;
+    unsigned int idO = 13; double xO = 0.5; double yO = 0.5;
     Point origin(idO, xO, yO);
-
-    unsigned int idE = 3;
-    double xE= 1;
-    double yE = 1;
+    unsigned int idE = 3; double xE= 1; double yE = 1;
     Point end(idE, xE, yE);
-
-    unsigned int IdEdge=5;
-
-    //unsigned int IdEdge=5;
-    //unsigned int idO = 13; double xO = 0.5; double y = 0.5;
     double lenght=S.LenghtEdge(origin,end);
     EXPECT_EQ(lenght,1/sqrt(2));
 
@@ -70,21 +62,13 @@ TEST(TestRaffinamento, TestLenghtEdge)
 TEST(TestRaffinamento,TestMidPoint)
 {
     Segment S;
-    unsigned int idO = 13;
-    double xO = 0.5;
-    double yO = 0.5;
+    unsigned int idO = 13; double xO = 0.5; double yO = 0.5;
     Point origin(idO, xO, yO);
-    unsigned int idE = 3;
-    double xE= 1;
-    double yE = 1;
+    unsigned int idE = 3; double xE= 1; double yE = 1;
     Point end(idE, xE, yE);
     array<double,2> midpoint=S.MidPoint(origin,end);
     array<double,2> expected = {0.25,0.25};
     EXPECT_EQ(midpoint, expected);
-
-
-
-
 }
 
 

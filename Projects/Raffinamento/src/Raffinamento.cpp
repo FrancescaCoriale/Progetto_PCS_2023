@@ -11,10 +11,15 @@ namespace RaffinamentoLibrary
 {
 
 
-void ImportMesh::Cell0D(TriangularMesh& Mesh)
+void ImportMesh::Cell0D(TriangularMesh& Mesh, string & directory)
 {
     ifstream file;
+<<<<<<< Updated upstream
     file.open("./Dataset/Test2/Cell0Ds.csv");
+=======
+    string filePath = directory + "/Cell0Ds.csv";
+    file.open(filePath);
+>>>>>>> Stashed changes
     if (file.fail())
     {
         cerr<<"errore nell'apertura del file Cell0D"<<endl;
@@ -55,12 +60,19 @@ void ImportMesh::Cell0D(TriangularMesh& Mesh)
         Point* p = new Point(Id,x,y);
         Mesh.Points.push_back(*p);
     }
+
+    cout << "lettura celle 0D fatta"<<endl;
 }
 
-void ImportMesh::Cell1D(TriangularMesh& Mesh)
+void ImportMesh::Cell1D(TriangularMesh& Mesh, string & directory)
 {
     ifstream file;
+<<<<<<< Updated upstream
     file.open("./Dataset/Test2/Cell1Ds.csv");
+=======
+    string filePath = directory + "/Cell1Ds.csv";
+    file.open(filePath);
+>>>>>>> Stashed changes
 
     if(file.fail())
     {
@@ -103,12 +115,19 @@ void ImportMesh::Cell1D(TriangularMesh& Mesh)
         Segment* s = new Segment(id,origin,end);
         Mesh.Segments.push_back(*s);
     }
+    cout << "lettura celle 1D fatta"<<endl;
+
 }
 
-void ImportMesh::Cell2D(TriangularMesh& Mesh)
+void ImportMesh::Cell2D(TriangularMesh& Mesh, string & directory)
 {
     ifstream file;
+<<<<<<< Updated upstream
     file.open("./Dataset/Cell2Ds.csv");
+=======
+    string filePath = directory + "/Cell2Ds.csv";
+    file.open(filePath);
+>>>>>>> Stashed changes
     if (file.fail())
     {
         cout<<"errore nell'apertura del file Cell2D"<<endl;
@@ -162,10 +181,17 @@ void ImportMesh::Cell2D(TriangularMesh& Mesh)
     //for(unsigned int i=0; i<80; i++){
     //    this->onOff.push_back(true);
     //}
+
+    cout << "lettura celle 2D fatta"<<endl;
+    for (unsigned int i = 0; i < 186; i++)
+    {
+        cout<< Mesh.OnOff[i];
+    }
 }
 
 
 array<Triangle,2> Division(Triangle& T, Segment & segment)
+
 {
     TriangularMesh Mesh;
     Point origin = segment.origin;
@@ -221,6 +247,7 @@ array<Triangle,2> Division(Triangle& T, Segment & segment)
 
     //creo nuovi segmenti ???faccio metodo "CreationSegment"
     unsigned int NewIdS = Mesh.Segments.size()+1; //segmento che collega Midpoint e Opposte
+
     Segment NewS = Segment(NewIdS, Opposite, Midpoint);
     Mesh.Segments.push_back(NewS);
 
@@ -243,19 +270,22 @@ array<Triangle,2> Division(Triangle& T, Segment & segment)
     array<Point,3> verticesT1 = {origin, Midpoint, Opposite};
     array<Segment, 3> edgesT1 = {NewS, NewSO, latoSx};
     Triangle newT1 = Triangle(NewIdT1, verticesT1, edgesT1);
-    Mesh.Triangles.push_back(newT1);
+
 
     //definisco nuovo triangolo T2
     //Mesh.OnOff.push_back(true);
     //unsigned int NewIdT2 = Mesh.OnOff.size();
 
-    unsigned int NewIdT2 = Mesh.Triangles.size()+1;
+    unsigned int NewIdT2 = Mesh.Triangles.size()+2;
     Segment latoDx = Mesh.Segments[IdLatoDx];
     array<Point,3> verticesT2 = {Midpoint, end, Opposite};
     array<Segment, 3> edgesT2 = {NewS, NewSE, latoDx};
     Triangle newT2 = Triangle(NewIdT2, verticesT2, edgesT2);
-    Mesh.Triangles.push_back(newT2);
 
+
+
+
+    cout<<"Abbiamo diviso il triangolo numero " << T.Id<<endl;
     return {newT1, newT2};
 }
 
@@ -266,10 +296,17 @@ Raffinamento::Raffinamento(const unsigned int maxIterator, vector<Triangle> Sort
         array<Triangle, 2> newTriangles = Division(T, T.longestEdge);
         Triangle newT1 = newTriangles[0];
         Triangle newT2 = newTriangles[1];
-        Mesh.OnOff[T.Id] = "false";
+
+        Mesh.Triangles.push_back(newT1);
+        Mesh.Triangles.push_back(newT2);
+
+        Mesh.OnOff.assign(T.Id, false);
+
 
         Mesh.OnOff.push_back(true);
         Mesh.OnOff.push_back(true);
+
+        cout << "abbiamo diviso il triangolo T"<<endl;
 
 
         //se T è il getT1 di LongestEdge:
@@ -277,12 +314,18 @@ Raffinamento::Raffinamento(const unsigned int maxIterator, vector<Triangle> Sort
             //fai division su getT2 (triangolo adiacente a T)
         {
             Triangle Ta = *T.longestEdge.getT2();
+            cout<<"adiacente di "<< T.Id << "è " << Ta.Id<<endl;
+
             array<Triangle, 2> newTrianglesA =Division(Ta, T.longestEdge);
             Triangle newT1A = newTrianglesA[0];
             Triangle newT2A = newTrianglesA[1];
-            Mesh.OnOff[Ta.Id] = "false";
+            Mesh.Triangles.push_back(newT1A);
+            Mesh.Triangles.push_back(newT2A);
+            Mesh.OnOff.assign(Ta.Id, false);
             Mesh.OnOff.push_back(true);
             Mesh.OnOff.push_back(true);
+
+            cout << "abbiamo diviso Ta"<<endl;
 
         }
 
@@ -292,7 +335,9 @@ Raffinamento::Raffinamento(const unsigned int maxIterator, vector<Triangle> Sort
             array<Triangle, 2> newTrianglesA =Division(Ta, T.longestEdge);
             Triangle newT1A = newTrianglesA[0];
             Triangle newT2A = newTrianglesA[1];
-            Mesh.OnOff[Ta.Id] = "false";
+            Mesh.Triangles.push_back(newT1A);
+            Mesh.Triangles.push_back(newT2A);
+            Mesh.OnOff.assign(Ta.Id, false);
             Mesh.OnOff.push_back(true);
             Mesh.OnOff.push_back(true);
 

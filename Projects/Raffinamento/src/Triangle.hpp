@@ -16,6 +16,7 @@ namespace RaffinamentoLibrary
 {
     class Triangle{
 
+        public:
         Point p1; //restituisce id, x e y
         Point p2;
         Point p3;
@@ -24,7 +25,7 @@ namespace RaffinamentoLibrary
         Segment edge2;
         Segment edge3;
 
-    public:
+
 
         array<Point,3> pointsTriangle;
         array<Segment,3> segmentsTriangle;
@@ -52,6 +53,9 @@ namespace RaffinamentoLibrary
 
     };
 
+    inline ostream& operator<<(ostream& os, const Triangle& T){
+       return os << T.Id << " " << to_string(T.p1.Id) << " " << to_string(T.p2.Id) << " " << to_string(T.p3.Id) << " " << to_string(T.edge1.Id) << " " << to_string(T.edge2.Id) << " " << to_string(T.edge3.Id);}
+
     inline bool operator == (const Triangle & obj1, const Triangle & obj2)
     {return obj1.Id == obj2.Id;}
 
@@ -59,6 +63,8 @@ namespace RaffinamentoLibrary
     //void setS1(Segment s) {segmentsTriangle[0]=s;}
     //void setS2(Segment s) {segmentsTriangle[1]=s;}
     //void setS3(Segment s) {segmentsTriangle[2]=s;}
+
+
 
 }
 
