@@ -26,13 +26,29 @@ using namespace testing;
 
 TEST(TestRaffinamento,TestAreaCalculator)
 {
-    Triangle T;
-    unsigned int IdTriangle=9;
-    const array<Point,3> vertices={13, 18, 32};
-    const array<Segment,3> edges={17, 20, 21};
-    Triangle triangle(const unsigned int& Idvalue, const array<Point,3>& vertices,
-             const array<Segment,3>& edges);
-    EXPECT_EQ(triangle.Id, IdTriangle);
+    unsigned int IdTriangleExpected =9;
+    unsigned int idE1 = 17;
+    unsigned int idE2 = 20;
+    unsigned int idE3 = 21;
+
+    unsigned int id1 = 18; double x1 = 0; double y1 = 0.5;
+    unsigned int id2 = 13; double x2 = 0.5; double y2 = 0.5;
+    unsigned int id3 = 32; double x3 = 0.25; double y3 = 0.25;
+    Point o1(id1,x1,y1); Point e1(id2,x2,y2);
+    Point o2(id2,x2,y2); Point e2(id3,x3,y3);
+    Point o3(id3,x3,y3); Point e3(id1,x1,y1);
+
+    Segment edge1(idE1,o1,e1);
+    Segment edge2(idE2,o2,e2);
+    Segment edge3(idE3,o3,e3);
+
+    const array<Point,3> vertices={o1,o2,o3};
+    const array<Segment,3> edges={edge1, edge2, edge3};
+    Triangle triangle(9, vertices, edges);
+    unsigned int IdTriangle = triangle.Id;
+
+
+    EXPECT_EQ(IdTriangle, IdTriangleExpected);
     EXPECT_EQ(triangle.pointsTriangle, vertices);
     EXPECT_EQ(triangle.segmentsTriangle, edges);
 
@@ -73,9 +89,9 @@ TEST(TestRaffinamento, TestFindLongestEdge)
     Point o2(id2,x2,y2); Point e2(id3,x3,y3);
     Point o3(id3,x3,y3); Point e3(id1,x1,y1);
 
-    Segment edge1(id1,o1,e1);
-    Segment edge2(id2,o2,e2);
-    Segment edge3(id3,o3,e3);
+    Segment edge1(idE1,o1,e1);
+    Segment edge2(idE2,o2,e2);
+    Segment edge3(idE3,o3,e3);
 
     Segment longestEdge = T.FindLongestEdge(edge1,edge2,edge3);
     //lunghezze segmenti:
