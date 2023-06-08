@@ -29,18 +29,20 @@ int main(int argc, char *argv[])
     //importazione, lettura e creazione degli oggetti
     ImportMesh imp;
     imp.Cell0D(Mesh, directory);
+    cout << Mesh.NumberCell0D << endl;
     imp.Cell1D(Mesh, directory);
+    cout << Mesh.NumberCell1D << endl;
     imp.Cell2D(Mesh, directory);
-
+    cout << Mesh.NumberCell2D << endl;
+    cout << Mesh.Triangles.size() << endl;
 
     //sorting
     vector<Triangle> SortedA = MergeSort(Mesh.Triangles, 0, Mesh.Triangles.size()-1);
     SortedA.resize(theta);
     unsigned int maxIterator = SortedA.size();
 
-
     //raffinamento
-    Raffinamento Raffinamento(maxIterator, SortedA);
+    Raffinamento Raffinamento(Mesh, maxIterator, SortedA);
 
 
     //esportazione

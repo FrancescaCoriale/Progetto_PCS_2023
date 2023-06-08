@@ -56,7 +56,8 @@ TEST(TestRaffinamento, TestLenghtEdge)
     unsigned int idE = 3; double xE= 1; double yE = 1;
     Point end(idE, xE, yE);
     double lenght=S.LenghtEdge(origin,end);
-    EXPECT_EQ(lenght,1/sqrt(2));
+    double expected = 1/sqrt(2);
+    EXPECT_EQ(lenght,expected);
 
 }
 TEST(TestRaffinamento,TestMidPoint)

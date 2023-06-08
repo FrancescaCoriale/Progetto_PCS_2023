@@ -16,8 +16,8 @@ namespace SortingLibrary{
     inline bool operator > (const Triangle & object1, const Triangle & object2)
     {return object1.Area > object2.Area;}
 
-    inline bool operator < (const Triangle & object1, const Triangle & object2)
-    {return object1.Area < object2.Area;}
+    inline bool operator <= (const Triangle & object1, const Triangle & object2)
+    {return object1.Area <= object2.Area;}
 
     void Merge(vector<Triangle>& v, const unsigned int& sx,
                const unsigned int& cx, const unsigned int& dx){
@@ -28,7 +28,7 @@ namespace SortingLibrary{
 
         while ((i <= cx) && (j <= dx))
         {
-            if (v[i] < v[j]) //se sto a sinistra della divisione, ordino la sinistra
+            if (v[i] <= v[j]) //se sto a sinistra della divisione, ordino la sinistra
             {
                 //v.insert(v.begin() + k, valore);
                 w.insert(w.begin() + k, v[i]);
@@ -46,12 +46,12 @@ namespace SortingLibrary{
             w.insert(w.begin() + k, v[i]);
         for ( ; j <= dx; j = j+1, k = k+1)
             w.insert(w.begin()+k, v[j]);
-        //for (i = sx; i <= dx; i = i+1)
-            //v[i] = w[i-sx];  !!!! Id è di tipo const, non posso modificarlo, devo usare un puntatore
+        for (i = sx; i <= dx; i = i+1)
+            v[i] = w[i-sx];  // !!!! Id è di tipo const, non posso modificarlo, devo usare un puntatore
         //Se l'assegnazione dell'oggetto Triangle è necessaria, potresti valutare l'utilizzo di
         //un'operazione di copia personalizzata o una soluzione alternativa come un riferimento o
         //un puntatore al Triangle originale invece di copiarlo direttamente.
-    };
+    }
 
     vector<Triangle> MergeSort(vector<Triangle>& v, const unsigned int& sx, const unsigned int& dx)
     {

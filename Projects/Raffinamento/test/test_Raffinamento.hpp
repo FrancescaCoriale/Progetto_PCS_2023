@@ -12,6 +12,10 @@ using namespace RaffinamentoLibrary;
 
 TEST(TestRaffinamento, TestDivision)
 {
+    TriangularMesh mesh;
+    unsigned int NumberCell0D = 109;
+    unsigned int NumberCell1D = 294;
+    unsigned int NumberCell2D = 186;
     // array<Triangle,2> Division(Triangle& T);
     unsigned int IdTriangle = 0;
     unsigned int id0 = 0; double x0 = -1; double y0 = 0;
@@ -45,9 +49,12 @@ TEST(TestRaffinamento, TestDivision)
     array<unsigned int,3> T2ExpectedVertices = {midPointId,p2.Id,p0.Id};
     array<unsigned int, 3> T2ExpectedEdges = {newdx,edge2.Id,newedge};
 
-    array<Triangle, 2> newTriangles = Division(T, T.longestEdge);
-    Triangle newT1 = newTriangles[0];
-    Triangle newT2 = newTriangles[1];
+    array<Triangle,2> NewTriangles = mesh.Division(NumberCell0D, NumberCell1D,
+                                      NumberCell2D, T, T.longestEdge);
+
+    Triangle newT1 = NewTriangles[0];
+    Triangle newT2 = NewTriangles[1];
+
     array<unsigned int,3> T1Vertices;
     array<unsigned int, 3> T1Edges;
     array<unsigned int,3> T2Vertices;

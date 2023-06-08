@@ -14,8 +14,8 @@ Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& 
 
     {
         length = LenghtEdge(origin, end);
-
         midPoint = MidPoint(origin, end);
+
     }
 
 
@@ -38,7 +38,6 @@ Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& 
             T2 = t;
             c++;
         }
-
     }
 
     void Segment::disconnectTriangle(Triangle *t){

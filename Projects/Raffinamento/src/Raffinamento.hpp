@@ -33,6 +33,10 @@ public:
     //adiacenza: lista di liste: id triangolo è la posizione nel vettore esterno, id triangoli adiacenti sono i valori e id del lato confinante nel vettore interno
     //void Adjacency(list<list<unsigned int>>& AdjacencyList, const vector<vector<unsigned int>>& Edges2D);
     void Adjacency(list<unsigned int>& AdjacencyList, const vector<array<unsigned int, 3>> Edges);
+
+    array<Triangle,2> Division(unsigned int &NumberCell0D, unsigned int &NumberCell1D,
+                               unsigned int &NumberCell2D, Triangle& T, Segment & segment);
+
 };
 
 
@@ -47,8 +51,21 @@ public:
 };
 
 
+//class Division{
+//public:
+    //Point Midpoint;
+    //Segment NewS;
+    //Segment NewSO;
+    //Segment NewSE;
+    //Triangle newT1;
+    //Triangle newT2;
 
-array<Triangle,2> Division(Triangle& T, Segment & segment);
+    //Division(unsigned int &NumberCell0D, unsigned int &NumberCell1D, unsigned int &NumberCell2D,
+             //Triangle& T, Segment & segment);
+
+
+//};
+
 
 //metodo di divisione che a partire da un triangolo grande restituisce due triangoli piccoli
 //non soddisfo ancora la condizione
@@ -63,7 +80,7 @@ class Raffinamento {
     TriangularMesh Mesh;
 
 public:
-    Raffinamento(const unsigned int maxIterator, vector<Triangle> SortedA);
+    Raffinamento(TriangularMesh &Mesh, const unsigned int maxIterator, vector<Triangle> SortedA);
 
 
 };

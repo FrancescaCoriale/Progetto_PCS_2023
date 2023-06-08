@@ -35,8 +35,8 @@ namespace RaffinamentoLibrary
         setPoints(segmentsTriangle);
 
 
-        longestEdge = FindLongestEdge(edge1, edge2, edge3);
-        Area = AreaCalculator(p1,p2,p3);
+        longestEdge = Triangle::FindLongestEdge(edge1, edge2, edge3);
+        Area = Triangle::AreaCalculator(p1,p2,p3);
     }
 
 
@@ -55,7 +55,9 @@ namespace RaffinamentoLibrary
         doubleArea += (x1*y2) - (y1*x2);
         doubleArea += (x2*y3) - (y2*x3);
         doubleArea += (x3*y1) - (y3*x1);
-        return abs(doubleArea/2);
+
+        double area = abs(doubleArea/2);
+        return area;
     }
 
     //void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
