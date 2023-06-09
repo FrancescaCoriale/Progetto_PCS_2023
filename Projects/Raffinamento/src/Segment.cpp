@@ -15,7 +15,6 @@ Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& 
     {
         length = LenghtEdge(origin, end);
         midPoint = MidPoint(origin, end);
-
     }
 
 
@@ -51,8 +50,8 @@ Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& 
         }
     }
 
-    Triangle* Segment::getT1() {return T1;}
-    Triangle* Segment::getT2() {return T2;}
+    Triangle *Segment::getT1() {return T1;}
+    Triangle *Segment::getT2() {return T2;}
 
 
 

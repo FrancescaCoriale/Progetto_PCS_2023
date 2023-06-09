@@ -16,26 +16,20 @@ namespace RaffinamentoLibrary
 
 {
     Triangle::Triangle(const unsigned int& Idvalue, const array<Point,3>& vertices,
-                       const array<Segment,3>& edges)
-
+                       const array<Segment,3>& edges):
+    Id(Idvalue)
     {
-        Id = Idvalue;
-        p1 = vertices[0];
-        p2 = vertices[1];
-        p3 = vertices[2];
-        edge1 = edges[0];
-        edge2 = edges[1];
-        edge3 = edges[2];
-        pointsTriangle = {p1,p2,p3};
+
+        pointsTriangle = {vertices[0],vertices[1],vertices[2]};
         //segmentsTriangle = {edge1,edge2,edge3};
-        setSegment(edge1);
-        setSegment(edge2);
-        setSegment(edge3);
+        setSegment(edges[0]);
+        setSegment(edges[1]);
+        setSegment(edges[2]);
 
         setPoints(segmentsTriangle);
 
-        Area = Triangle::AreaCalculator(p1,p2,p3);
-        longestEdge = Triangle::FindLongestEdge(edge1, edge2, edge3);
+        Area = Triangle::AreaCalculator(vertices[0],vertices[1],vertices[2]);
+        longestEdge = Triangle::FindLongestEdge(edges[0], edges[1], edges[2]);
 
     }
 
@@ -57,7 +51,7 @@ namespace RaffinamentoLibrary
         doubleArea += (x2*y3) - (y2*x3);
         doubleArea += (x3*y1) - (y3*x1);
 
-//        cout <<"area triangolo  "<<Id<< "___ "<<abs(doubleArea/2) <<endl;
+        //cout <<"area triangolo  "<<Id<< "___ "<<abs(doubleArea/2) <<endl;
 
         double area = abs(doubleArea/2);
         return area;
@@ -70,7 +64,7 @@ namespace RaffinamentoLibrary
     //void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
 
 
-    Segment Triangle::FindLongestEdge(Segment &edge1,Segment &edge2, Segment &edge3)
+    Segment Triangle::FindLongestEdge(const Segment &edge1,const Segment &edge2,const Segment &edge3)
     {
         //array delle lunghezze
         array<double,3> lunghezze = {edge1.length, edge2.length, edge3.length};
@@ -87,16 +81,17 @@ namespace RaffinamentoLibrary
 
 
 //ordino i segmenti in senso antiorario:
-    void Triangle::setSegment(Segment &s){
-        if ((p1 == s.origin || p1 == s.end) && (p2 == s.end || p2 == s.origin))
+    void Triangle::setSegment(const Segment &s){
+        if ((pointsTriangle[0] == s.origin || pointsTriangle[0] == s.end) &&
+            (pointsTriangle[1] == s.end || pointsTriangle[1] == s.origin))
         {
             segmentsTriangle[0] = s;
         }
-        if ((p2 == s.origin || p2 == s.end) && (p3 == s.end || p3 == s.origin))
+        if ((pointsTriangle[1] == s.origin || pointsTriangle[1] == s.end) && (pointsTriangle[2] == s.end || pointsTriangle[2] == s.origin))
         {
             segmentsTriangle[1] = s;
         }
-        if ((p3 == s.origin || p3 == s.end) && (p1 == s.end || p1 == s.origin))
+        if ((pointsTriangle[2]  == s.origin || pointsTriangle[2]  == s.end) && (pointsTriangle[0]  == s.end || pointsTriangle[0]  == s.origin))
         {
             segmentsTriangle[2] = s;
         }
@@ -122,17 +117,14 @@ namespace RaffinamentoLibrary
             segmentsTriangle[2].origin = segmentsTriangle[2].end;
             segmentsTriangle[2].end = tmp;
         }
-
-
-
     }
 
-    void Triangle::adjacency(Triangle & t, Segment & edge){
-
+    void Triangle::adjacency(Triangle &t, Segment &edge)
+    {
         Triangle *T = nullptr;
         T = &t;
         edge.connectTriangle(T);
-    };
+    }
 
 
 }

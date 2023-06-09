@@ -17,23 +17,14 @@ namespace RaffinamentoLibrary
     class Triangle{
 
         public:
-        Point p1; //restituisce id, x e y
-        Point p2;
-        Point p3;
-
-        Segment edge1; //restituisce origin, end, lunghezza e midpoint
-        Segment edge2;
-        Segment edge3;
-
-
-
+        unsigned int Id;
         array<Point,3> pointsTriangle;
         array<Segment,3> segmentsTriangle;
 
         Segment longestEdge;
         double Area;
 
-        unsigned int Id;
+
         //const array<unsigned int,3>& Idvertices;
         //const array<unsigned int,3>& Idedges;
 
@@ -46,18 +37,18 @@ namespace RaffinamentoLibrary
         double AreaCalculator(const Point &p1,const Point &p2, const Point &p3);
 
         //Segment FindLongestEdge();
-        Segment FindLongestEdge( Segment &edge1,  Segment &edge2,  Segment &edge3);
+        Segment FindLongestEdge(const Segment &edge1, const Segment &edge2, const Segment &edge3);
 
-        void adjacency(Triangle & t, Segment & edge);
+        void adjacency(Triangle &t, Segment &edge);
 
 
-        void setSegment(Segment &s);
+        void setSegment(const Segment &s);
         void setPoints(array<Segment,3> &segmentsTriangle);
 
     };
 
-    inline ostream& operator<<(ostream& os, const Triangle& T){
-       return os << T.Id << " " << to_string(T.p1.Id) << " " << to_string(T.p2.Id) << " " << to_string(T.p3.Id) << " " << to_string(T.edge1.Id) << " " << to_string(T.edge2.Id) << " " << to_string(T.edge3.Id);}
+    inline ostream& operator << (ostream& os, const Triangle& T){
+       return os << T.Id << " " << to_string(T.pointsTriangle[0].Id) << " " << to_string(T.pointsTriangle[1].Id) << " " << to_string(T.pointsTriangle[2].Id) << " " << to_string(T.segmentsTriangle[0].Id) << " " << to_string(T.segmentsTriangle[1].Id) << " " << to_string(T.segmentsTriangle[2].Id);}
 
     inline bool operator == (const Triangle & obj1, const Triangle & obj2)
     {return obj1.Id == obj2.Id;}

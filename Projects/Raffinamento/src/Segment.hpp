@@ -49,7 +49,6 @@ class Segment {
 
 };
 
-
     inline bool operator == (const Segment & obj1, const Segment & obj2)
     {
         return obj1.Id == obj2.Id;

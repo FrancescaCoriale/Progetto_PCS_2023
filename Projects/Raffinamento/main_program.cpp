@@ -39,21 +39,27 @@ int main(int argc, char *argv[])
 //            cout<<"sortedA alla posizione " << i << "___" <<SortedA[i]<<endl;
 
     vector<Triangle> ThetaVector;
+    ThetaVector.reserve(theta);
 
     if (theta >= SortedA.size()) {
         cout << "Errore: theta troppo grande. Inserire un valore di theta più piccolo di "<< SortedA.size() << endl;
     }
    else {
+
+
         for (unsigned int i = SortedA.size() - 1; i >= SortedA.size() - theta; i--)
         {
 //            cout << "SORTEDA TAGLIATO ALLA POSIZIONE " << i << "___" << SortedA[i] << endl;
-            ThetaVector.insert(ThetaVector.begin(), SortedA[i]);
-            cout << "thetaVector" << ThetaVector[0].Id << endl;
+            ThetaVector.insert(ThetaVector.end(),SortedA[i]);
+            //cout << "thetaVector " << ThetaVector[0].Id << endl;
 
         }
+        for (unsigned int i = 0; i < theta; i++)
+        {
+            cout << "ThetaVector" << ThetaVector[i].Id << endl;
+        }
 
-    }
-
+        }
 
 //    //SortedA.resize(theta);
 //    for (unsigned int i = SortedA.size()-1; i>SortedA.size()-theta; i--)
@@ -101,10 +107,6 @@ int main(int argc, char *argv[])
 
   return 0;
 }
-
-
-
-
 
 
 
