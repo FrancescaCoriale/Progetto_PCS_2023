@@ -10,180 +10,207 @@
 namespace RaffinamentoLibrary
 {
 
+//void TriangularMesh::adjacency(){
+//    for (unsigned int i = 0; i< NumberCell1D; i++){
+//        Segment edge = Segments[i];
 
-void ImportMesh::Cell0D(TriangularMesh& Mesh, string & directory)
+//        for (unsigned int k = 0; k < NumberCell2D; k++){
+//            Triangle t = Triangles[k];
+//            Triangle *T = nullptr;
+//            auto temp = find(t.segmentsTriangle.begin(), t.segmentsTriangle.end(), edge);
+//            if (temp){
+//                T = &t;
+//                edge.connectTriangle(T);
+//            };
+//        };
+//    };
+//}
+
+
+ImportMesh::ImportMesh(TriangularMesh& Mesh, string & directory)
 {
-    ifstream file;
-    string filePath = directory + "/Cell0Ds.csv";
-    file.open(filePath);
-    if (file.fail())
+    /// file 0D
+
+    ifstream file0D;
+
+   // string filePath = directory + "/Cell0Ds.csv";
+    file0D.open("C:/Users/annam/Desktop/Progetto_PCS_2023/Projects/Raffinamento/Dataset/Test2/Cell0Ds.csv");
+
+    if (file0D.fail())
+
     {
         cerr<<"errore nell'apertura del file Cell0D"<<endl;
     }
 
-    string line;
-    list<string> listLines;
-    while (getline(file,line))
-        listLines.push_back(line);
+    string line0D;
+    list<string> listLines0D;
+    while (getline(file0D,line0D))
+        listLines0D.push_back(line0D);
 
-    file.close();
+    file0D.close();
 
-    listLines.pop_front(); //elimino dalla lista la prima riga
-    Mesh.NumberCell0D = listLines.size();
+    listLines0D.pop_front(); //elimino dalla lista la prima riga
+    Mesh.NumberCell0D = listLines0D.size();
     if (Mesh.NumberCell0D == 0)
     {   cout<<"nessuna cella disponibile"<<endl;
     }
 
-    Mesh.Points.resize(Mesh.NumberCell0D);
+    Mesh.Points.reserve(Mesh.NumberCell0D);
     string row;
 
-    for (string& riga : listLines) //for (tipo del contatore uguale a line : lista da cui prendo line)
+    for (string& line0D : listLines0D) //for (tipo del contatore uguale a line : lista da cui prendo line)
     {
-        istringstream rigaStream (riga); //prendo stringa da listLines, lo converto in stream
-        unsigned int Id;
-        getline(rigaStream,row);
-        istringstream(row) >> Id;
-        getline(rigaStream,row);
-
+        istringstream rigaStream (line0D); //prendo stringa da listLines, lo converto in stream
+        unsigned int Id0D;
+        unsigned int marker0D;
         double x;
-        getline(rigaStream,row) ;
-        istringstream(row) >> x;
-
         double y;
-        getline(rigaStream,row) ;
-        istringstream(row) >> y;
 
-        Point* p = new Point(Id,x,y);
-        Mesh.Points.push_back(*p);
+        rigaStream >> Id0D >> marker0D >> x >> y;
+//        getline(rigaStream,row);
+//        istringstream(row) >> Id;
+//        getline(rigaStream,row);
+
+//        getline(rigaStream,row) ;
+//        istringstream(row) >> x;
+
+//        getline(rigaStream,row) ;
+//        istringstream(row) >> y;
+//        cout << "il vertice " << Id0D << " ha coordinate" << x <<"--"<< y <<endl;
+
+
+        Point p = Point(Id0D,x,y);
+        Mesh.Points.push_back(p);
     }
 
     cout << "lettura celle 0D fatta"<<endl;
-}
-
-void ImportMesh::Cell1D(TriangularMesh& Mesh, string & directory)
-{
-    ifstream file;
-    string filePath = directory + "/Cell1Ds.csv";
-    file.open(filePath);
 
 
-    if(file.fail())
+
+/// FILE 1D
+
+    ifstream file1D;
+
+    //string filePath = directory + "/Cell1Ds.csv";
+    file1D.open("C:/Users/annam/Desktop/Progetto_PCS_2023/Projects/Raffinamento/Dataset/Test2/Cell1Ds.csv");
+
+    if(file1D.fail())
     {
-        cerr<<"errore nell'apertura del file Cell0D"<<endl;
+        cerr<<"errore nell'apertura del file Cell1D"<<endl;
     }
 
-    list<string> listLines;
-    string line;
-    while (getline(file, line))
-        listLines.push_back(line);
+    list<string> listLines1D;
+    string line1D;
+    while (getline(file1D, line1D))
+        listLines1D.push_back(line1D);
 
-    listLines.pop_front();
+    listLines1D.pop_front();
 
-    Mesh.NumberCell1D = listLines.size();
+    Mesh.NumberCell1D = listLines1D.size();
+
     if (Mesh.NumberCell1D == 0)
     {
         cerr << "There is no cell 1D" << endl;
     }
+
     Mesh.Segments.reserve(Mesh.NumberCell1D);
-    string row;
-    for (string& riga : listLines) //for (tipo del contatore uguale a line : lista da cui prendo line)
+
+    for (string& line1D : listLines1D) //for (tipo del contatore uguale a line : lista da cui prendo line)
     {
-        istringstream rigaStream (riga); //prendo stringa da listLines, lo converto in stream
-        getline(rigaStream,row) ; //prendo porzione di rigaStream fino a ;
-        unsigned int id;
-        istringstream (row) >> id; //dentro id ho il valore in intero
-
-        getline(rigaStream,row) ; //prendo porzione di rigaStream fino a ;
-
+        istringstream rigaStream1D (line1D); //prendo stringa da listLines, lo converto in stream
+       // getline(rigaStream,row) ; //prendo porzione di rigaStream fino a ;
+        unsigned int Id1D;
+        unsigned int marker1D;
         unsigned int IdOrigin;
-        getline(rigaStream,row) ;
-        istringstream(row) >> IdOrigin;
-
         unsigned int IdEnd;
-        getline(rigaStream,row) ;
-        istringstream(row) >> IdEnd;
 
-        Point origin = Mesh.Points[IdOrigin];
-        Point end = Mesh.Points[IdEnd];
-        Segment* s = new Segment(id,origin,end);
+//        istringstream (row) >> Id; //dentro id ho il valore in intero
+//        getline(rigaStream,row) ; //prendo porzione di rigaStream fino a ;
+
+//        getline(rigaStream,row) ;
+//        istringstream(row) >> IdOrigin;
+
+//        getline(rigaStream,row) ;
+//        istringstream(row) >> IdEnd;
+
+        rigaStream1D >> Id1D >> marker1D >> IdOrigin >> IdEnd ;
+        //cout << "questo e l'id del vertice origin  " << Mesh.Points[IdOrigin].Id << endl;
+
+        //cout << "il segmento "<< Id1D << "ha ogigin " << IdOrigin << " end " << IdEnd << endl;
+        Point origin;
+        origin.Id = Mesh.Points[IdOrigin].Id;
+        origin.x = Mesh.Points[IdOrigin].x;
+        origin.y = Mesh.Points[IdOrigin].y;
+        Point end ;
+        end.Id = Mesh.Points[IdEnd].Id;
+        end.x = Mesh.Points[IdEnd].x;
+        end.y = Mesh.Points[IdEnd].y;
+        Segment* s = new Segment(Id1D,origin,end);
+        //cout << "origin  " << origin.x << "__" << origin.y <<endl;
+        //cout << "origin  " << end.x << "__" << end.y <<endl;
         Mesh.Segments.push_back(*s);
     }
     cout << "lettura celle 1D fatta"<<endl;
 
+    /// FILE 2D
 
+    file1D.close();
 
-}
+    ifstream file2D;
+    file2D.open("C:/Users/annam/Desktop/Progetto_PCS_2023/Projects/Raffinamento/Dataset/Test2/Cell2Ds.csv");
 
-void ImportMesh::Cell2D(TriangularMesh& Mesh, string & directory)
-{
-    ifstream file;
-    string filePath = directory + "/Cell2Ds.csv";
-    file.open(filePath);
+    if (file2D.fail())
+        cout<<"errore nell'apertura del file cell2D";
 
-    if (file.fail())
-    {
-        cout<<"errore nell'apertura del file Cell2D"<<endl;
-    };
-    string line;
-    list<string> listLines;
-    while (getline(file,line))
-        listLines.push_back(line);
+    list<string> listLines2D;
+    string line2D;
+    while (getline(file2D, line2D))
+      listLines2D.push_back(line2D);
 
-    file.close();
+    listLines2D.pop_front();
 
-    listLines.pop_front(); //elimino dalla lista la prima riga
-    Mesh.NumberCell2D = listLines.size();
+    Mesh.NumberCell2D = listLines2D.size();
+
     if (Mesh.NumberCell2D == 0)
     {
-        cout<<"nessuna cella 2D disponibile"<<endl;
-
-    };
-
-    string row;
-    for (string& riga : listLines) //for (tipo del contatore uguale a line : lista da cui prendo line)
-    {
-        istringstream rigaStream (riga); //prendo stringa da listLines, lo converto in stream
-
-        getline(rigaStream,row) ; //MEMORIZZO GLI ID
-        unsigned int Id;
-        istringstream (row) >> Id;
-
-        unsigned int IdVertix;
-        unsigned int IdEdge;
-        array<Point,3> vertices;
-        array<Segment,3> edges;
-        for (unsigned int i=0; i<3; i++) //contatore degli elementi del vettore interno
-        {
-            getline(rigaStream,row); //salva il 16 dentro row
-            istringstream(row) >> IdVertix;
-            vertices[i] = Mesh.Points[IdVertix];
-        };
-
-        for (unsigned int i=0; i<3; i++) //contatore degli elementi del vettore interno
-        {
-            getline(rigaStream,row); //salva il 16 dentro row
-            istringstream(row) >> IdEdge;
-            edges[i] = Mesh.Segments[IdEdge];
-        };
-
-        Triangle* t = new Triangle(Id,vertices,edges);
-        Mesh.Triangles.push_back(*t);
-        Mesh.OnOff.push_back(true);
-    };
-    //for(unsigned int i=0; i<80; i++){
-    //    this->onOff.push_back(true);
-    //}
-
-    cout << "lettura celle 2D fatta"<<endl;
-    for (unsigned int i = 0; i < 186; i++)
-    {
-        cout<< Mesh.OnOff[i];
+      cerr << "There is no cell 2D" << endl;
     }
+
+    Mesh.Triangles.reserve(Mesh.NumberCell2D);
+
+    for (const string& line : listLines2D)
+    {
+      istringstream converter(line);
+
+      unsigned int Id2D;
+      array<unsigned int, 3> vertices;
+      array<unsigned int, 3> edges;
+
+      converter >>  Id2D;
+      for(unsigned int i = 0; i < 3; i++)
+        converter >> vertices[i];
+      for(unsigned int i = 0; i < 3; i++)
+        converter >> edges[i];
+
+      //cout << "il triangolo " << id<< "ha vertici "<< vertices[0]<<"--"<<vertices[1] <<"--"<< vertices[2]<<endl;
+      array <Point,3> PointsT = {Mesh.Points[vertices[0]], Mesh.Points[vertices[1]], Mesh.Points[vertices[2]]};
+      array<Segment, 3> SegmentsT = {Mesh.Segments[edges[0]], Mesh.Segments[edges[1]], Mesh.Segments[edges[2]]};
+      Triangle T = Triangle(Id2D, PointsT, SegmentsT);
+      Mesh.Triangles.push_back(T);
+      T.adjacency(T, T.edge1);
+      T.adjacency(T, T.edge2);
+      T.adjacency(T, T.edge3);
+    }
+    file2D.close();
+    cout << "lettura celle 0D fatta"<<endl;
+
 }
 
 
-array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D, unsigned int &NumberCell1D, unsigned int &NumberCell2D,
-              Triangle &T, Segment &segment)
+array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D,
+                                          unsigned int &NumberCell1D,
+                                          unsigned int &NumberCell2D,
+                                          Triangle &T, Segment &segment)
 
 {
     Point origin = segment.origin;
@@ -234,13 +261,21 @@ array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D, unsigned i
 
     };
 
-    //Spengo vecchio triangolo
-    //Mesh.OnOff[T.Id] = false;
 
+
+    //cout<<"segments" << &Mesh.Segments<<endl;
+
+
+    //cout << "size"<< Mesh.Segments.size() << endl;
 
     //creo nuovi segmenti ???faccio metodo "CreationSegment"
 
+
+
+
     unsigned int NewIdS = NumberCell1D; //segmento che collega Midpoint e Opposte
+    // cout << "newIdS __ "<< NewIdS << endl;
+
     Segment NewS(NewIdS, Opposite, Midpoint);
     Segments.push_back(NewS);
     NumberCell1D +=1;
@@ -278,25 +313,28 @@ array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D, unsigned i
     array<Segment, 3> edgesT2 = {NewS, NewSE, LatoDx};
     Triangle newT2(NewIdT2, verticesT2, edgesT2);
 
-    cout<<"Abbiamo diviso il triangolo numero " << T.Id<<endl;
+    cout<<"Abbiamo diviso il triangolo numero  " << T.Id<<endl;
     return {newT1, newT2};
 }
 
-Raffinamento::Raffinamento(TriangularMesh &Mesh, const unsigned int maxIterator, vector<Triangle> SortedA){
+Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int maxIterator, vector<Triangle> ThetaVector){
 
-    for (unsigned int i=0; i<maxIterator; i++){
-        Triangle T = SortedA[i];
-        array<Triangle,2> NewTriangles = Mesh.Division(Mesh.NumberCell0D, Mesh.NumberCell1D,
-                                  Mesh.NumberCell2D, T, T.longestEdge);
-        //Point Midpoint = divisionElements.Midpoint;
+
+    for (unsigned int i=0; i < 10; i++){
+        Triangle T = ThetaVector[i];
+        cout << "thetaV alla posizione i" << ThetaVector[i].Id <<endl;
+
+        array<Triangle, 2> newTriangles =Mesh.Division(Mesh.NumberCell0D, Mesh.NumberCell1D, Mesh.NumberCell2D, T, T.longestEdge);
+        Triangle newT1 = newTriangles[0];
+        Triangle newT2 = newTriangles[1];
+        cout << "new T1 "<< newT1 << endl;
+        cout << "new T2" << newT2 << endl;
+
 
         //Segment NewS = divisionElements.NewS;
         //Segment NewSO = divisionElements.NewSO;
         //Segment NewSE = divisionElements.NewSE;
 
-
-        Triangle newT1 = NewTriangles[0];
-        Triangle newT2 = NewTriangles[1];
         Mesh.Triangles.push_back(newT1);
         Mesh.Triangles.push_back(newT2);
 
@@ -304,11 +342,12 @@ Raffinamento::Raffinamento(TriangularMesh &Mesh, const unsigned int maxIterator,
         Mesh.OnOff.push_back(true);
         Mesh.OnOff.push_back(true);
 
-        cout << "abbiamo diviso il triangolo T"<<endl;
+        cout << "finito di dividere T  "<<T.Id<<endl;
 
 
         //se T è il getT1 di LongestEdge:
         if (*(T.longestEdge.getT1()) == T && Mesh.OnOff[(*(T.longestEdge.getT2())).Id] == true)
+
             //fai division su getT2 (triangolo adiacente a T)
         {
             Triangle Ta = *(T.longestEdge.getT2());
@@ -332,6 +371,8 @@ Raffinamento::Raffinamento(TriangularMesh &Mesh, const unsigned int maxIterator,
 
         else if (*(T.longestEdge.getT2()) == T && Mesh.OnOff[(*(T.longestEdge.getT1())).Id] == true)
         {
+
+                    cout << "altro else if"<< endl;
             Triangle Ta = *(T.longestEdge.getT1());
             cout<<"adiacente di "<< T.Id << "è " << Ta.Id<<endl;
             array<Triangle,2> NewTriangles = Mesh.Division(Mesh.NumberCell0D, Mesh.NumberCell1D,

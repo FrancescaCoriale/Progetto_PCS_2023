@@ -34,9 +34,9 @@ namespace RaffinamentoLibrary
 
         setPoints(segmentsTriangle);
 
-
-        longestEdge = Triangle::FindLongestEdge(edge1, edge2, edge3);
         Area = Triangle::AreaCalculator(p1,p2,p3);
+        longestEdge = Triangle::FindLongestEdge(edge1, edge2, edge3);
+
     }
 
 
@@ -52,12 +52,19 @@ namespace RaffinamentoLibrary
         double doubleArea = 0;
 
         //Formula dell'area di Gauss
+
         doubleArea += (x1*y2) - (y1*x2);
         doubleArea += (x2*y3) - (y2*x3);
         doubleArea += (x3*y1) - (y3*x1);
 
+//        cout <<"area triangolo  "<<Id<< "___ "<<abs(doubleArea/2) <<endl;
+
         double area = abs(doubleArea/2);
         return area;
+
+
+
+
     }
 
     //void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
@@ -119,5 +126,13 @@ namespace RaffinamentoLibrary
 
 
     }
+
+    void Triangle::adjacency(Triangle & t, Segment & edge){
+
+        Triangle *T = nullptr;
+        T = &t;
+        edge.connectTriangle(T);
+    };
+
 
 }

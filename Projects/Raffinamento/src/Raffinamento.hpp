@@ -29,11 +29,6 @@ public:
     vector<Triangle> Triangles;
     vector<bool> OnOff ;
 
-    list<list<unsigned int>> AdjacencyLists = {};
-    //adiacenza: lista di liste: id triangolo è la posizione nel vettore esterno, id triangoli adiacenti sono i valori e id del lato confinante nel vettore interno
-    //void Adjacency(list<list<unsigned int>>& AdjacencyList, const vector<vector<unsigned int>>& Edges2D);
-    void Adjacency(list<unsigned int>& AdjacencyList, const vector<array<unsigned int, 3>> Edges);
-
     array<Triangle,2> Division(unsigned int &NumberCell0D, unsigned int &NumberCell1D,
                                unsigned int &NumberCell2D, Triangle& T, Segment & segment);
 
@@ -43,11 +38,7 @@ public:
 class ImportMesh {
 public:
     TriangularMesh Mesh;
-    void Cell0D(TriangularMesh& Mesh, string & path);
-
-    void Cell1D(TriangularMesh& Mesh, string & path);
-
-    void Cell2D(TriangularMesh& Mesh, string & path);
+    ImportMesh(TriangularMesh& Mesh, string & path);
 };
 
 

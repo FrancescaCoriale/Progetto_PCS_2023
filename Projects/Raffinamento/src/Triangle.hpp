@@ -48,6 +48,9 @@ namespace RaffinamentoLibrary
         //Segment FindLongestEdge();
         Segment FindLongestEdge( Segment &edge1,  Segment &edge2,  Segment &edge3);
 
+        void adjacency(Triangle & t, Segment & edge);
+
+
         void setSegment(Segment &s);
         void setPoints(array<Segment,3> &segmentsTriangle);
 

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <vector>
 #include "Eigen/Eigen"
 #include "Raffinamento.hpp"
 #include "Point.hpp"
@@ -26,23 +27,43 @@ int main(int argc, char *argv[])
 
 
 
-    //importazione, lettura e creazione degli oggetti
-    ImportMesh imp;
-    imp.Cell0D(Mesh, directory);
-    cout << Mesh.NumberCell0D << endl;
-    imp.Cell1D(Mesh, directory);
-    cout << Mesh.NumberCell1D << endl;
-    imp.Cell2D(Mesh, directory);
-    cout << Mesh.NumberCell2D << endl;
-    cout << Mesh.Triangles.size() << endl;
+
+    //importazione, lettura, creazione degli oggetti e adiacenza
+
+    ImportMesh ImportMesh(Mesh, directory);
+
 
     //sorting
     vector<Triangle> SortedA = MergeSort(Mesh.Triangles, 0, Mesh.Triangles.size()-1);
-    SortedA.resize(theta);
-    unsigned int maxIterator = SortedA.size();
+//        for (unsigned int i = 0; i<Mesh.NumberCell2D; i++)
+//            cout<<"sortedA alla posizione " << i << "___" <<SortedA[i]<<endl;
+
+    vector<Triangle> ThetaVector;
+
+    if (theta >= SortedA.size()) {
+        cout << "Errore: theta troppo grande. Inserire un valore di theta più piccolo di "<< SortedA.size() << endl;
+    }
+   else {
+        for (unsigned int i = SortedA.size() - 1; i >= SortedA.size() - theta; i--)
+        {
+//            cout << "SORTEDA TAGLIATO ALLA POSIZIONE " << i << "___" << SortedA[i] << endl;
+            ThetaVector.insert(ThetaVector.begin(), SortedA[i]);
+            cout << "thetaVector" << ThetaVector[0].Id << endl;
+
+        }
+
+    }
+
+
+//    //SortedA.resize(theta);
+//    for (unsigned int i = SortedA.size()-1; i>SortedA.size()-theta; i--)
+//        cout<<"SORTEDA TAGLIATO ALLA POSIZIONE " << i << "___" <<SortedA[i]<<endl;
+    unsigned int maxIterator = ThetaVector.size();
 
     //raffinamento
-    Raffinamento Raffinamento(Mesh, maxIterator, SortedA);
+
+    Raffinamento Raffinamento(Mesh, maxIterator, ThetaVector);
+
 
 
     //esportazione

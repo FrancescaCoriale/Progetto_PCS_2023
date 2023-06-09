@@ -46,8 +46,10 @@ namespace SortingLibrary{
             w.insert(w.begin() + k, v[i]);
         for ( ; j <= dx; j = j+1, k = k+1)
             w.insert(w.begin()+k, v[j]);
+
         for (i = sx; i <= dx; i = i+1)
             v[i] = w[i-sx];  // !!!! Id è di tipo const, non posso modificarlo, devo usare un puntatore
+
         //Se l'assegnazione dell'oggetto Triangle è necessaria, potresti valutare l'utilizzo di
         //un'operazione di copia personalizzata o una soluzione alternativa come un riferimento o
         //un puntatore al Triangle originale invece di copiarlo direttamente.
