@@ -25,8 +25,8 @@ class Segment {
     Point end;
 
     unsigned int c = 0;
-    Triangle *T1;
-    Triangle *T2;
+    unsigned int IdAdj1 = 0;
+    unsigned int IdAdj2 = 0;
 
     double length;
     array<double,2> midPoint;
@@ -38,11 +38,11 @@ class Segment {
     double LenghtEdge(const Point &origin, const Point &end);
     array<double,2> MidPoint(const Point &origin, const Point &end);
 
-    Triangle *getT1(); //cosi restituisco i due triangoli che contengono il segmento (ADIACENZA)
-    Triangle *getT2();
+    unsigned int getAdj1(); //cosi restituisco i due triangoli che contengono il segmento (ADIACENZA)
+    unsigned int getAdj2();
 
-    void connectTriangle(Triangle *t);
-    void disconnectTriangle(Triangle *t);
+    void connectTriangle(unsigned int &IdAdj);
+    void disconnectTriangle(unsigned int &IdAdj);
     ///mi basta usare "." non serve get
     //double getLengthEdge() const;
 

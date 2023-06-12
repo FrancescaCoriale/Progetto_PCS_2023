@@ -32,13 +32,21 @@ int main(int argc, char *argv[])
 
     ImportMesh ImportMesh(Mesh, directory);
 
+    cout << "ciao"<< endl;
 
     //sorting
-    vector<Triangle> SortedA = MergeSort(Mesh.Triangles, 0, Mesh.Triangles.size()-1);
+    vector<unsigned int> v;
+    for (unsigned int i = 0; i < Mesh.NumberCell2D; i++)
+    {
+        v.push_back(Mesh.Triangles[i].Id);
+        cout << "id triangoli da ordinare" << v[i] << endl;
+    }
+
+    vector<unsigned int> SortedA = MergeSort(Mesh, v, 0, v.size()-1);
 //        for (unsigned int i = 0; i<Mesh.NumberCell2D; i++)
 //            cout<<"sortedA alla posizione " << i << "___" <<SortedA[i]<<endl;
 
-    vector<Triangle> ThetaVector;
+    vector<unsigned int> ThetaVector;
     ThetaVector.reserve(theta);
 
     if (theta >= SortedA.size()) {
@@ -51,12 +59,12 @@ int main(int argc, char *argv[])
         {
 //            cout << "SORTEDA TAGLIATO ALLA POSIZIONE " << i << "___" << SortedA[i] << endl;
             ThetaVector.insert(ThetaVector.end(),SortedA[i]);
-            //cout << "thetaVector " << ThetaVector[0].Id << endl;
+            cout << "thetaVector " << ThetaVector[0] << endl;
 
         }
         for (unsigned int i = 0; i < theta; i++)
         {
-            cout << "ThetaVector" << ThetaVector[i].Id << endl;
+            cout << "ThetaVector" << ThetaVector[i] << endl;
         }
 
         }
@@ -74,7 +82,7 @@ int main(int argc, char *argv[])
 
     //esportazione
     ofstream outputFile;
-    outputFile.open("outputFiles.csv");
+    outputFile.open("/Users/francesca/Desktop/Progetto_PCS/Projects/Raffinamento/outputCell2D.csv");
     if (outputFile.fail())
         cerr<< "Errore nell'apertura del file di output" << endl;
 

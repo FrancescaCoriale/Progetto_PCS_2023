@@ -17,19 +17,16 @@ namespace RaffinamentoLibrary
 {
     Triangle::Triangle(const unsigned int& Idvalue, const array<Point,3>& vertices,
                        const array<Segment,3>& edges):
-    Id(Idvalue)
+    Id(Idvalue), pointsTriangle(vertices), segmentsTriangle(edges)
     {
-
-        pointsTriangle = {vertices[0],vertices[1],vertices[2]};
-        //segmentsTriangle = {edge1,edge2,edge3};
         setSegment(edges[0]);
         setSegment(edges[1]);
         setSegment(edges[2]);
 
         setPoints(segmentsTriangle);
 
-        Area = Triangle::AreaCalculator(vertices[0],vertices[1],vertices[2]);
-        longestEdge = Triangle::FindLongestEdge(edges[0], edges[1], edges[2]);
+        //Area = Triangle::AreaCalculator(vertices[0],vertices[1],vertices[2]);
+        //longestEdge = Triangle::FindLongestEdge(edges[0], edges[1], edges[2]);
 
     }
 
@@ -64,19 +61,18 @@ namespace RaffinamentoLibrary
     //void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
 
 
-    Segment Triangle::FindLongestEdge(const Segment &edge1,const Segment &edge2,const Segment &edge3)
+    unsigned int Triangle::FindLongestEdge(const array<Segment,3> &segmentsTriangle)
     {
         //array delle lunghezze
-        array<double,3> lunghezze = {edge1.length, edge2.length, edge3.length};
+        array<double,3> lunghezze = {segmentsTriangle[0].length, segmentsTriangle[1].length, segmentsTriangle[2].length};
         //array degli id
-        array<Segment, 3> lati = {edge1, edge2, edge3};
 
         //restituisce l'iteratore che punta all'elemento massimo dell'array
         auto maxIterator = max_element(lunghezze.begin(), lunghezze.end());
 
         //calcola la posizione dell'elemento massimo
         int maxPosition = distance(lunghezze.begin(), maxIterator);
-        return lati[maxPosition];
+        return segmentsTriangle[maxPosition].Id;
     }
 
 
@@ -121,9 +117,8 @@ namespace RaffinamentoLibrary
 
     void Triangle::adjacency(Triangle &t, Segment &edge)
     {
-        Triangle *T = nullptr;
-        T = &t;
-        edge.connectTriangle(T);
+        unsigned int idT = t.Id;
+        edge.connectTriangle(idT);
     }
 
 

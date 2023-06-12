@@ -4,6 +4,7 @@
 #include "Eigen/Eigen"
 #include <fstream>
 #include <vector>
+#include "Raffinamento.hpp"
 #include "Triangle.hpp"
 
 using namespace std;
@@ -13,22 +14,22 @@ using namespace RaffinamentoLibrary;
 
 namespace SortingLibrary{
 
-    inline bool operator > (const Triangle & object1, const Triangle & object2)
-    {return object1.Area > object2.Area;}
+//    inline bool operator > (const unsigned int & object1, const unsigned int & object2)
+//    {return Mesh.Triangles[object1].Area > Mesh.Triangles[object2].Area;}
 
-    inline bool operator <= (const Triangle & object1, const Triangle & object2)
-    {return object1.Area <= object2.Area;}
+//    inline bool operator <= (const unsigned int & object1, const unsigned int & object2)
+//    {return Mesh.Triangles[object1].Area <= Mesh.Triangles[object2].Area;}
 
-    void Merge(vector<Triangle>& v, const unsigned int& sx,
+    void Merge(const TriangularMesh &Mesh, vector<unsigned int>& v, const unsigned int& sx,
                const unsigned int& cx, const unsigned int& dx){
         unsigned int k = 0;
-        vector<Triangle> w;
+        vector<unsigned int> w;
         unsigned int i = sx;
         unsigned int j = cx+1;
 
         while ((i <= cx) && (j <= dx))
         {
-            if (v[i] <= v[j]) //se sto a sinistra della divisione, ordino la sinistra
+            if (Mesh.Triangles[v[i]].Area<= Mesh.Triangles[v[j]].Area) //se sto a sinistra della divisione, ordino la sinistra
             {
                 //v.insert(v.begin() + k, valore);
                 w.insert(w.begin() + k, v[i]);
@@ -55,16 +56,16 @@ namespace SortingLibrary{
         //un puntatore al Triangle originale invece di copiarlo direttamente.
     }
 
-    vector<Triangle> MergeSort(vector<Triangle>& v, const unsigned int& sx, const unsigned int& dx)
+    vector<unsigned int> MergeSort(const TriangularMesh &Mesh, vector<unsigned int>& v, const unsigned int& sx, const unsigned int& dx)
     {
         unsigned int cx = 0;
 
         if(sx < dx)
         {
             cx = (sx+dx)/2;
-            MergeSort(v, sx, cx);
-            MergeSort(v, cx+1, dx);
-            Merge(v, sx, cx, dx);
+            MergeSort(Mesh, v, sx, cx);
+            MergeSort(Mesh, v, cx+1, dx);
+            Merge(Mesh, v, sx, cx, dx);
         }
         return v;
     }

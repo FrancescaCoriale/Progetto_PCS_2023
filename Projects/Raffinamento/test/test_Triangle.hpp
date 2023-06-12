@@ -130,12 +130,12 @@ TEST(TestRaffinamento, TestFindLongestEdge)
     Segment edge2(idE2,o2,e2);
     Segment edge3(idE3,o3,e3);
 
-    Segment longestEdge = T.FindLongestEdge(edge1,edge2,edge3);
+    unsigned int longestEdge = T.FindLongestEdge({edge1,edge2,edge3});
     //lunghezze segmenti:
     //edge1 = 0.5
     //edge2 = 0.353
     //edge3 = 0.353
-    Segment LongestExpected = edge1;
-    EXPECT_EQ(longestEdge.Id, LongestExpected.Id);
+    unsigned int LongestExpected = edge1.Id;
+    EXPECT_EQ(longestEdge, LongestExpected);
 }
 #endif // __TEST_TRIANGLE_H

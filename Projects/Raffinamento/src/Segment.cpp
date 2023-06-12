@@ -28,30 +28,30 @@ Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& 
         return {(end.y - origin.y)/2,(end.x - origin.x)/2};
     }
 
-    void Segment::connectTriangle(Triangle *t){
-        if (c == 0 || T1 == nullptr){
-            T1 = t;
+    void Segment::connectTriangle(unsigned int &IdAdj){
+        if (c == 0){
+            IdAdj1 = IdAdj;
             c++;
         }
         else{
-            T2 = t;
+            IdAdj2 = IdAdj;
             c++;
         }
     }
 
-    void Segment::disconnectTriangle(Triangle *t){
-        if(T1 == t){
-            T1 = nullptr;
+    void Segment::disconnectTriangle(unsigned int &IdAdj){
+        if(IdAdj == IdAdj1){
+            IdAdj1 = 0;
             c--;
         }
         else{
-            T2 = nullptr;
+            IdAdj2 = 0;
             c--;
         }
     }
 
-    Triangle *Segment::getT1() {return T1;}
-    Triangle *Segment::getT2() {return T2;}
+    unsigned int Segment::getAdj1() {return IdAdj1;}
+    unsigned int Segment::getAdj2() {return IdAdj2;}
 
 
 

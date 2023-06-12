@@ -30,14 +30,21 @@ public:
     vector<bool> OnOff ;
 
     array<Triangle,2> Division(unsigned int &NumberCell0D, unsigned int &NumberCell1D,
-                               unsigned int &NumberCell2D, Triangle& T, Segment & segment);
+                               unsigned int &NumberCell2D, Triangle& T, unsigned int & idSegment);
+
+//    inline bool operator > (const unsigned int & object1, const unsigned int & object2)
+//    {return Triangles[object1].Area > Triangles[object2].Area;}
+
+
+
+//    inline bool operator <= (const unsigned int & object1, const unsigned int & object2)
+//    {return Triangles[object1].Area <= Triangles[object2].Area;}
 
 };
 
 
 class ImportMesh {
 public:
-    TriangularMesh Mesh;
     ImportMesh(TriangularMesh& Mesh, string & path);
 };
 
@@ -66,12 +73,8 @@ class Raffinamento {
 //controllo: il longestedge di T2 è uguale a longestedge di T1?
         //se sì: fai solo division su T2
         //altrimenti: fai division + segment tra midpoint del longestedge di T2 e del longestedge di T1
-
-    Triangle T;
-    TriangularMesh Mesh;
-
 public:
-    Raffinamento(TriangularMesh &Mesh, const unsigned int maxIterator, vector<Triangle> SortedA);
+    Raffinamento(TriangularMesh &Mesh, const unsigned int &maxIterator, vector<unsigned int> &ThetaVector);
 
 
 };
