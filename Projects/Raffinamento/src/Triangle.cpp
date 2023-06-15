@@ -63,15 +63,16 @@ namespace RaffinamentoLibrary
 
     unsigned int Triangle::FindLongestEdge(const array<Segment,3> &segmentsTriangle)
     {
+
         //array delle lunghezze
         array<double,3> lunghezze = {segmentsTriangle[0].length, segmentsTriangle[1].length, segmentsTriangle[2].length};
-        //array degli id
 
         //restituisce l'iteratore che punta all'elemento massimo dell'array
         auto maxIterator = max_element(lunghezze.begin(), lunghezze.end());
 
         //calcola la posizione dell'elemento massimo
         int maxPosition = distance(lunghezze.begin(), maxIterator);
+
         return segmentsTriangle[maxPosition].Id;
     }
 
@@ -83,18 +84,20 @@ namespace RaffinamentoLibrary
         {
             segmentsTriangle[0] = s;
         }
-        if ((pointsTriangle[1] == s.origin || pointsTriangle[1] == s.end) && (pointsTriangle[2] == s.end || pointsTriangle[2] == s.origin))
+        if ((pointsTriangle[1] == s.origin || pointsTriangle[1] == s.end) &&
+                (pointsTriangle[2] == s.end || pointsTriangle[2] == s.origin))
         {
             segmentsTriangle[1] = s;
         }
-        if ((pointsTriangle[2]  == s.origin || pointsTriangle[2]  == s.end) && (pointsTriangle[0]  == s.end || pointsTriangle[0]  == s.origin))
+        if ((pointsTriangle[2]  == s.origin || pointsTriangle[2]  == s.end) &&
+                (pointsTriangle[0]  == s.end || pointsTriangle[0]  == s.origin))
         {
             segmentsTriangle[2] = s;
         }
     }
 
 
-    void Triangle::setPoints(array<Segment,3> &segmentsTriangle){
+    void Triangle::setPoints(array<Segment, 3> &segmentsTriangle){
         if (segmentsTriangle[0].end.Id != segmentsTriangle[1].origin.Id)
         {
             Point tmp = segmentsTriangle[0].origin;

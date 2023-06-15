@@ -50,7 +50,7 @@ TEST(TestRaffinamento, TestDivision)
     array<unsigned int, 3> T2ExpectedEdges = {newdx,edge2.Id,newedge};
 
     array<Triangle,2> NewTriangles = mesh.Division(NumberCell0D, NumberCell1D,
-                                      NumberCell2D, T, T.longestEdge);
+                                                   NumberCell2D, T, T.FindLongestEdge(T.segmentsTriangle));
 
     Triangle newT1 = NewTriangles[0];
     Triangle newT2 = NewTriangles[1];

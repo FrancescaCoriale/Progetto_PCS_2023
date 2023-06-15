@@ -131,6 +131,7 @@ TEST(TestRaffinamento, TestFindLongestEdge)
     Segment edge3(idE3,o3,e3);
 
     unsigned int longestEdge = T.FindLongestEdge({edge1,edge2,edge3});
+
     //lunghezze segmenti:
     //edge1 = 0.5
     //edge2 = 0.353
