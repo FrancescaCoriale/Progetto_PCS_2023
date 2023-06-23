@@ -31,12 +31,17 @@ int main(int argc, char *argv[])
 
     ImportMesh ImportMesh(Mesh, directory);
 
+<<<<<<< Updated upstream
+=======
+    //cout << "ciao"<< endl;
+
+>>>>>>> Stashed changes
     //sorting
     vector<unsigned int> v;
     for (unsigned int i = 0; i < Mesh.NumberCell2D; i++)
     {
         v.push_back(Mesh.Triangles[i].Id);
-        cout << "id triangoli da ordinare" << v[i] << endl;
+        //cout << "id triangoli da ordinare" << v[i] << endl;
     }
 
     vector<unsigned int> SortedA = MergeSort(Mesh, v, 0, v.size()-1);
@@ -54,10 +59,19 @@ int main(int argc, char *argv[])
         {
 //            cout << "SORTEDA TAGLIATO ALLA POSIZIONE " << i << "___" << SortedA[i] << endl;
             ThetaVector.insert(ThetaVector.end(),SortedA[i]);
+<<<<<<< Updated upstream
         }
         for (unsigned int i = 0; i < theta; i++)
         {
             cout << "ThetaVector alla posizione -- " << i << " -- " << ThetaVector[i] << endl;
+=======
+            //cout << "thetaVector " << ThetaVector[0] << endl;
+
+        }
+        for (unsigned int i = 0; i < theta; i++)
+        {
+            cout << "ThetaVector " << ThetaVector[i] << endl;
+>>>>>>> Stashed changes
         }
 
     }

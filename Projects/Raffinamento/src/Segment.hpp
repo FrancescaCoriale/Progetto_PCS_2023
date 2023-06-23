@@ -25,8 +25,8 @@ class Segment {
     Point end;
 
     unsigned int c = 0;
-    unsigned int IdAdj1 = 0;
-    unsigned int IdAdj2 = 0;
+    unsigned int IdAdj1 = 3567587327;
+    unsigned int IdAdj2 = 3567587327;
 
     double length;
     array<double,2> midPoint;
@@ -46,13 +46,17 @@ class Segment {
     ///mi basta usare "." non serve get
     //double getLengthEdge() const;
 
+    void change(Segment &obj);
 
 };
+
+
 
     inline bool operator == (const Segment & obj1, const Segment & obj2)
     {
         return obj1.Id == obj2.Id;
     }
+
 
 }
 #endif // __SEGMENT_H

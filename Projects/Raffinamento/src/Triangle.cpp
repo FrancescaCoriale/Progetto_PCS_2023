@@ -19,10 +19,12 @@ namespace RaffinamentoLibrary
                        const array<Segment,3>& edges):
     Id(Idvalue), pointsTriangle(vertices), segmentsTriangle(edges)
     {
-        setSegment(edges[0]);
-        setSegment(edges[1]);
-        setSegment(edges[2]);
-
+//        setSegment(edges[0]);
+//        setSegment(edges[1]);
+//        setSegment(edges[2]);
+        setSegment(segmentsTriangle[0]);
+        setSegment(segmentsTriangle[1]);
+        setSegment(segmentsTriangle[2]);
         setPoints(segmentsTriangle);
 
         //Area = Triangle::AreaCalculator(vertices[0],vertices[1],vertices[2]);
@@ -117,6 +119,8 @@ namespace RaffinamentoLibrary
             segmentsTriangle[2].end = tmp;
         }
     }
+
+
 
     void Triangle::adjacency(Triangle &t, Segment &edge)
     {

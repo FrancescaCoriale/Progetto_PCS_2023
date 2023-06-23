@@ -20,7 +20,7 @@ namespace RaffinamentoLibrary
         unsigned int Id;
         array<Point,3> pointsTriangle;
         array<Segment,3> segmentsTriangle;
-        unsigned int longestEdge= 0;
+        unsigned int longestEdge = 0;
         double Area = 0.0;
 
 
@@ -33,6 +33,8 @@ namespace RaffinamentoLibrary
                  const array<Segment,3>& edges);
 
 
+        void setSegment(const Segment &s);
+        void setPoints(array<Segment,3> &segmentsTriangle);
 
         double AreaCalculator(const Point &p1,const Point &p2, const Point &p3);
 
@@ -41,10 +43,13 @@ namespace RaffinamentoLibrary
 
         void adjacency(Triangle &t, Segment &edge);
 
+<<<<<<< Updated upstream
 
         void setSegment(const Segment &s);
         void setPoints(array<Segment, 3> &segmentsTriangle);
 
+=======
+>>>>>>> Stashed changes
     };
 
 
