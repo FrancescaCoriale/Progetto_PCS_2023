@@ -36,21 +36,26 @@ TEST(TestRaffinamento, TestDivision)
 
     Triangle T(IdTriangle, vertices, edges);
 
-    unsigned int midPointId = 109;
+    unsigned int IdMidPoint = 109;
     unsigned int newedge = 294;
     unsigned int newsx = 295;
     unsigned int newdx = 296;
 
     unsigned int T1ExpectedId = 186;
-    array<unsigned int,3> T1ExpectedVertices = {p1.Id,midPointId,p0.Id};
+    array<unsigned int,3> T1ExpectedVertices = {p1.Id,IdMidPoint,p0.Id};
     array<unsigned int, 3> T1ExpectedEdges = {newsx,newedge,edge0.Id};
 
     unsigned int T2ExpectedId = 187;
-    array<unsigned int,3> T2ExpectedVertices = {midPointId,p2.Id,p0.Id};
+    array<unsigned int,3> T2ExpectedVertices = {IdMidPoint,p2.Id,p0.Id};
     array<unsigned int, 3> T2ExpectedEdges = {newdx,edge2.Id,newedge};
 
+    array<double, 2> CoordinatesMidpoint = T.segmentsTriangle[T.FindLongestEdge(T.segmentsTriangle)].midPoint; //contiene le sue coordinate,
+
+
+    Point Midpoint(IdMidPoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
+    unsigned int longestEdge = T.FindLongestEdge(T.segmentsTriangle);
     array<Triangle,2> NewTriangles = mesh.Division(NumberCell0D, NumberCell1D,
-                                                   NumberCell2D, T, T.FindLongestEdge(T.segmentsTriangle));
+                                                   NumberCell2D, T, longestEdge, Midpoint);
 
     Triangle newT1 = NewTriangles[0];
     Triangle newT2 = NewTriangles[1];

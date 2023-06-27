@@ -41,15 +41,7 @@ namespace RaffinamentoLibrary
         //Segment FindLongestEdge();
         unsigned int FindLongestEdge(const array<Segment, 3> &segmentsTriangle);
 
-        void adjacency(Triangle &t, Segment &edge);
-
-<<<<<<< Updated upstream
-
-        void setSegment(const Segment &s);
-        void setPoints(array<Segment, 3> &segmentsTriangle);
-
-=======
->>>>>>> Stashed changes
+        void adjacency(Segment &edge); //Triangle &t,
     };
 
 

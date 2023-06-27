@@ -35,7 +35,7 @@ Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& 
         }
         else{
             IdAdj2 = IdAdj;
-            c++;
+            //c++;
         }
     }
 
@@ -46,7 +46,7 @@ Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& 
         }
         else{
             IdAdj2 = 0;
-            c--;
+            //c--;
         }
     }
 

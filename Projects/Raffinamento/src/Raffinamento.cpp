@@ -180,11 +180,6 @@ ImportMesh::ImportMesh(TriangularMesh& Mesh, string & directory)
         converter >> edges[i];
 
 
-      cout << "il triangolo " << Id2D<< "ha vertici "<< vertices[0]<<"--"<<vertices[1] <<"--"<< vertices[2]<<endl;
-//      array <Point,3> PointsT = {Mesh.Points[vertices[0]], Mesh.Points[vertices[1]], Mesh.Points[vertices[2]]};
-//      array<Segment, 3> SegmentsT = {Mesh.Segments[edges[0]], Mesh.Segments[edges[1]], Mesh.Segments[edges[2]]};
-
-
       //Triangle T = Triangle(Id2D, PointsT, SegmentsT);
       //Mesh.Triangles.push_back(T);
 
@@ -215,14 +210,10 @@ ImportMesh::ImportMesh(TriangularMesh& Mesh, string & directory)
         }
       }
 
-      Mesh.Triangles.back().adjacency(Mesh.Triangles.back(), Mesh.Segments[edges[0]]);
-      Mesh.Triangles.back().adjacency(Mesh.Triangles.back(), Mesh.Segments[edges[1]]);
-      Mesh.Triangles.back().adjacency(Mesh.Triangles.back(), Mesh.Segments[edges[2]]);
-<<<<<<< Updated upstream
+      Mesh.Triangles.back().adjacency(Mesh.Segments[edges[0]]);
+      Mesh.Triangles.back().adjacency(Mesh.Segments[edges[1]]);
+      Mesh.Triangles.back().adjacency(Mesh.Segments[edges[2]]);
       //cout << "fatta adiacenza" << endl;
-
-=======
->>>>>>> Stashed changes
     }
 
 
@@ -231,8 +222,8 @@ ImportMesh::ImportMesh(TriangularMesh& Mesh, string & directory)
         Mesh.OnOff.push_back(true);
     }
 
-    unsigned int t = Mesh.Segments[Mesh.Triangles.back().longestEdge].getAdj2();
-    cout << "Id Adiacente T2 di longestEdge: " << t << endl;
+    //unsigned int t = Mesh.Segments[Mesh.Triangles.back().longestEdge].getAdj2();
+    //cout << "Id Adiacente T2 di longestEdge: " << t << endl;
 
     file2D.close();
 
@@ -240,39 +231,25 @@ ImportMesh::ImportMesh(TriangularMesh& Mesh, string & directory)
 
 }
 
-
-
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
-array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D,
-                                          unsigned int &NumberCell1D,
-                                          unsigned int &NumberCell2D,
-                                          Triangle &T, unsigned int idSegment)
-
-
+Point TriangularMesh::CreateMidPoint(unsigned int &idSegment)
 {
-<<<<<<< Updated upstream
-    array<double, 2> CoordinatesMidpoint = Segments[idSegment].midPoint; //contiene le sue coordinate, dobbiamo creare l'id
-=======
-    //Mesh.Segments[idSegment].origin;
-    //Mesh.Segments[idSegment].end;
     array<double, 2> CoordinatesMidpoint = Segments[idSegment].midPoint; //contiene le sue coordinate,
     //dobbiamo creare l'id:
->>>>>>> Stashed changes
     unsigned int IdMidpoint = NumberCell0D;
     //mi serve per non avere lo stesso id di punti diversi:
     NumberCell0D += 1;
 
-    unsigned int IdOpposite = 0;
-    unsigned int IdLatoSx = 0;
-    unsigned int IdLatoDx = 0;
-
     Point Midpoint(IdMidpoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
     Points.push_back(Midpoint);
+    return Midpoint;
+}
 
-    //cerco id del vertice opposto
+array<unsigned int, 3> TriangularMesh::GetUtilities(Triangle &T, unsigned int &idSegment)
+{
+    unsigned int IdOpposite;
+    unsigned int IdLatoDx;
+    unsigned int IdLatoSx;
+    //cerco id del vertice opposto e dei due lati da mantenere:
     for (unsigned int i = 0; i<3; i++)
     {
         if ((Segments[idSegment].origin.Id != T.pointsTriangle[i].Id) &&
@@ -280,7 +257,9 @@ array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D,
         {
             IdOpposite = T.pointsTriangle[i].Id;
         }
-
+    }
+    for (unsigned int i = 0; i<3; i++)
+    {
         if (idSegment != T.segmentsTriangle[i].Id) //se non è il lato che ho diviso in 2
         {
             if (Segments[idSegment].origin.Id ==  T.segmentsTriangle[i].end.Id)
@@ -294,6 +273,7 @@ array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D,
                         IdLatoDx = T.segmentsTriangle[k].Id;
                     }
                 }
+                break;
             }
             else if (Segments[idSegment].end.Id ==  T.segmentsTriangle[i].origin.Id)
             {
@@ -306,17 +286,29 @@ array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D,
                         IdLatoSx = T.segmentsTriangle[k].Id;
                     }
                 }
+                break;
             }
         }
-    };
-<<<<<<< Updated upstream
+    }
+    return {IdOpposite, IdLatoDx, IdLatoSx};
+}
 
-=======
+
+array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D,
+                                          unsigned int &NumberCell1D,
+                                          unsigned int &NumberCell2D,
+                                          Triangle &T, unsigned int &idSegment, Point &Midpoint)
+{
+
+/// TROVO OPPOSITE E DUE LATI DA TENERE:
+
+    array<unsigned int,3> utilites= GetUtilities(T, idSegment);
+    unsigned int IdOpposite = utilites[0];
+    unsigned int IdLatoDx = utilites[1];
+    unsigned int IdLatoSx = utilites[2];
+    cout << "Opposite: " << IdOpposite << endl;
+
     cout << "Id lato sx: " << IdLatoSx << " ___ Id lato dx: "<< IdLatoDx << endl;
-    //cout<<"segments" << &Mesh.Segments<<endl;
-    //cout << "size"<< Mesh.Segments.size() << endl;
-    //creo nuovi segmenti ???faccio metodo "CreationSegment"
->>>>>>> Stashed changes
 
     unsigned int NewIdS = NumberCell1D; //segmento che collega Midpoint e Opposte
 
@@ -343,23 +335,76 @@ array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D,
     array<Segment, 3> edgesT1 = {NewSO, NewS, Segments[IdLatoSx]};
     Triangle newT1(NewIdT1, verticesT1, edgesT1);
 
-    NumberCell2D +=1;
+    //aggiorno adiacenza:
+    Segments[IdLatoSx].disconnectTriangle(T.Id);
+    newT1.adjacency(Segments[IdLatoSx]);
 
+    NumberCell2D +=1;
     unsigned int NewIdT2 = NumberCell2D;
     array<Point,3> verticesT2 = {Midpoint, Segments[idSegment].end, Points[IdOpposite]};
     array<Segment, 3> edgesT2 = {NewSE, Segments[IdLatoDx], NewS};
     Triangle newT2(NewIdT2, verticesT2, edgesT2);
 
-<<<<<<< Updated upstream
-//    cout<<"Abbiamo diviso il triangolo numero  " << T.Id<<endl;
-=======
+    //aggiorno adiacenza:
+    Segments[IdLatoDx].disconnectTriangle(T.Id);
+    newT2.adjacency(Segments[IdLatoDx]);
+
+    //mi serve per non ripetere lo stesso id per triangoli diversi:
+    NumberCell2D +=1;
+
+    return {newT1, newT2};
+}
+
+
+array<Triangle,2> TriangularMesh::DivisionAdjacent(Triangle& adjT, unsigned int &idlongestEdge, Point &Midpoint,
+                                       Segment &NewSO, Segment &NewSE)
+{
+///TROVO OPPOSITE E DUE LATI DA TENERE
+    array<unsigned int,3> utilites= GetUtilities(adjT, idlongestEdge);
+    unsigned int IdOpposite = utilites[0];
+    unsigned int IdLatoDx = utilites[1];
+    unsigned int IdLatoSx = utilites[2];
+
+    cout << "Opposite: " << IdOpposite << endl;
+    cout << "Id lato sx: " << IdLatoSx << " ___ Id lato dx: "<< IdLatoDx << endl;
+
+    unsigned int NewIdS = NumberCell1D; //segmento che collega Midpoint e Opposite
+    Segment NewS(NewIdS, Points[IdOpposite], Midpoint);
+    Segments.push_back(NewS);
+    NumberCell1D +=1;
+    cout << "Id lato nuovo: " << NewS.Id << endl;
+
+    unsigned int NewIdT1 = NumberCell2D;
+    array<Point,3> verticesT1 = {Midpoint, Segments[idlongestEdge].origin, Points[IdOpposite]};
+    array<Segment, 3> edgesT1 = {NewSO, Segments[IdLatoSx], NewS};
+    Triangle newT1(NewIdT1, verticesT1, edgesT1);
+
+    //aggiorno adiacenza:
+    newT1.adjacency(NewSO);
+    Segments[IdLatoSx].disconnectTriangle(adjT.Id);
+    newT1.adjacency(Segments[IdLatoSx]);
+
+    NumberCell2D +=1;
+    unsigned int NewIdT2 = NumberCell2D;
+    array<Point,3> verticesT2 = {Segments[idlongestEdge].end, Midpoint, Points[IdOpposite]};
+    array<Segment, 3> edgesT2 = {NewSE, NewS, Segments[IdLatoDx]};
+    Triangle newT2(NewIdT2, verticesT2, edgesT2);
+
+    //aggiorno adiacenza:
+    newT2.adjacency(NewSE);
+    Segments[IdLatoDx].disconnectTriangle(adjT.Id);
+    newT2.adjacency(Segments[IdLatoDx]);
+
     //mi serve per non ripetere lo stesso id per triangoli diversi:
     NumberCell2D +=1;
 
     //cout<<"Abbiamo diviso il triangolo numero  " << T.Id<<endl;
->>>>>>> Stashed changes
     return {newT1, newT2};
 }
+
+
+
+
 
 Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int &maxIterator, vector<unsigned int> &ThetaVector)
 {
@@ -370,37 +415,24 @@ Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int &maxIterator
         cout << "origin longest edge: " << Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].origin.Id << "__";
         cout << "end longest edge: " << Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].end.Id << endl;
 
-<<<<<<< Updated upstream
+        Point MidPoint = Mesh.CreateMidPoint(Mesh.Triangles[ThetaVector[i]].longestEdge);
 
-        array<Triangle, 2> newTriangles =Mesh.Division(Mesh.NumberCell0D,
+        array<Triangle, 2> newTriangles = Mesh.Division(Mesh.NumberCell0D,
                                                        Mesh.NumberCell1D,
                                                        Mesh.NumberCell2D,
                                                        Mesh.Triangles[ThetaVector[i]],
-                                                       Mesh.Triangles[ThetaVector[i]].longestEdge);
+                                                       Mesh.Triangles[ThetaVector[i]].longestEdge,
+                                                       MidPoint);
 
-=======
-        //cout << "primo vertice: " << Mesh.Triangles[ThetaVector[i]].pointsTriangle[0].Id;
-        cout << " origin primo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[0].origin.Id<< "__";
-        cout << " end primo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[0].end.Id <<endl;
+//        cout << " origin primo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[0].origin.Id<< "__";
+//        cout << " end primo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[0].end.Id <<endl;
 
-        //cout << "secondo vertice: " << Mesh.Triangles[ThetaVector[i]].pointsTriangle[1].Id;
-        cout << " origin secondo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[1].origin.Id << "__";
-        cout << " end secondo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[1].end.Id <<endl;
+//        cout << " origin secondo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[1].origin.Id << "__";
+//        cout << " end secondo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[1].end.Id <<endl;
 
-        //cout << "terzo vertice: " << Mesh.Triangles[ThetaVector[i]].pointsTriangle[2].Id;
-        cout << " origin terzo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[2].origin.Id << "__";
-        cout << " end terzo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[2].end.Id <<endl;
+//        cout << " origin terzo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[2].origin.Id << "__";
+//        cout << " end terzo lato: " << Mesh.Triangles[ThetaVector[i]].segmentsTriangle[2].end.Id <<endl;
 
-        for (unsigned int j = 0; j< 3; j++)
-        {
-            if (Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].Id == Mesh.Triangles[ThetaVector[i]].segmentsTriangle[j].Id)
-            {
-                //se longestEdge.origin è diverso dall'origin del segmento nel vettore segmentsTriangle -> inverti origin end del longestEdge (tanto non mi serve più perchè lo taglio)
-            }
-        }
-        array<Triangle, 2> newTriangles =Mesh.Division(Mesh.NumberCell0D, Mesh.NumberCell1D, Mesh.NumberCell2D,
-                                                       Mesh.Triangles[ThetaVector[i]], Mesh.Triangles[ThetaVector[i]].longestEdge);
->>>>>>> Stashed changes
         cout << "new T1 "<< newTriangles[0] << endl;
         cout << "new T2 " << newTriangles[1] << endl;
 
@@ -408,15 +440,13 @@ Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int &maxIterator
         Mesh.Triangles.push_back(newTriangles[1]);
 
         Mesh.OnOff[ThetaVector[i]] = false;
-        cout << Mesh.OnOff[ThetaVector[i]] << "Ho spento il triangolo " << ThetaVector[i]<< endl;
+//        cout << Mesh.OnOff[ThetaVector[i]] << " Ho spento il triangolo " << ThetaVector[i]<< endl;
         Mesh.OnOff.push_back(true);
-        cout << Mesh.OnOff[Mesh.OnOff.size()-1] << "Ho acceso il triangolo " << Mesh.OnOff.size()-1<< endl;
+//        cout << Mesh.OnOff[Mesh.OnOff.size()-1] << " Ho acceso il triangolo " << Mesh.OnOff.size()-1<< endl;
         Mesh.OnOff.push_back(true);
-        cout << Mesh.OnOff[Mesh.OnOff.size()-1] << "Ho acceso il triangolo " << Mesh.OnOff.size()-1<< endl;
+//        cout << Mesh.OnOff[Mesh.OnOff.size()-1] << " Ho acceso il triangolo " << Mesh.OnOff.size()-1<< endl;
 
         unsigned int l = Mesh.Triangles[ThetaVector[i]].longestEdge;
-<<<<<<< Updated upstream
-//        cout << "finito di dividere T "<< Mesh.Triangles[ThetaVector[i]] << endl;
 
         unsigned int adj1 = Mesh.Segments[l].getAdj1();
         unsigned int adj2 = Mesh.Segments[l].getAdj2();
@@ -424,20 +454,12 @@ Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int &maxIterator
         cout << "primo adiacente: " << adj1 << endl;
         cout << "secondo adiacente: " << adj2 << endl;
 
-=======
-
         cout << "finito di dividere T "<< Mesh.Triangles[ThetaVector[i]] << endl;
 
-        cout << "primo adiacente: " << Mesh.Segments[l].getAdj1() << endl;
-        cout << "secondo adiacente: " << Mesh.Segments[l].getAdj2() << endl;
-        unsigned int adj1 = Mesh.Segments[l].getAdj1();
-        unsigned int adj2 = Mesh.Segments[l].getAdj2();
-        //cout << "secondo adiacente" << T2->Id << endl;
         if (adj1 == 3567587327 || adj2 == 3567587327)
         {
-            cout << "lato di bordo" << endl;
+            cout << "Lato di bordo" << endl;
         }
->>>>>>> Stashed changes
 
         //se T è il getT1 di LongestEdge:
         else if (adj1 == ThetaVector[i] && Mesh.OnOff[adj2] == true)
@@ -447,18 +469,15 @@ Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int &maxIterator
             unsigned int Ta = adj2;
             cout<<"adiacente di "<< ThetaVector[i] << " è " << Ta << endl;
 
-            array<Triangle,2> NewTrianglesA = Mesh.Division(Mesh.NumberCell0D, Mesh.NumberCell1D,
-<<<<<<< Updated upstream
-                                                            Mesh.NumberCell2D, Mesh.Triangles[Ta],
-                                                            Mesh.Triangles[Ta].longestEdge);
-=======
-                                              Mesh.NumberCell2D, Mesh.Triangles[Ta], Mesh.Triangles[Ta].longestEdge);
+            unsigned int idSO = Mesh.Segments.size()-2;
+            unsigned int idSE = Mesh.Segments.size()-1;
+            cout << "SO: " << idSO << "__" << " SE: " << idSE << endl;
 
-           //NewTriangles[0];
-           //NewTriangles[1];
+            array<Triangle,2> NewTrianglesA = Mesh.DivisionAdjacent(Mesh.Triangles[Ta], Mesh.Triangles[ThetaVector[i]].longestEdge,
+                                                               MidPoint, Mesh.Segments[idSO], Mesh.Segments[idSE]);
+
             cout << "new TA 1 "<< NewTrianglesA[0] << endl;
             cout << "new TA 2 " << NewTrianglesA[1] << endl;
->>>>>>> Stashed changes
 
             Mesh.Triangles.push_back(NewTrianglesA[0]);
             Mesh.Triangles.push_back(NewTrianglesA[1]);
@@ -474,11 +493,18 @@ Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int &maxIterator
         {
             cout << "sono nell'altro else if, caso T = GetT2"<< endl;
             unsigned int Ta = adj1;
-            cout<<"adiacente di "<< ThetaVector[i] << "è " << Ta<<endl;
-            array<Triangle,2> NewTrianglesA = Mesh.Division(Mesh.NumberCell0D,
-                                                            Mesh.NumberCell1D,
-                                                            Mesh.NumberCell2D, Mesh.Triangles[Ta],
-                                                            Mesh.Triangles[Ta].longestEdge);
+            cout<<"adiacente di "<< ThetaVector[i] << " è " << Mesh.Triangles[Ta] <<endl;
+
+            unsigned int idSO = Mesh.Segments.size()-2;
+            unsigned int idSE = Mesh.Segments.size()-1;
+            cout << "SO: " << idSO << "__" << " SE: " << idSE << endl;
+
+            cout << "longestEdge vecchio: "<< Mesh.Triangles[ThetaVector[i]].longestEdge << endl;
+            array<Triangle,2> NewTrianglesA = Mesh.DivisionAdjacent(Mesh.Triangles[Ta], Mesh.Triangles[ThetaVector[i]].longestEdge,
+                                                               MidPoint, Mesh.Segments[idSO], Mesh.Segments[idSE]);
+
+            cout << "new TA 1 " << NewTrianglesA[0] << endl;
+            cout << "new TA 2 " << NewTrianglesA[1] << endl;
 
             Mesh.Triangles.push_back(NewTrianglesA[0]);
             Mesh.Triangles.push_back(NewTrianglesA[1]);
@@ -488,8 +514,6 @@ Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int &maxIterator
         }
     }
 }
-
-
 
 } //fine namespace
 

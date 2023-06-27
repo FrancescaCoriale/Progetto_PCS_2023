@@ -120,11 +120,10 @@ namespace RaffinamentoLibrary
         }
     }
 
-
-
-    void Triangle::adjacency(Triangle &t, Segment &edge)
+    void Triangle::adjacency(Segment &edge)//Triangle &t,
     {
-        unsigned int idT = t.Id;
+        unsigned int idT = Triangle::Id;
+        //unsigned int idT = t.Id;
         edge.connectTriangle(idT);
     }
 
