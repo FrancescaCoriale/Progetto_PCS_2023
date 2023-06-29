@@ -427,10 +427,16 @@ Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int &maxIterator
     {
         ThetaVector[i];
         cout << "Divido triangolo di thetaV: " << Mesh.Triangles[ThetaVector[i]] <<endl;
-        cout << "origin longest edge: " << Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].origin.Id << "__";
-        cout << "end longest edge: " << Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].end.Id << endl;
+        cout << "origin longest edge: " << Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].origin.Id << " __ ";
+        cout << "x origin: " << Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].origin.x << " __ ";
+        cout << "y origin: " << Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].origin.y << endl;
+
+        cout << "end longest edge: " << Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].end.Id << " __ ";
+        cout << "x end: " << Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].end.x << " __ ";
+        cout << "y end: " << Mesh.Segments[Mesh.Triangles[ThetaVector[i]].longestEdge].end.y << endl;
 
         Point MidPoint = Mesh.CreateMidPoint(Mesh.Triangles[ThetaVector[i]].longestEdge);
+        cout << "Midpoint: "<<MidPoint.Id<<endl;
 
         array<Triangle, 2> newTriangles = Mesh.Division(Mesh.NumberCell1D,
                                                        Mesh.NumberCell2D,

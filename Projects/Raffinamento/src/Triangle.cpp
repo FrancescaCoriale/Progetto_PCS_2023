@@ -68,13 +68,15 @@ namespace RaffinamentoLibrary
     {
 
         //array delle lunghezze
-        array<double,3> lunghezze = {segmentsTriangle[0].length, segmentsTriangle[1].length, segmentsTriangle[2].length};
+        array<double,3> lunghezze = {segmentsTriangle[0].length,
+                                     segmentsTriangle[1].length, segmentsTriangle[2].length};
 
         //restituisce l'iteratore che punta all'elemento massimo dell'array
         auto maxIterator = max_element(lunghezze.begin(), lunghezze.end());
 
         //calcola la posizione dell'elemento massimo
-        int maxPosition = distance(lunghezze.begin(), maxIterator);
+        //int maxPosition = distance(lunghezze.begin(), maxIterator);
+        int maxPosition = maxIterator-lunghezze.begin();
 
         return segmentsTriangle[maxPosition].Id;
     }

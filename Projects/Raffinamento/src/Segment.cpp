@@ -25,7 +25,7 @@ Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& 
     }
 
     array<double,2> Segment::MidPoint(const Point &origin, const Point &end) {
-        return {(end.y - origin.y)/2,(end.x - origin.x)/2};
+        return {(end.x + origin.x)/2,(end.y + origin.y)/2};
     }
 
     void Segment::connectTriangle(unsigned int &IdAdj){
