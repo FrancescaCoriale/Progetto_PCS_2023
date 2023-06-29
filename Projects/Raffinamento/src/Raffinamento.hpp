@@ -33,7 +33,7 @@ public:
 
     array<unsigned int, 3> GetUtilities(Triangle &T, unsigned int &idSegment);
 
-    array<Triangle,2> Division(unsigned int &NumberCell0D, unsigned int &NumberCell1D, unsigned int &NumberCell2D,
+    array<Triangle,2> Division(unsigned int &NumberCell1D, unsigned int &NumberCell2D,
                                Triangle& T, unsigned int &idSegment, Point &Midpoint);
 
     array<Triangle,2> DivisionAdjacent(Triangle& adjT, unsigned int &idlongestEdge, Point &Midpoint,
@@ -46,7 +46,6 @@ public:
 
 //    inline bool operator <= (const unsigned int & object1, const unsigned int & object2)
 //    {return Triangles[object1].Area <= Triangles[object2].Area;}
-
 };
 
 

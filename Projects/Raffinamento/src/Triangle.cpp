@@ -63,6 +63,7 @@ namespace RaffinamentoLibrary
     //void Triangle::setId(unsigned int IdVertice) {Id = IdVertice;}
 
 
+
     unsigned int Triangle::FindLongestEdge(const array<Segment,3> &segmentsTriangle)
     {
 
@@ -84,7 +85,7 @@ namespace RaffinamentoLibrary
         if ((pointsTriangle[0] == s.origin || pointsTriangle[0] == s.end) &&
             (pointsTriangle[1] == s.end || pointsTriangle[1] == s.origin))
         {
-            segmentsTriangle[0] = s;
+            segmentsTriangle[0]= s;
         }
         if ((pointsTriangle[1] == s.origin || pointsTriangle[1] == s.end) &&
                 (pointsTriangle[2] == s.end || pointsTriangle[2] == s.origin))

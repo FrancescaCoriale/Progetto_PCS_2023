@@ -13,7 +13,6 @@ using namespace RaffinamentoLibrary;
 TEST(TestRaffinamento, TestDivision)
 {
     TriangularMesh mesh;
-    unsigned int NumberCell0D = 109;
     unsigned int NumberCell1D = 294;
     unsigned int NumberCell2D = 186;
     // array<Triangle,2> Division(Triangle& T);
@@ -54,8 +53,9 @@ TEST(TestRaffinamento, TestDivision)
 
     Point Midpoint(IdMidPoint, CoordinatesMidpoint[0], CoordinatesMidpoint[1]); //ho creato il nuovo punto medio
     unsigned int longestEdge = T.FindLongestEdge(T.segmentsTriangle);
-    array<Triangle,2> NewTriangles = mesh.Division(NumberCell0D, NumberCell1D,
-                                                   NumberCell2D, T, longestEdge, Midpoint);
+    array<Triangle,2> NewTriangles = mesh.Division(NumberCell1D,
+                                                   NumberCell2D, T,
+                                                   longestEdge, Midpoint);
 
     Triangle newT1 = NewTriangles[0];
     Triangle newT2 = NewTriangles[1];

@@ -37,7 +37,6 @@ class Segment {
 
     double LenghtEdge(const Point &origin, const Point &end);
     array<double,2> MidPoint(const Point &origin, const Point &end);
-
     unsigned int getAdj1(); //cosi restituisco i due triangoli che contengono il segmento (ADIACENZA)
     unsigned int getAdj2();
 

@@ -53,6 +53,7 @@ Segment::Segment(const unsigned int& IdValue, const Point& origin, const Point& 
     unsigned int Segment::getAdj1() {return IdAdj1;}
     unsigned int Segment::getAdj2() {return IdAdj2;}
 
+
 //    void change(Segment &obj)
 //    {
 //        id_origin = obj.origin.Id;

@@ -180,6 +180,12 @@ ImportMesh::ImportMesh(TriangularMesh& Mesh, string & directory)
         converter >> edges[i];
 
 
+//      cout << "il triangolo " << Id2D<< "ha vertici "<< vertices[0]<<"--"<<vertices[1] <<"--"<< vertices[2]<<endl;
+//      array <Point,3> PointsT = {Mesh.Points[vertices[0]], Mesh.Points[vertices[1]], Mesh.Points[vertices[2]]};
+//      array<Segment, 3> SegmentsT = {Mesh.Segments[edges[0]], Mesh.Segments[edges[1]], Mesh.Segments[edges[2]]};
+
+      //Triangle T = Triangle(Id2D, PointsT, SegmentsT);
+
       //Triangle T = Triangle(Id2D, PointsT, SegmentsT);
       //Mesh.Triangles.push_back(T);
 
@@ -214,6 +220,13 @@ ImportMesh::ImportMesh(TriangularMesh& Mesh, string & directory)
       Mesh.Triangles.back().adjacency(Mesh.Segments[edges[1]]);
       Mesh.Triangles.back().adjacency(Mesh.Segments[edges[2]]);
       //cout << "fatta adiacenza" << endl;
+
+//      Mesh.Triangles.push_back(Triangle(Id2D, PointsT, SegmentsT));
+//      //funzione back(&referenza) per prendere l'ultimo elemento inserito in Triangles
+//      Mesh.Triangles.back().adjacency(Mesh.Triangles.back(), Mesh.Segments[edges[0]]);
+//      Mesh.Triangles.back().adjacency(Mesh.Triangles.back(), Mesh.Segments[edges[1]]);
+//      Mesh.Triangles.back().adjacency(Mesh.Triangles.back(), Mesh.Segments[edges[2]]);
+//    cout << "fatta adiacenza" << endl;
     }
 
 
@@ -226,6 +239,7 @@ ImportMesh::ImportMesh(TriangularMesh& Mesh, string & directory)
     //cout << "Id Adiacente T2 di longestEdge: " << t << endl;
 
     file2D.close();
+
 
     cout << "lettura celle 2D fatta"<<endl;
 
@@ -258,7 +272,7 @@ array<unsigned int, 3> TriangularMesh::GetUtilities(Triangle &T, unsigned int &i
             IdOpposite = T.pointsTriangle[i].Id;
         }
     }
-    for (unsigned int i = 0; i<3; i++)
+    for (unsigned int i = 0; ; i++)
     {
         if (idSegment != T.segmentsTriangle[i].Id) //se non è il lato che ho diviso in 2
         {
@@ -294,12 +308,12 @@ array<unsigned int, 3> TriangularMesh::GetUtilities(Triangle &T, unsigned int &i
 }
 
 
-array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell0D,
-                                          unsigned int &NumberCell1D,
+array<Triangle,2>TriangularMesh::Division(unsigned int &NumberCell1D,
                                           unsigned int &NumberCell2D,
-                                          Triangle &T, unsigned int &idSegment, Point &Midpoint)
-{
+                                          Triangle &T, unsigned int &idSegment,
+                                          Point &Midpoint)
 
+{
 /// TROVO OPPOSITE E DUE LATI DA TENERE:
 
     array<unsigned int,3> utilites= GetUtilities(T, idSegment);
@@ -400,6 +414,7 @@ array<Triangle,2> TriangularMesh::DivisionAdjacent(Triangle& adjT, unsigned int 
 
     //cout<<"Abbiamo diviso il triangolo numero  " << T.Id<<endl;
     return {newT1, newT2};
+
 }
 
 
@@ -417,8 +432,7 @@ Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int &maxIterator
 
         Point MidPoint = Mesh.CreateMidPoint(Mesh.Triangles[ThetaVector[i]].longestEdge);
 
-        array<Triangle, 2> newTriangles = Mesh.Division(Mesh.NumberCell0D,
-                                                       Mesh.NumberCell1D,
+        array<Triangle, 2> newTriangles = Mesh.Division(Mesh.NumberCell1D,
                                                        Mesh.NumberCell2D,
                                                        Mesh.Triangles[ThetaVector[i]],
                                                        Mesh.Triangles[ThetaVector[i]].longestEdge,
