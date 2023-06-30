@@ -45,7 +45,7 @@ class Segment {
     ///mi basta usare "." non serve get
     //double getLengthEdge() const;
 
-    void change(Segment &obj);
+    //void change(Segment &obj);
 
 };
 

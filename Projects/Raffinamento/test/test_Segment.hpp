@@ -68,7 +68,7 @@ TEST(TestRaffinamento,TestMidPoint)
     unsigned int idE = 3; double xE= 1; double yE = 1;
     Point end(idE, xE, yE);
     array<double,2> midpoint=S.MidPoint(origin,end);
-    array<double,2> expected = {0.25,0.25};
+    array<double,2> expected = {0.75,0.75};
     EXPECT_EQ(midpoint, expected);
 }
 

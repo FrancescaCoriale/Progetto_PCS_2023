@@ -437,6 +437,7 @@ Raffinamento::Raffinamento(TriangularMesh& Mesh, const unsigned int &maxIterator
 
         Point MidPoint = Mesh.CreateMidPoint(Mesh.Triangles[ThetaVector[i]].longestEdge);
         cout << "Midpoint: "<<MidPoint.Id<<endl;
+        cout << "x " << MidPoint.x<<"   y "<< MidPoint.y<<endl;
 
         array<Triangle, 2> newTriangles = Mesh.Division(Mesh.NumberCell1D,
                                                        Mesh.NumberCell2D,
